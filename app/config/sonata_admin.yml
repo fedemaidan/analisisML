@@ -1,0 +1,39 @@
+sonata_admin:
+    title:      Gestión YouTec-Inova
+    title_logo: youtec.jpg
+    security:
+        handler: sonata.admin.security.handler.role
+        information:
+            LIST: LIST
+            SHOW: SHOW
+            EDIT: EDIT
+            CREATE: CREATE
+            DELETE: DELETE
+            OPERATOR: OPERATOR
+            EXPORT: EXPORT
+            MASTER: MASTER
+#        short_object_description: AppBundle:Admin:short-object-description.html.twig
+    options:
+        html5_validate:       true
+        confirm_exit:         false
+    dashboard:
+        groups:
+            users_administration:
+                label: Usuarios
+                label_catalogue: messages
+                icon: '<fa class="fa fa-users"></fa>'
+                items:
+                    - sonata.user.admin.user
+                    - sonata.user.admin.group
+            Ebay:
+                items: 
+                    - app.admin.busqueda_ebay
+                    - app.admin.categoria_ebay
+                    - app.admin.publicacion_ebay
+            MercadoLibre:
+                items:
+                    - app.admin.publicacion_ml
+                    #- app.admin.publicacion_propia_ml
+                    - app.admin.busqueda_ml
+            
+            

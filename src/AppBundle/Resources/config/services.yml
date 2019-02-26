@@ -1,0 +1,69 @@
+services:
+    app.admin.publicacion_ml:
+        class: AppBundle\Admin\PublicacionMLAdmin
+        arguments: [~, AppBundle\Entity\PublicacionML, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: MercadoLibre, label: Publicaciones }
+        public: true
+        
+    app.admin.busqueda_ebay:
+        class: AppBundle\Admin\BusquedaEbayAdmin
+        arguments: [~, AppBundle\Entity\BusquedaEbay, AppBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Ebay, label: BusquedaEbay }
+
+    ebay_service:
+        class:     AppBundle\Service\EbayService
+        arguments:
+            { container: @service_container, entityManager: "@doctrine.orm.entity_manager" }
+
+    meli_service:
+        class:     AppBundle\Service\MeliService
+        arguments:
+            { container: @service_container, entityManager: "@doctrine.orm.entity_manager" }
+
+    app.admin.categoria_ebay:
+        class: AppBundle\Admin\CategoriaEbayAdmin
+        arguments: [~, AppBundle\Entity\CategoriaEbay, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Ebay, label: CategoriaEbay }
+
+    app.admin.publicacion_ebay:
+        class: AppBundle\Admin\PublicacionEbayAdmin
+        arguments: [~, AppBundle\Entity\PublicacionEbay, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Ebay, label: PublicacionEbay, pager_type: simple }
+
+    #app.admin.especificaciones_producto_ebay:
+    #   class: AppBundle\Admin\EspecificacionesProductoEbayAdmin
+    #    arguments: [~, AppBundle\Entity\EspecificacionesProductoEbay, SonataAdminBundle:CRUD]
+    #    tags:
+    #        - { name: sonata.admin, manager_type: orm, group: admin, label: EspecificacionesProductoEbay }
+
+    # app.admin.publicacion_ml:
+    #     class: AppBundle\Admin\PublicacionMLAdmin
+    #     arguments: [~, AppBundle\Entity\PublicacionML, SonataAdminBundle:CRUD]
+    #     tags:
+    #         - { name: sonata.admin, manager_type: orm, group: MercadoLibre, label: Publicaciones externos }
+    #     public: true
+
+    app.admin.busqueda_ml:
+        class: AppBundle\Admin\BusquedaMLAdmin
+        arguments: [~, AppBundle\Entity\BusquedaML, AppBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: BusquedaML }
+        public: true
+
+    app.admin.categoria_ml:
+        class: AppBundle\Admin\CategoriaMLAdmin
+        arguments: [~, AppBundle\Entity\CategoriaML, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: CategoriaML }
+        public: true
+
+    # app.admin.publicacion_propia_ml:
+    #     class: AppBundle\Admin\PublicacionPropiaMLAdmin
+    #     arguments: [~, AppBundle\Entity\PublicacionPropia, SonataAdminBundle:CRUD]
+    #     tags:
+    #         - { name: sonata.admin, manager_type: orm, group: MercadoLibre, label: Publicaciones propias }
+    #     public: true
