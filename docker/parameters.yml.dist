@@ -10,3 +10,6 @@ parameters:
     mailer_user: null
     mailer_password: null
     secret: 0fc529ca3ebb50069b6eb28243b59a5ee05f1b67
+    ebay.app_id: 'Federico-gestionm-PRD-5b7edec1b-d763d994'
+    ebay.certId: 'PRD-b7edec1b3431-b185-4e5c-b460-907f'
+    ebay.devId: 'f8e2e10d-4125-4977-ac00-b7dae16018f4'
