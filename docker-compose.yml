@@ -8,6 +8,8 @@ services:
     ports:
       - "9060:9060"
     volumes:
+      - ./composer.json:/server/composer.json:rw
+      - ./composer.lock:/server/composer.lock:rw
       - ./src/:/server/src:rw
       - ./app/config:/server/app/config:rw
       - ./web/:/server/web:rw
