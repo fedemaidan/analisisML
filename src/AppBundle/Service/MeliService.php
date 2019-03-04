@@ -381,7 +381,7 @@ class MeliService
             ";
 
             foreach ($ebay->getEspecificaciones() as $espe) {
-                $desc .= $espe->getName().": ".$espe->getValue()."
+                $descripcion .= $espe->getName().": ".$espe->getValue()."
                 ";
             }
 
