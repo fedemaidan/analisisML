@@ -190,7 +190,7 @@ class MeliService
         if ($busqueda->getPrecioMinimo())
             $mayorA = $busqueda->getPrecioMinimo();
         
-        $condicionML = "category=".$categoria."&condition=new&price=".$mayorA."-".$menorA."&limit=".$limit."&offset=".$offset;
+        $condicionML = "category=".$categoria."&condition=new&price=".$mayorA."-".$menorA;
         $clase = "PublicacionML";
 
         $this->cargarPublicacionesPorCondicion($condicionML, $clase, $busqueda);
@@ -208,7 +208,8 @@ class MeliService
         
     	while ($total > $offset) {
             //igual con otra condicion
-    		$datos = $meli->get("sites/MLA/search/?".$condicionML);
+
+    		$datos = $meli->get("sites/MLA/search/?".$condicionML."&limit=".$limit."&offset=".$offset);
 
     		$paging = $datos["body"]->paging;
     		$results = $datos["body"]->results;
