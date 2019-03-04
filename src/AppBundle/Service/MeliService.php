@@ -104,7 +104,7 @@ class MeliService
 
             if (!$publicacion) {
                 
-                $publicacion = new $clase;
+                $publicacion = new $clase();
                 $publicacionesNuevas++;
                 $datosItem = $meli->get("items/".$publicacionDatos->id);
                 $datosItem = $datosItem["body"];
