@@ -100,7 +100,7 @@ class MeliService
 
     public function cargarPublicacion($publicacionDatos, $clase) {
         
-    		1	$publicacion = $this->em->getRepository($clase::class)->findOneByIdMl($publicacionDatos->id);
+    		$publicacion = $this->em->getRepository($clase::class)->findOneByIdMl($publicacionDatos->id);
 
             if (!$publicacion) {
                 
