@@ -117,47 +117,51 @@ class MeliService
 
                     $publicacion->setImagenes($pictures);
                 }
-                
-                if (isset($datosItem->attributes)) {
-                    foreach ($datosItem->attributes as $key => $attr) {
-                        
-                        $atributo = $this->em->getRepository(AtributoML::class)
-                            ->findOneBy(["idMl" => $attr->id, "valueName" => $attr->value_name]);
-
-                        if (!$atributo) {
-                            $atributo = new AtributoML();
-                            $atributo->setIdMl($attr->id);
-                            $atributo->setName($attr->name);
-                            $atributo->setValueId($attr->value_id);
-                            $atributo->setValueName($attr->value_name);
-                            $atributo->setAttributeGroupId($attr->attribute_group_id);
-                            $atributo->setAttributeGroupName($attr->attribute_group_name);
-                            $this->em->persist($atributo);
-                            $this->em->flush();
-                        }
-
-                        if ($atributo->getIdMl() == 'UPC') {
+                if ($clase != "PublicacionPropia") {
+                    
+                    if (isset($datosItem->attributes)) {
+                        foreach ($datosItem->attributes as $key => $attr) {
                             
-                                $publicacion->setUpc((int)$atributo->getValueName());
-                        }
+                            $atributo = $this->em->getRepository(AtributoML::class)
+                                ->findOneBy(["idMl" => $attr->id, "valueName" => $attr->value_name]);
 
-                        if ($atributo->getIdMl() == 'BRAND') {
-                            $publicacion->setBrand($atributo->getValueName());
-                        }
+                            if (!$atributo) {
+                                $atributo = new AtributoML();
+                                $atributo->setIdMl($attr->id);
+                                $atributo->setName($attr->name);
+                                $atributo->setValueId($attr->value_id);
+                                $atributo->setValueName($attr->value_name);
+                                $atributo->setAttributeGroupId($attr->attribute_group_id);
+                                $atributo->setAttributeGroupName($attr->attribute_group_name);
+                                $this->em->persist($atributo);
+                                $this->em->flush();
+                            }
 
-                        if ($atributo->getIdMl() == 'MODEL') {
-                            $publicacion->setModel($atributo->getValueName());
-                        }
 
-                        if ($atributo->getIdMl() == 'MPN') {
-                            $publicacion->setMpn($atributo->getValueName());
-                        }
+                            if ($atributo->getIdMl() == 'UPC') {
+                                
+                                    $publicacion->setUpc((int)$atributo->getValueName());
+                            }
 
-                        if ($atributo->getIdMl() == 'EAN') {
-                            $publicacion->setEan((int)$atributo->getValueName());
+                            if ($atributo->getIdMl() == 'BRAND') {
+                                $publicacion->setBrand($atributo->getValueName());
+                            }
+
+                            if ($atributo->getIdMl() == 'MODEL') {
+                                $publicacion->setModel($atributo->getValueName());
+                            }
+
+                            if ($atributo->getIdMl() == 'MPN') {
+                                $publicacion->setMpn($atributo->getValueName());
+                            }
+
+                            if ($atributo->getIdMl() == 'EAN') {
+                                $publicacion->setEan((int)$atributo->getValueName());
+                            }
+                            
+                            $publicacion->addAtributo($atributo);
                         }
-                        $publicacion->addAtributo($atributo);
-                    }
+                    } 
                 }
                 
             }
