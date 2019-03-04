@@ -55,7 +55,7 @@ class PublicacionMasivaEbayMLCommand extends ContainerAwareCommand
     protected function cargarPublicacion($data) {
 
     	
-    	$id_cuenta = 2;
+    	$id_cuenta = 1;
     	
     	$cuenta = $this->getContainer()->get('doctrine')->getManager()->getRepository(Cuenta::class)->findOneById($id_cuenta);
 

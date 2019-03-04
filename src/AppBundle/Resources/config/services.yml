@@ -68,9 +68,9 @@ services:
             - { name: sonata.admin, manager_type: orm, group: Datos estructurales, label: Cuenta }
         public: true
 
-    # app.admin.publicacion_propia_ml:
-    #     class: AppBundle\Admin\PublicacionPropiaMLAdmin
-    #     arguments: [~, AppBundle\Entity\PublicacionPropia, SonataAdminBundle:CRUD]
-    #     tags:
-    #         - { name: sonata.admin, manager_type: orm, group: MercadoLibre, label: Publicaciones propias }
-    #     public: true
+    app.admin.publicacion_propia_ml:
+         class: AppBundle\Admin\PublicacionPropiaMLAdmin
+         arguments: [~, AppBundle\Entity\PublicacionPropia, SonataAdminBundle:CRUD]
+         tags:
+             - { name: sonata.admin, manager_type: orm, group: MercadoLibre, label: Publicaciones propias }
+         public: true
