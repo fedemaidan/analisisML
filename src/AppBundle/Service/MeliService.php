@@ -345,11 +345,12 @@ class MeliService
     }
 
     private function predecirCategoria($publicacion) {
+        return "MLA399230";
         $meli = new Meli("","");
         $titulo = str_replace("&", " ", $publicacion->getTitulo());
         $titulo = str_replace("\"", " ", $titulo);
         
-        $url = "sites/MLA/category_predictor/predict?title=".$titulo."&category_from=MLA29295&seller_id=".$publicacion->getCuenta()->getIdMl()."&price=".$publicacion->getPrecioCompra();
+        $url = "sites/MLA/category_predictor/predict?title=".$titulo."&seller_id=".$publicacion->getCuenta()->getIdMl()."&price=".$publicacion->getPrecioCompra();
         $url = str_replace(" ", "%", $url);
 
         $datos = $meli->get($url);
@@ -358,6 +359,7 @@ class MeliService
         } else {
             return null;
         }
+        
         
     }
 
