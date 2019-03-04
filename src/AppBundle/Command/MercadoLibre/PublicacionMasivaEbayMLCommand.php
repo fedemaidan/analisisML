@@ -25,13 +25,15 @@ class PublicacionMasivaEbayMLCommand extends ContainerAwareCommand
         $this
             ->setName('ml:publicar:masiva:ebay')
             ->setDescription('Publicacion masiva de productos en ml')
+            ->addOption('cuenta_id', null,         InputOption::VALUE_REQUIRED,    'Cuenta id')
             ->addOption('archivo', null,         InputOption::VALUE_REQUIRED,    'Archivo de csv');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $archivo = $input->getOption('archivo');
-        
+        $cuenta_id = $input->getOption('id_cuenta');
+
         if(!file_exists($archivo))
         {
             throw new InvalidArgumentException("No existe el archivo $archivo");
@@ -42,7 +44,7 @@ class PublicacionMasivaEbayMLCommand extends ContainerAwareCommand
 	        while (($data = fgetcsv($handle, 10000, ",")) !== FALSE) {
                 
 				if ($this->row > 0 && ($data[17] == "z" ||  $data[17] == "j" || $data[17] == "jj" || $data[17] == "jjj")) {
-	           	    $this->cargarPublicacion($data);
+	           	    $this->cargarPublicacion($data, $cuenta_id);
                 }
 	           	$this->row++;
 	      }
@@ -52,11 +54,9 @@ class PublicacionMasivaEbayMLCommand extends ContainerAwareCommand
       fclose($handle);
     }
 
-    protected function cargarPublicacion($data) {
+    protected function cargarPublicacion($data, $id_cuenta) {
 
-    	
-    	$id_cuenta = 1;
-    	
+    	    	
     	$cuenta = $this->getContainer()->get('doctrine')->getManager()->getRepository(Cuenta::class)->findOneById($id_cuenta);
 
 		
