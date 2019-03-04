@@ -100,7 +100,7 @@ class MeliService
 
     public function cargarPublicacion($publicacionDatos, $clase) {
         
-    		$publicacion = $this->em->getRepository($clase::class)->findOneByIdMl($publicacionDatos->id);
+    		$publicacion = $this->em->getRepository("AppBundle:".$clase)->findOneByIdMl($publicacionDatos->id);
 
             if (!$publicacion) {
                 
@@ -218,7 +218,7 @@ class MeliService
 
     		foreach ($results as $key => $publicacionDatos) {
                 //igual cargando otra clase
-    			$publicacion = $this->cargarPublicacion($publicacionDatos, PublicacionML);
+    			$publicacion = $this->cargarPublicacion($publicacionDatos, "PublicacionML");
     		}
 
     		$this->em->flush();
