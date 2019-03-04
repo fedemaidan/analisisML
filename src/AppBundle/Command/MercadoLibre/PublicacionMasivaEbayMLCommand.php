@@ -25,9 +25,13 @@ class PublicacionMasivaEbayMLCommand extends ContainerAwareCommand
         $this
             ->setName('ml:publicar:masiva:ebay')
             ->setDescription('Publicacion masiva de productos en ml')
-            ->addOption('cuenta_id', null,         InputOption::VALUE_REQUIRED,    'Cuenta id')
+            ->addOption('id_cuenta', null,         InputOption::VALUE_REQUIRED,    'Cuenta id')
             ->addOption('archivo', null,         InputOption::VALUE_REQUIRED,    'Archivo de csv');
     }
+    
+    /*
+		php app/console ml:publicar:masiva:ebay --id_cuenta=1 --archivo=/server/export.1.csv
+	*/
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
