@@ -47,7 +47,7 @@ class PublicacionMasivaEbayMLCommand extends ContainerAwareCommand
         if (($handle = fopen($archivo, "r")) !== FALSE) {
 	        while (($data = fgetcsv($handle, 10000, ",")) !== FALSE) {
                 
-				if ($this->row > 0)) {
+				if ($this->row > 0) {
 	           	    $this->cargarPublicacion($data, $cuenta_id);
                 }
 	           	$this->row++;
