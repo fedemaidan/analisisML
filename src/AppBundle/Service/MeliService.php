@@ -99,7 +99,7 @@ class MeliService
 
 
     public function cargarPublicacion($publicacionDatos, $clase) {
-        
+            $meli = new Meli("","");
     		$publicacion = $this->em->getRepository("AppBundle:".$clase)->findOneByIdMl($publicacionDatos->id);
 
             if (!$publicacion) {
