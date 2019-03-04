@@ -9,7 +9,7 @@ use AppBundle\Utils\Meli\Meli;
 use AppBundle\Entity\PublicacionEbay;
 use AppBundle\Entity\Cuenta;
 
-class SincronizarMlCommand extends ContainerAwareCommand
+class SincronizarMLCommand extends ContainerAwareCommand
 {
     protected function configure()
 	{
