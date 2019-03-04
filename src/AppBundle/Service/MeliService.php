@@ -103,8 +103,8 @@ class MeliService
     		$publicacion = $this->em->getRepository("AppBundle:".$clase)->findOneByIdMl($publicacionDatos->id);
 
             if (!$publicacion) {
-                
-                $publicacion = new $clase();
+                $initClase = "AppBundle\Entity\\".$clase;
+                $publicacion = new $initClase;
                 $publicacionesNuevas++;
                 $datosItem = $meli->get("items/".$publicacionDatos->id);
                 $datosItem = $datosItem["body"];
