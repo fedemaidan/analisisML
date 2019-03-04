@@ -61,6 +61,13 @@ services:
             - { name: sonata.admin, manager_type: orm, group: admin, label: CategoriaML }
         public: true
 
+    app.admin.cuenta:
+        class: AppBundle\Admin\CuentaAdmin
+        arguments: [~, AppBundle\Entity\Cuenta, AppBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Datos estructurales, label: Cuenta }
+        public: true
+
     # app.admin.publicacion_propia_ml:
     #     class: AppBundle\Admin\PublicacionPropiaMLAdmin
     #     arguments: [~, AppBundle\Entity\PublicacionPropia, SonataAdminBundle:CRUD]

@@ -226,10 +226,8 @@ class MeliService
     }
 
     public function replicarPublicacionEbayEnMl($ebay, $cuentaML) {
-        
 
         $publicacionExistente = $this->em->getRepository(PublicacionPropia::class)->findOneBy([ "publicacion_ebay" => $ebay]);
-
 
         if ($publicacionExistente != null) {
             var_dump("Ya esta cargada ".$ebay->getId());
@@ -253,6 +251,7 @@ class MeliService
 
     public function publicar($publicacion) {
         $token = $this->dameToken($publicacion->getCuenta());
+        $token = "APP_USR-3659532861516182-030412-361fceb71546df16aea444d560b78562-73995669";
         $arrayimagenes = explode(',', $publicacion->getImagenes());
         $imagenes = [];
         foreach ($arrayimagenes as $key => $img) {
@@ -317,7 +316,7 @@ class MeliService
         $publicacion->setPublicacionEbay($ebay);
         $precio = $this->calcularPrecio($ebay->getCategoriaEbay(), $ebay->getPrecioCompra());
         $publicacion->setTitulo($this->armarTitulo($ebay->getTitulo()));
-        $publicacion->setDescripcion($this->generarDescripcion($ebay->getTitulo()));
+        $publicacion->setDescripcion($this->generarDescripcion($ebay));
         $publicacion->setPrecioCompra($precio);
         $publicacion->setCuenta($cuentaML);
         $imagenes = $ebay->getImagenes();
@@ -339,7 +338,7 @@ class MeliService
     }
 
     private function armarTitulo($texto) {
-        $sufijo = "*a Pedido 30dias!";
+        $sufijo = "**CONSULTAR STOCK";
         $texto = substr($texto, 0, 60 - strlen($sufijo));
         
         return $texto.$sufijo;
@@ -362,27 +361,37 @@ class MeliService
         
     }
 
-    private function generarDescripcion($titulo) {
+    private function generarDescripcion($ebay) {
 
-        return  "----- PRODUCTO TRAIDO BAJO PEDIDO en 20-35 días ------
-Una vez ofertado el producto, procesamos tu pedido, y en un tiempo promedio de 30 días te estaremos notificando para coordinar la entrega o envío del mismo. Te esperamos en INOVAMUSICNET !!!
+        $descripcion =  "----- YOUTEC ----- CONSULTAR STOCK ------- PRODUCTOS ORIGINALES IMPORTADOS
 
-Producto: ".$titulo."
+            En YouTec nos estamos convencidos que la tecnologia para la salud debe estar al alcance de todos.
 
-Una manera FÁCIL y DIFERENTE de comprar. Al mejor precio, GARANTIZADO!
+            Una vez ofertado el producto nos comunicamos contigo y te damos un número de reserva para que puedas consultar por el estado de tu pedido en todo momento.
+            Tendrás asignado un vendedor para comunicarte con el directamente. Sin intermediarios.
 
-+ Producto Nuevo de fábrica en Caja Original
-+ GARANTIA escrita de 6 meses y cobertura en todo el país.
+            Luego de esperar entre 2 y 4 semanas estará llegando el producto a tu casa. 
 
-* Hacemos Envíos a todo el país!
-* Podés retirarlo en Caballito a metros del Subte \"A\", sobre Av. Rivadavia.
-* Hacemos Factura A o B.
-* Podés abonar tu compra en efectivo, tarjeta de crédito y todos los medios de pago que ofrece Mercadolibre.
-* Si el item publicado viene de fábrica con fuente de alimentación, la misma será extraida de la caja previo al ingreso al país por normativas de seguridad eléctrica.
-* Producto ORIGINAL / Último modelo de la serie.
+            Se puede pagar al contado o con una seña y completar el pago una vez recibido el producto.
+            
+            PRODUCTO: ".$ebay->getTitulo();
 
-Te esperamos para coordinar la reserva! * INOVAMUSICNET *";
-    
+            
+            $descripcion .= "ESPECIFICACIONES DEL PRODUCTO
+            ";
+
+            foreach ($ebay->getEspecificaciones() as $espe) {
+                $desc .= $espe->getName().": ".$espe->getValue()."
+                ";
+            }
+
+            $descripcion .= "Tambien podes consultar por otros productos que no encuentres dentro de MercadoLibre.
+            
+            Podes retirar tu producto cerca de la estación de Flores. Tambien hacemos envios a todo el pais.
+
+            Consulta por ofertas especiales. Si lo encontrás a menor precio, comunicate con nosotros que mejoramos nuestra oferta.";    
+
+            return $descripcion;
     }
 
     private function calcularPrecio($categoria, $precioCompra) {
@@ -412,8 +421,8 @@ Te esperamos para coordinar la reserva! * INOVAMUSICNET *";
     public function dameToken($cuenta) {
         $client = new Client();
         
-        $res = $client->request('GET', 'https://multiml.xyz/token?cuenta_id='.$cuenta->getId())
-        ;
+        $res = $client->request('GET', 'https://multiml.xyz/token?cuenta_id='.$cuenta->getId());
+        
 
         $dato = json_decode($res->getBody()->getContents());
         

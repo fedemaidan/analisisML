@@ -29,5 +29,13 @@ class CRUDController extends Controller
         return new RedirectResponse($this->admin->generateUrl('list', $this->admin->getFilterParameters()));
     }
     
+    public function sincronizarCuentaMLAction()
+    {
+        $cuenta = $this->admin->getSubject();
+        
+        /** Sincronizar con ML **/
+
+        return new RedirectResponse("https://multiml.xyz/iniciarConML?cuenta_id=".$cuenta->getId());
+    }
 }
 

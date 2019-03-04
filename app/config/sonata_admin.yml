@@ -35,5 +35,7 @@ sonata_admin:
                     - app.admin.publicacion_ml
                     #- app.admin.publicacion_propia_ml
                     - app.admin.busqueda_ml
-            
+            Otros:
+                items:
+                    - app.admin.cuenta
             

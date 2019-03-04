@@ -22,9 +22,6 @@ restore-db:
 publicacion-masiva:
 	php app/console ml:publicar:masiva:ebay --archivo=/server/src/AppBundle/Resources/public/publicaciones_1.csv
 	
-importar-reservas:
-	php app/console app:importacion:reservas --archivo=/server/src/AppBundle/Resources/public/reservas.csv
-
 importar-productos:
 	php app/console app:importacion:productos --archivo=/server/src/AppBundle/Resources/public/productos.csv
 	php app/console app:importacion:productos:extras --archivo=/server/src/AppBundle/Resources/public/productos_extras.csv
