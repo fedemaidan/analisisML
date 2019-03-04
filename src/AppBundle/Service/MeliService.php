@@ -105,7 +105,6 @@ class MeliService
             if (!$publicacion) {
                 $initClase = "AppBundle\Entity\\".$clase;
                 $publicacion = new $initClase;
-                $publicacionesNuevas++;
                 $datosItem = $meli->get("items/".$publicacionDatos->id);
                 $datosItem = $datosItem["body"];
 
@@ -218,7 +217,11 @@ class MeliService
 
     		foreach ($results as $key => $publicacionDatos) {
                 //igual cargando otra clase
-    			$publicacion = $this->cargarPublicacion($publicacionDatos, "PublicacionML");
+                $publicacion = $this->cargarPublicacion($publicacionDatos, "PublicacionML");
+                
+                if ($publicacion->getId() == null) {
+                    $publicacionesNuevas++;
+                }
     		}
 
     		$this->em->flush();
