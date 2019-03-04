@@ -164,7 +164,7 @@ class MeliService
                     } 
                 } else {
                     $desc = $meli->get("items/".$publicacionDatos->id."/description");
-                    $publicacion->setDescripcion($desc["plain_text"]);
+                    $publicacion->setDescripcion($desc["body"]->plain_text);
                 }
                 
             }
