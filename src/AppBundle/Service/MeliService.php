@@ -162,6 +162,9 @@ class MeliService
                             $publicacion->addAtributo($atributo);
                         }
                     } 
+                } else {
+                    $desc = $meli->get("items/".$publicacionDatos->id."/description");
+                    $publicacion->setDescripcion($desc->plain_text);
                 }
                 
             }
