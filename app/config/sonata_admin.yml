@@ -33,7 +33,7 @@ sonata_admin:
             MercadoLibre:
                 items:
                     - app.admin.publicacion_ml
-                    #- app.admin.publicacion_propia_ml
+                    - app.admin.publicacion_propia_ml
                     - app.admin.busqueda_ml
             Otros:
                 items:
