@@ -190,6 +190,13 @@ class MeliService
         if ($busqueda->getPrecioMinimo())
             $mayorA = $busqueda->getPrecioMinimo();
         
+        $condicionML = "category=".$categoria."&condition=new&price=".$mayorA."-".$menorA."&limit=".$limit."&offset=".$offset;
+        $clase = "PublicacionML";
+
+        $this->cargarPublicacionesPorCondicion($condicionML, $clase, $busqueda);
+    }
+
+    public function cargarPublicacionesPorCondicion($condicionML, $clase, $busqueda) {
 
     	$meli = new Meli("","");
     	$limit = 50;
@@ -201,7 +208,7 @@ class MeliService
         
     	while ($total > $offset) {
             //igual con otra condicion
-    		$datos = $meli->get("sites/MLA/search/?category=".$categoria."&condition=new&price=".$mayorA."-".$menorA."&limit=".$limit."&offset=".$offset);
+    		$datos = $meli->get("sites/MLA/search/?".$condicionML);
 
     		$paging = $datos["body"]->paging;
     		$results = $datos["body"]->results;
@@ -217,7 +224,7 @@ class MeliService
 
     		foreach ($results as $key => $publicacionDatos) {
                 //igual cargando otra clase
-                $publicacion = $this->cargarPublicacion($publicacionDatos, "PublicacionML");
+                $publicacion = $this->cargarPublicacion($publicacionDatos, $clase);
                 
                 if ($publicacion->getId() == null) {
                     $publicacionesNuevas++;
@@ -322,7 +329,7 @@ class MeliService
         //consulta que publicaciones de mercado libre hay , las agrega o actualiza en nuestra DB
         
     }
-
+    
     public function ebayToMlObj($ebay, $cuentaML) {
         
         $publicacion = new PublicacionPropia();
