@@ -170,7 +170,7 @@ class MeliService
             $publicacion->setLink($publicacionDatos->permalink);
             $publicacion->setVendedor($publicacionDatos->seller->id);
             $publicacion->setCantidadVendidos($publicacionDatos->sold_quantity);
-            $publicacion->setCategoriaML($categoria);
+            $publicacion->setCategoriaML($publicacionDatos->category_id);
 
             /* Cargar datos */
             $this->em->persist($publicacion);	
