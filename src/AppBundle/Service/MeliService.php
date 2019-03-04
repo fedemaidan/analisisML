@@ -326,9 +326,14 @@ class MeliService
 
     }
 
+    
+
     public function sincronizarPublicacionesPropiasConMercadoLibre($cuenta) {
-        //consulta que publicaciones de mercado libre hay , las agrega o actualiza en nuestra DB
         
+        $condicionML = "seller_id=".$cuenta->getIdMl();
+        $clase = "PublicacionPropia";
+
+        $this->cargarPublicacionesPorCondicion($condicionML, $clase, $cuenta);
     }
     
     public function ebayToMlObj($ebay, $cuentaML) {

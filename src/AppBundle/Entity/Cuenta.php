@@ -35,6 +35,13 @@ class Cuenta
      */
     private $id_ml;
 
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="estado_actual", type="string", length=255, nullable=true)
+     */
+    private $estado_actual; 
+
     /**
      * @var string
      *
@@ -133,5 +140,29 @@ class Cuenta
     public function getIdMl()
     {
         return $this->id_ml;
+    }
+
+    /**
+     * Set estadoActual
+     *
+     * @param string $estadoActual
+     *
+     * @return BusquedaML
+     */
+    public function setEstadoActual($estadoActual)
+    {
+        $this->estado_actual = $estadoActual;
+
+        return $this;
+    }
+
+    /**
+     * Get estadoActual
+     *
+     * @return string
+     */
+    public function getEstadoActual()
+    {
+        return $this->estado_actual;
     }
 }
