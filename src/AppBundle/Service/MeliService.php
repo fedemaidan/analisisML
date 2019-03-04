@@ -97,6 +97,87 @@ class MeliService
         return $categoria;
     }
 
+
+    public function cargarPublicacion($publicacionDatos, $clase) {
+        
+    		1	$publicacion = $this->em->getRepository($clase::class)->findOneByIdMl($publicacionDatos->id);
+
+            if (!$publicacion) {
+                
+                $publicacion = new clase;
+                $publicacionesNuevas++;
+                $datosItem = $meli->get("items/".$publicacionDatos->id);
+                $datosItem = $datosItem["body"];
+
+                if (isset($datosItem->pictures)) {
+                    
+                    $pictures = "";
+                    foreach ($datosItem->pictures as $key => $value) {
+                        $pictures .= $value->url.",";
+                    }
+
+                    $publicacion->setImagenes($pictures);
+                }
+                
+                if (isset($datosItem->attributes)) {
+                    foreach ($datosItem->attributes as $key => $attr) {
+                        
+                        $atributo = $this->em->getRepository(AtributoML::class)
+                            ->findOneBy(["idMl" => $attr->id, "valueName" => $attr->value_name]);
+
+                        if (!$atributo) {
+                            $atributo = new AtributoML();
+                            $atributo->setIdMl($attr->id);
+                            $atributo->setName($attr->name);
+                            $atributo->setValueId($attr->value_id);
+                            $atributo->setValueName($attr->value_name);
+                            $atributo->setAttributeGroupId($attr->attribute_group_id);
+                            $atributo->setAttributeGroupName($attr->attribute_group_name);
+                            $this->em->persist($atributo);
+                            $this->em->flush();
+                        }
+
+                        if ($atributo->getIdMl() == 'UPC') {
+                            
+                                $publicacion->setUpc((int)$atributo->getValueName());
+                        }
+
+                        if ($atributo->getIdMl() == 'BRAND') {
+                            $publicacion->setBrand($atributo->getValueName());
+                        }
+
+                        if ($atributo->getIdMl() == 'MODEL') {
+                            $publicacion->setModel($atributo->getValueName());
+                        }
+
+                        if ($atributo->getIdMl() == 'MPN') {
+                            $publicacion->setMpn($atributo->getValueName());
+                        }
+
+                        if ($atributo->getIdMl() == 'EAN') {
+                            $publicacion->setEan((int)$atributo->getValueName());
+                        }
+                        $publicacion->addAtributo($atributo);
+                    }
+                }
+                
+            }
+                
+                
+            $publicacion->setIdMl($publicacionDatos->id);
+            $publicacion->setTitulo($publicacionDatos->title);
+            $publicacion->setPrecioCompra($publicacionDatos->price);
+            $publicacion->setLink($publicacionDatos->permalink);
+            $publicacion->setVendedor($publicacionDatos->seller->id);
+            $publicacion->setCantidadVendidos($publicacionDatos->sold_quantity);
+            $publicacion->setCategoriaML($categoria);
+
+            /* Cargar datos */
+            $this->em->persist($publicacion);	
+
+            return $publicacion;
+    }
+
     public function buscarPublicacionesPorCategoria($busquedaId) {
         $busqueda = $this->em->getRepository(BusquedaML::class)->findOneById($busquedaId);;
 
@@ -120,95 +201,24 @@ class MeliService
         $this->cambiarEstadoBusqueda($busqueda, "Comenzando .. ");
         
     	while ($total > $offset) {
+            //igual con otra condicion
     		$datos = $meli->get("sites/MLA/search/?category=".$categoria."&condition=new&price=".$mayorA."-".$menorA."&limit=".$limit."&offset=".$offset);
 
     		$paging = $datos["body"]->paging;
     		$results = $datos["body"]->results;
             
+
             if ($paging->total >  1000)
             {
+                //igual cambiando estado cuenta
                 $this->cambiarEstadoBusqueda($busqueda, "La búsqueda es demasiado grande. El máximo de publicaciones es 1000 y la búsqueda tiene ".$paging->total." publicaciones");
             }
                 
     		$this->imprimo("Offset: ".$offset);
 
     		foreach ($results as $key => $publicacionDatos) {
-
-    			$publicacion = $this->em->getRepository(PublicacionML::class)->findOneByIdMl($publicacionDatos->id);
-
-    			if (!$publicacion) {
-    				
-    				$publicacion = new PublicacionML();
-    				$publicacionesNuevas++;
-    				$datosItem = $meli->get("items/".$publicacionDatos->id);
-    				$datosItem = $datosItem["body"];
-
-    				if (isset($datosItem->pictures)) {
-    					
-    					$pictures = "";
-		    			foreach ($datosItem->pictures as $key => $value) {
-		    				$pictures .= $value->url.",";
-		    			}
-
-		    			$publicacion->setImagenes($pictures);
-    				}
-    				
-    				if (isset($datosItem->attributes)) {
-    					foreach ($datosItem->attributes as $key => $attr) {
-    						
-		    				$atributo = $this->em->getRepository(AtributoML::class)
-	                            ->findOneBy(["idMl" => $attr->id, "valueName" => $attr->value_name]);
-
-	                        if (!$atributo) {
-	                        	$atributo = new AtributoML();
-	                        	$atributo->setIdMl($attr->id);
-	                        	$atributo->setName($attr->name);
-	                        	$atributo->setValueId($attr->value_id);
-	                        	$atributo->setValueName($attr->value_name);
-	                        	$atributo->setAttributeGroupId($attr->attribute_group_id);
-	                        	$atributo->setAttributeGroupName($attr->attribute_group_name);
-	                        	$this->em->persist($atributo);
-	                        	$this->em->flush();
-	                        }
-
-                            if ($atributo->getIdMl() == 'UPC') {
-                                
-                                    $publicacion->setUpc((int)$atributo->getValueName());
-                            }
-
-                            if ($atributo->getIdMl() == 'BRAND') {
-                                $publicacion->setBrand($atributo->getValueName());
-                            }
-
-                            if ($atributo->getIdMl() == 'MODEL') {
-                                $publicacion->setModel($atributo->getValueName());
-                            }
-
-                            if ($atributo->getIdMl() == 'MPN') {
-                                $publicacion->setMpn($atributo->getValueName());
-                            }
-
-                            if ($atributo->getIdMl() == 'EAN') {
-                                $publicacion->setEan((int)$atributo->getValueName());
-                            }
-	                        $publicacion->addAtributo($atributo);
-		    			}
-    				}
-	    			
-    			}
-	    			
-	    			
-    			$publicacion->setIdMl($publicacionDatos->id);
-    			$publicacion->setTitulo($publicacionDatos->title);
-    			$publicacion->setPrecioCompra($publicacionDatos->price);
-    			$publicacion->setLink($publicacionDatos->permalink);
-    			$publicacion->setVendedor($publicacionDatos->seller->id);
-    			$publicacion->setCantidadVendidos($publicacionDatos->sold_quantity);
-    			$publicacion->setCategoriaML($categoria);
-
-    			/* Cargar datos */
-    			$this->em->persist($publicacion);	
-    			
+                //igual cargando otra clase
+    			$publicacion = $this->cargarPublicacion($publicacionDatos, PublicacionML);
     		}
 
     		$this->em->flush();
