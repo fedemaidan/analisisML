@@ -332,10 +332,19 @@ class MeliService
                 $atributo->setAttributeGroupName("Otros");
                 $atributo->setEbayName($nombreEspecificacion);
                 $this->em->persist($atributo);
-            } 
-
+            }
+            
             if ($atributo) {
                 $publicacionPropia->addAtributo($atributo);
+            }
+
+
+            if (!$atributo && ($nombreEspecificacion == "Waterproof")) {
+
+                $atributo1 = $this->em->getRepository(AtributoML::class)->findOneBy([ "idMl" =>  "IS_WATER_RESISTANT", "valueName" => "Sí"]);
+                $atributo2 = $this->em->getRepository(AtributoML::class)->findOneBy([ "idMl" =>  "IS_WATERPROOF", "valueName" => "Sí"]);
+                $publicacionPropia->addAtributo($atributo1);
+                $publicacionPropia->addAtributo($atributo2);
             }
 
         }
