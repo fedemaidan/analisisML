@@ -322,13 +322,10 @@ class MeliService
             ->findOneBy(["ebayName" => $nombreEspecificacion, "valueName" => $especificacion->getValue()]);
 
             if ($atributo) {
-                var_dump($atributo->getName());
                 $publicacionPropia->addAtributo($atributo);
             }
 
         }
-
-        var_dump($publicacionPropia->getAtributos()[0]->getId());
 
         $this->em->persist($publicacionPropia);
         $this->em->flush();
