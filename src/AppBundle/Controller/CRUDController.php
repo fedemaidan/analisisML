@@ -34,8 +34,9 @@ class CRUDController extends Controller
         $cuenta = $this->admin->getSubject();
         
         /** Sincronizar con ML **/
-
-        return new RedirectResponse("https://multiml.xyz/iniciarConML?cuenta_id=".$cuenta->getId());
+        $id = $cuenta->getId();
+        $id = 30;
+        return new RedirectResponse("https://multiml.xyz/iniciarConML?cuenta_id=".$id);
     }
 }
 
