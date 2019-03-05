@@ -327,6 +327,8 @@ class MeliService
 
         }
 
+        var_dump($publicacionPropia->getAtributos());
+
         $this->em->persist($publicacionPropia);
         $this->em->flush();
     }
