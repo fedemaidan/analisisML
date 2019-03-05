@@ -323,7 +323,7 @@ class MeliService
         $token = $this->dameToken($publicacionPropia->getCuenta());
         $meli = new Meli("","");
         $body = [ ];
-        $desc = [ ]
+        $desc = [ ];
 
         foreach ($campos as $key => $campo) {
             if ($key != "descripcion")
