@@ -354,20 +354,21 @@ class MeliService
         
             }
         }
-        
-        if ($datos["httpCode"] != 200 ) {
-            throw new \Exception($datos["body"]->message, 1);
-        }
 
         $atributos = [];
         foreach ($publicacionPropia->getAtributos() as $key => $attr) {
             $atributos[] = ["id" => $attr->getIdMl(), "value_name" => $attr->getValueName() ];
+            var_dump(["id" => $attr->getIdMl(), "value_name" => $attr->getValueName() ]);
         }
 
         if (count($atributos) > 0)
             $body["attributes"] = $atributos;
-            
+
         $datos = $meli->put("items/".$publicacionPropia->getIdMl(), $body, [ "access_token" => $token ]);
+        
+        if ($datos["httpCode"] != 200 ) {
+            throw new \Exception($datos["body"]->message, 1);
+        }
 
         return $datos;
 
