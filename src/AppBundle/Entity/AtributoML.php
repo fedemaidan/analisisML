@@ -63,6 +63,12 @@ class AtributoML
      */
     private $attributeGroupName;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="ebayName",  type="string", length=255, nullable=true)
+     */
+    private $ebayName;
 
     /**
      * Get id
@@ -221,5 +227,29 @@ class AtributoML
     public function __toString()
     {
         return $this->name. ": ". $this->valueName;
+    }
+
+    /**
+     * Set ebayName
+     *
+     * @param string $ebayName
+     *
+     * @return AtributoML
+     */
+    public function setEbayName($ebayName)
+    {
+        $this->ebayName = $ebayName;
+
+        return $this;
+    }
+
+    /**
+     * Get ebayName
+     *
+     * @return string
+     */
+    public function getEbayName()
+    {
+        return $this->ebayName;
     }
 }

@@ -385,6 +385,19 @@ class MeliService
 
         $publicacion->setImagenes($imagenes);
         $publicacion->setCategoriaML($this->predecirCategoria($publicacion));
+        
+        foreach ($ebay->getEspecificaciones() as $key => $especificacion) {
+            /** Buscamos un attributo con nombre y valor igual al de la especificacion */
+            $nombreEspecificacion = $especificacion->getName();
+            $atributo = $this->em->getRepository(AtributoML::class)
+            ->findOneBy(["ebayName" => $nombreEspecificacion, "valueName" => $especificacion->getValue()]);
+
+            if ($atributo) {
+                $publicacion->addAtributo($atributo);
+            }
+
+        }
+
         return $publicacion;
     }
 
