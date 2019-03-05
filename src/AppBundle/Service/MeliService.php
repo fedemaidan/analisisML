@@ -23,8 +23,8 @@ class MeliService
 {
     const DOLAR = 41;
     const MATCH_ARRAY = [
-                            "titulo"        =>"title",
-                            "categoriaML"   =>"category_id",
+                            "titulo"        => "title",
+                            "categoriaML"   => "category_id",
                             "precioCompra"  => "price",
                             "estado"        => "status",
                             "descripcion"   => "description"
@@ -308,6 +308,15 @@ class MeliService
         return $datos;
     }
 
+    public function actualizarPublicacion($publicacionPropia) {
+        $ebay = $publicacionPropia->getPublicacionEbay();
+        $precio = $this->calcularPrecio($ebay->getCategoriaEbay(), $ebay->getPrecioCompra());
+        $publicacion->setTitulo($this->armarTitulo($ebay->getTitulo()));
+        $publicacion->setDescripcion($this->generarDescripcion($ebay));
+        $publicacion->setPrecioCompra($precio);
+        $this->em->persist($busqueda);
+        $this->em->flush();
+    }
 
     public function editarCamposPublicacionMercadolibre($publicacionPropia, $campos = [] ) {
         
@@ -412,7 +421,8 @@ class MeliService
             PRODUCTO: ".$ebay->getTitulo();
 
             
-            $descripcion .= "ESPECIFICACIONES DEL PRODUCTO
+            $descripcion .= "
+            ESPECIFICACIONES DEL PRODUCTO
             ";
 
             foreach ($ebay->getEspecificaciones() as $espe) {

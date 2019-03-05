@@ -1,0 +1,1732 @@
+[
+    {
+        "id": "BRAND",
+        "name": "Marca",
+        "tags": {
+            "catalog_required": true
+        },
+        "hierarchy": "PARENT_PK",
+        "relevance": 1,
+        "value_type": "string",
+        "value_max_length": 255,
+        "values": [
+            {
+                "id": "8784",
+                "name": "Huawei"
+            },
+            {
+                "id": "95538",
+                "name": "Kelyx"
+            },
+            {
+                "id": "2621225",
+                "name": "U8"
+            },
+            {
+                "id": "479330",
+                "name": "X View"
+            }
+        ],
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "LINE",
+        "name": "Línea",
+        "tags": {},
+        "hierarchy": "PARENT_PK",
+        "relevance": 1,
+        "value_type": "string",
+        "value_max_length": 255,
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "MODEL",
+        "name": "Modelo",
+        "tags": {
+            "catalog_required": true
+        },
+        "hierarchy": "PARENT_PK",
+        "relevance": 1,
+        "value_type": "string",
+        "value_max_length": 255,
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "ALPHANUMERIC_MODEL",
+        "name": "Modelo alfanumérico",
+        "tags": {
+            "hidden": true
+        },
+        "hierarchy": "PARENT_PK",
+        "relevance": 1,
+        "value_type": "string",
+        "value_max_length": 255,
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "GENDER",
+        "name": "Género",
+        "tags": {
+            "hidden": true
+        },
+        "hierarchy": "PARENT_PK",
+        "relevance": 1,
+        "value_type": "list",
+        "values": [
+            {
+                "id": "110461",
+                "name": "Unisex"
+            },
+            {
+                "id": "111069",
+                "name": "Dama"
+            },
+            {
+                "id": "111070",
+                "name": "Caballero"
+            },
+            {
+                "id": "339667",
+                "name": "Niños"
+            },
+            {
+                "id": "339668",
+                "name": "Niñas"
+            }
+        ],
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "SCREEN_SIZE",
+        "name": "Tamaño de la pantalla",
+        "tags": {},
+        "hierarchy": "PARENT_PK",
+        "relevance": 1,
+        "value_type": "number_unit",
+        "value_max_length": 255,
+        "allowed_units": [
+            {
+                "id": "\"",
+                "name": "\""
+            },
+            {
+                "id": "mm",
+                "name": "mm"
+            }
+        ],
+        "default_unit": "\"",
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "SMARTWATCH_VERSION",
+        "name": "Versión",
+        "tags": {},
+        "hierarchy": "CHILD_PK",
+        "relevance": 1,
+        "value_type": "string",
+        "value_max_length": 255,
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "CASE_MATERIAL",
+        "name": "Material de la carcasa",
+        "tags": {
+            "hidden": true
+        },
+        "hierarchy": "CHILD_PK",
+        "relevance": 1,
+        "value_type": "string",
+        "value_max_length": 255,
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "BAND_MATERIAL",
+        "name": "Material de la malla",
+        "tags": {
+            "hidden": true
+        },
+        "hierarchy": "CHILD_PK",
+        "relevance": 1,
+        "value_type": "string",
+        "value_max_length": 255,
+        "values": [
+            {
+                "id": "4086949",
+                "name": "Acero inoxidable"
+            },
+            {
+                "id": "482783",
+                "name": "Cuero"
+            },
+            {
+                "id": "227104",
+                "name": "Fluoroelastómero"
+            },
+            {
+                "id": "494420",
+                "name": "Nylon"
+            },
+            {
+                "id": "226758",
+                "name": "Nylon trenzado"
+            },
+            {
+                "id": "2748302",
+                "name": "Plástico"
+            },
+            {
+                "id": "2466987",
+                "name": "Silicona"
+            },
+            {
+                "id": "4343494",
+                "name": "TPU"
+            }
+        ],
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "BEZEL_MATERIAL",
+        "name": "Material del bisel",
+        "tags": {
+            "hidden": true
+        },
+        "hierarchy": "CHILD_PK",
+        "relevance": 1,
+        "value_type": "string",
+        "value_max_length": 255,
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "CASE_COLOR",
+        "name": "Color de la caja",
+        "tags": {
+            "allow_variations": true,
+            "defines_picture": true,
+            "hidden": true
+        },
+        "hierarchy": "CHILD_PK",
+        "relevance": 1,
+        "value_type": "string",
+        "value_max_length": 255,
+        "values": [
+            {
+                "id": "52019",
+                "name": "Verde oscuro"
+            },
+            {
+                "id": "283160",
+                "name": "Turquesa"
+            },
+            {
+                "id": "52022",
+                "name": "Agua"
+            },
+            {
+                "id": "283162",
+                "name": "Índigo"
+            },
+            {
+                "id": "52036",
+                "name": "Lavanda"
+            },
+            {
+                "id": "283163",
+                "name": "Rosa chicle"
+            },
+            {
+                "id": "51998",
+                "name": "Bordó"
+            },
+            {
+                "id": "52003",
+                "name": "Piel"
+            },
+            {
+                "id": "52055",
+                "name": "Blanco"
+            },
+            {
+                "id": "283161",
+                "name": "Azul marino"
+            },
+            {
+                "id": "52008",
+                "name": "Crema"
+            },
+            {
+                "id": "52045",
+                "name": "Rosa pálido"
+            },
+            {
+                "id": "283153",
+                "name": "Suela"
+            },
+            {
+                "id": "283150",
+                "name": "Naranja claro"
+            },
+            {
+                "id": "52028",
+                "name": "Azul"
+            },
+            {
+                "id": "52043",
+                "name": "Rosa claro"
+            },
+            {
+                "id": "283148",
+                "name": "Coral claro"
+            },
+            {
+                "id": "283149",
+                "name": "Coral"
+            },
+            {
+                "id": "52021",
+                "name": "Celeste"
+            },
+            {
+                "id": "52031",
+                "name": "Azul acero"
+            },
+            {
+                "id": "283156",
+                "name": "Caqui"
+            },
+            {
+                "id": "52001",
+                "name": "Beige"
+            },
+            {
+                "id": "51993",
+                "name": "Rojo"
+            },
+            {
+                "id": "51996",
+                "name": "Terracota"
+            },
+            {
+                "id": "283165",
+                "name": "Gris claro"
+            },
+            {
+                "id": "52035",
+                "name": "Violeta"
+            },
+            {
+                "id": "283154",
+                "name": "Marrón claro"
+            },
+            {
+                "id": "52049",
+                "name": "Negro"
+            },
+            {
+                "id": "283155",
+                "name": "Marrón oscuro"
+            },
+            {
+                "id": "52053",
+                "name": "Plateado"
+            },
+            {
+                "id": "52047",
+                "name": "Violeta oscuro"
+            },
+            {
+                "id": "51994",
+                "name": "Rosa"
+            },
+            {
+                "id": "52007",
+                "name": "Amarillo"
+            },
+            {
+                "id": "283157",
+                "name": "Verde lima"
+            },
+            {
+                "id": "52012",
+                "name": "Dorado oscuro"
+            },
+            {
+                "id": "52015",
+                "name": "Verde claro"
+            },
+            {
+                "id": "283151",
+                "name": "Naranja oscuro"
+            },
+            {
+                "id": "52024",
+                "name": "Azul petróleo"
+            },
+            {
+                "id": "52051",
+                "name": "Gris oscuro"
+            },
+            {
+                "id": "283152",
+                "name": "Chocolate"
+            },
+            {
+                "id": "52014",
+                "name": "Verde"
+            },
+            {
+                "id": "283164",
+                "name": "Dorado"
+            },
+            {
+                "id": "52000",
+                "name": "Naranja"
+            },
+            {
+                "id": "52033",
+                "name": "Azul oscuro"
+            },
+            {
+                "id": "52010",
+                "name": "Ocre"
+            },
+            {
+                "id": "283158",
+                "name": "Verde musgo"
+            },
+            {
+                "id": "52005",
+                "name": "Marrón"
+            },
+            {
+                "id": "52038",
+                "name": "Lila"
+            },
+            {
+                "id": "52042",
+                "name": "Fucsia"
+            },
+            {
+                "id": "283159",
+                "name": "Cyan"
+            },
+            {
+                "id": "52029",
+                "name": "Azul claro"
+            }
+        ],
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "BAND_COLOR",
+        "name": "Color de la malla",
+        "tags": {
+            "allow_variations": true,
+            "defines_picture": true,
+            "hidden": true
+        },
+        "hierarchy": "CHILD_PK",
+        "relevance": 1,
+        "value_type": "string",
+        "value_max_length": 255,
+        "values": [
+            {
+                "id": "52019",
+                "name": "Verde oscuro"
+            },
+            {
+                "id": "283160",
+                "name": "Turquesa"
+            },
+            {
+                "id": "52022",
+                "name": "Agua"
+            },
+            {
+                "id": "283162",
+                "name": "Índigo"
+            },
+            {
+                "id": "52036",
+                "name": "Lavanda"
+            },
+            {
+                "id": "283163",
+                "name": "Rosa chicle"
+            },
+            {
+                "id": "51998",
+                "name": "Bordó"
+            },
+            {
+                "id": "52003",
+                "name": "Piel"
+            },
+            {
+                "id": "52055",
+                "name": "Blanco"
+            },
+            {
+                "id": "283161",
+                "name": "Azul marino"
+            },
+            {
+                "id": "52008",
+                "name": "Crema"
+            },
+            {
+                "id": "52045",
+                "name": "Rosa pálido"
+            },
+            {
+                "id": "283153",
+                "name": "Suela"
+            },
+            {
+                "id": "283150",
+                "name": "Naranja claro"
+            },
+            {
+                "id": "52028",
+                "name": "Azul"
+            },
+            {
+                "id": "52043",
+                "name": "Rosa claro"
+            },
+            {
+                "id": "283148",
+                "name": "Coral claro"
+            },
+            {
+                "id": "283149",
+                "name": "Coral"
+            },
+            {
+                "id": "52021",
+                "name": "Celeste"
+            },
+            {
+                "id": "52031",
+                "name": "Azul acero"
+            },
+            {
+                "id": "283156",
+                "name": "Caqui"
+            },
+            {
+                "id": "52001",
+                "name": "Beige"
+            },
+            {
+                "id": "51993",
+                "name": "Rojo"
+            },
+            {
+                "id": "51996",
+                "name": "Terracota"
+            },
+            {
+                "id": "283165",
+                "name": "Gris claro"
+            },
+            {
+                "id": "52035",
+                "name": "Violeta"
+            },
+            {
+                "id": "283154",
+                "name": "Marrón claro"
+            },
+            {
+                "id": "52049",
+                "name": "Negro"
+            },
+            {
+                "id": "283155",
+                "name": "Marrón oscuro"
+            },
+            {
+                "id": "52053",
+                "name": "Plateado"
+            },
+            {
+                "id": "52047",
+                "name": "Violeta oscuro"
+            },
+            {
+                "id": "51994",
+                "name": "Rosa"
+            },
+            {
+                "id": "52007",
+                "name": "Amarillo"
+            },
+            {
+                "id": "283157",
+                "name": "Verde lima"
+            },
+            {
+                "id": "52012",
+                "name": "Dorado oscuro"
+            },
+            {
+                "id": "52015",
+                "name": "Verde claro"
+            },
+            {
+                "id": "283151",
+                "name": "Naranja oscuro"
+            },
+            {
+                "id": "52024",
+                "name": "Azul petróleo"
+            },
+            {
+                "id": "52051",
+                "name": "Gris oscuro"
+            },
+            {
+                "id": "283152",
+                "name": "Chocolate"
+            },
+            {
+                "id": "52014",
+                "name": "Verde"
+            },
+            {
+                "id": "283164",
+                "name": "Dorado"
+            },
+            {
+                "id": "52000",
+                "name": "Naranja"
+            },
+            {
+                "id": "52033",
+                "name": "Azul oscuro"
+            },
+            {
+                "id": "52010",
+                "name": "Ocre"
+            },
+            {
+                "id": "283158",
+                "name": "Verde musgo"
+            },
+            {
+                "id": "52005",
+                "name": "Marrón"
+            },
+            {
+                "id": "52038",
+                "name": "Lila"
+            },
+            {
+                "id": "52042",
+                "name": "Fucsia"
+            },
+            {
+                "id": "283159",
+                "name": "Cyan"
+            },
+            {
+                "id": "52029",
+                "name": "Azul claro"
+            }
+        ],
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "BEZEL_COLOR",
+        "name": "Color del bisel",
+        "tags": {
+            "allow_variations": true,
+            "defines_picture": true,
+            "hidden": true
+        },
+        "hierarchy": "CHILD_PK",
+        "relevance": 1,
+        "value_type": "string",
+        "value_max_length": 255,
+        "values": [
+            {
+                "id": "52019",
+                "name": "Verde oscuro"
+            },
+            {
+                "id": "283160",
+                "name": "Turquesa"
+            },
+            {
+                "id": "52022",
+                "name": "Agua"
+            },
+            {
+                "id": "283162",
+                "name": "Índigo"
+            },
+            {
+                "id": "52036",
+                "name": "Lavanda"
+            },
+            {
+                "id": "283163",
+                "name": "Rosa chicle"
+            },
+            {
+                "id": "51998",
+                "name": "Bordó"
+            },
+            {
+                "id": "52003",
+                "name": "Piel"
+            },
+            {
+                "id": "52055",
+                "name": "Blanco"
+            },
+            {
+                "id": "283161",
+                "name": "Azul marino"
+            },
+            {
+                "id": "52008",
+                "name": "Crema"
+            },
+            {
+                "id": "52045",
+                "name": "Rosa pálido"
+            },
+            {
+                "id": "283153",
+                "name": "Suela"
+            },
+            {
+                "id": "283150",
+                "name": "Naranja claro"
+            },
+            {
+                "id": "52028",
+                "name": "Azul"
+            },
+            {
+                "id": "52043",
+                "name": "Rosa claro"
+            },
+            {
+                "id": "283148",
+                "name": "Coral claro"
+            },
+            {
+                "id": "283149",
+                "name": "Coral"
+            },
+            {
+                "id": "52021",
+                "name": "Celeste"
+            },
+            {
+                "id": "52031",
+                "name": "Azul acero"
+            },
+            {
+                "id": "283156",
+                "name": "Caqui"
+            },
+            {
+                "id": "52001",
+                "name": "Beige"
+            },
+            {
+                "id": "51993",
+                "name": "Rojo"
+            },
+            {
+                "id": "51996",
+                "name": "Terracota"
+            },
+            {
+                "id": "283165",
+                "name": "Gris claro"
+            },
+            {
+                "id": "52035",
+                "name": "Violeta"
+            },
+            {
+                "id": "283154",
+                "name": "Marrón claro"
+            },
+            {
+                "id": "52049",
+                "name": "Negro"
+            },
+            {
+                "id": "283155",
+                "name": "Marrón oscuro"
+            },
+            {
+                "id": "52053",
+                "name": "Plateado"
+            },
+            {
+                "id": "52047",
+                "name": "Violeta oscuro"
+            },
+            {
+                "id": "51994",
+                "name": "Rosa"
+            },
+            {
+                "id": "52007",
+                "name": "Amarillo"
+            },
+            {
+                "id": "283157",
+                "name": "Verde lima"
+            },
+            {
+                "id": "52012",
+                "name": "Dorado oscuro"
+            },
+            {
+                "id": "52015",
+                "name": "Verde claro"
+            },
+            {
+                "id": "283151",
+                "name": "Naranja oscuro"
+            },
+            {
+                "id": "52024",
+                "name": "Azul petróleo"
+            },
+            {
+                "id": "52051",
+                "name": "Gris oscuro"
+            },
+            {
+                "id": "283152",
+                "name": "Chocolate"
+            },
+            {
+                "id": "52014",
+                "name": "Verde"
+            },
+            {
+                "id": "283164",
+                "name": "Dorado"
+            },
+            {
+                "id": "52000",
+                "name": "Naranja"
+            },
+            {
+                "id": "52033",
+                "name": "Azul oscuro"
+            },
+            {
+                "id": "52010",
+                "name": "Ocre"
+            },
+            {
+                "id": "283158",
+                "name": "Verde musgo"
+            },
+            {
+                "id": "52005",
+                "name": "Marrón"
+            },
+            {
+                "id": "52038",
+                "name": "Lila"
+            },
+            {
+                "id": "52042",
+                "name": "Fucsia"
+            },
+            {
+                "id": "283159",
+                "name": "Cyan"
+            },
+            {
+                "id": "52029",
+                "name": "Azul claro"
+            }
+        ],
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "DETAILED_MODEL",
+        "name": "Modelo detallado",
+        "tags": {
+            "hidden": true,
+            "variation_attribute": true
+        },
+        "hierarchy": "CHILD_DEPENDENT",
+        "relevance": 1,
+        "value_type": "string",
+        "value_max_length": 255,
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "WITH_BLUETOOTH",
+        "name": "Con Bluetooth",
+        "tags": {},
+        "hierarchy": "FAMILY",
+        "relevance": 1,
+        "value_type": "boolean",
+        "values": [
+            {
+                "id": "242084",
+                "name": "No",
+                "metadata": {
+                    "value": false
+                }
+            },
+            {
+                "id": "242085",
+                "name": "Sí",
+                "metadata": {
+                    "value": true
+                }
+            }
+        ],
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "IS_WATERPROOF",
+        "name": "Es a prueba de agua",
+        "tags": {},
+        "hierarchy": "FAMILY",
+        "relevance": 1,
+        "value_type": "boolean",
+        "values": [
+            {
+                "id": "242084",
+                "name": "No",
+                "metadata": {
+                    "value": false
+                }
+            },
+            {
+                "id": "242085",
+                "name": "Sí",
+                "metadata": {
+                    "value": true
+                }
+            }
+        ],
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "INTERNAL_MEMORY",
+        "name": "Memoria interna",
+        "tags": {},
+        "hierarchy": "FAMILY",
+        "relevance": 1,
+        "value_type": "number_unit",
+        "value_max_length": 255,
+        "allowed_units": [
+            {
+                "id": "gb",
+                "name": "gb"
+            },
+            {
+                "id": "mb",
+                "name": "mb"
+            }
+        ],
+        "default_unit": "gb",
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "SMARTWATCH_FUNCTIONS",
+        "name": "Funciones",
+        "tags": {
+            "multivalued": true
+        },
+        "hierarchy": "FAMILY",
+        "relevance": 1,
+        "value_type": "string",
+        "value_max_length": 255,
+        "values": [
+            {
+                "id": "182482",
+                "name": "Brújula"
+            },
+            {
+                "id": "182485",
+                "name": "Cronómetro"
+            },
+            {
+                "id": "182483",
+                "name": "Calculadora"
+            },
+            {
+                "id": "182486",
+                "name": "Podómetro"
+            },
+            {
+                "id": "182484",
+                "name": "Consumo de calorías"
+            },
+            {
+                "id": "182487",
+                "name": "Pulsómetro"
+            },
+            {
+                "id": "182488",
+                "name": "Temporizador"
+            }
+        ],
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "OPERATING_SYSTEM_SUPPORT",
+        "name": "Compatibilidad con sistema operativo",
+        "tags": {},
+        "hierarchy": "FAMILY",
+        "relevance": 1,
+        "value_type": "string",
+        "value_max_length": 255,
+        "values": [
+            {
+                "id": "108295",
+                "name": "Android"
+            },
+            {
+                "id": "108296",
+                "name": "iOS"
+            }
+        ],
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "GTIN",
+        "name": "Código universal de producto",
+        "tags": {
+            "multivalued": true,
+            "variation_attribute": true
+        },
+        "hierarchy": "PRODUCT_IDENTIFIER",
+        "relevance": 1,
+        "type": "product_identifier",
+        "value_type": "string",
+        "value_max_length": 255,
+        "tooltip": "¿Cómo lo reconozco?\n\nEs un número de 8 a 14 dígitos que se encuentra junto al código de barras, en la caja del producto, o en su etiqueta.\n\n![Código universal de producto](https://http2.mlstatic.com/static/org-img/sd-landings/assets/pi-tooltip.png)",
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros",
+        "hint": "Suele ser un EAN, UPC u otro GTIN."
+    },
+    {
+        "id": "BATTERY_LIFE",
+        "name": "Duración de la batería",
+        "tags": {
+            "hidden": true
+        },
+        "hierarchy": "FAMILY",
+        "relevance": 2,
+        "value_type": "number_unit",
+        "value_max_length": 255,
+        "allowed_units": [
+            {
+                "id": "h",
+                "name": "h"
+            }
+        ],
+        "default_unit": "h",
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "DISPLAY_TYPE",
+        "name": "Tipo de pantalla",
+        "tags": {
+            "hidden": true
+        },
+        "hierarchy": "FAMILY",
+        "relevance": 2,
+        "value_type": "string",
+        "value_max_length": 255,
+        "values": [
+            {
+                "id": "93970",
+                "name": "Digital"
+            },
+            {
+                "id": "82750",
+                "name": "LCD"
+            },
+            {
+                "id": "82749",
+                "name": "LED"
+            },
+            {
+                "id": "93971",
+                "name": "Touch"
+            }
+        ],
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "MAX_RESOLUTION",
+        "name": "Resolución máxima",
+        "tags": {
+            "hidden": true
+        },
+        "hierarchy": "FAMILY",
+        "relevance": 2,
+        "value_type": "string",
+        "value_max_length": 255,
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "CALL_MANAGEMENT",
+        "name": "Con gestión de llamadas",
+        "tags": {
+            "hidden": true
+        },
+        "hierarchy": "FAMILY",
+        "relevance": 2,
+        "value_type": "boolean",
+        "values": [
+            {
+                "id": "242084",
+                "name": "No",
+                "metadata": {
+                    "value": false
+                }
+            },
+            {
+                "id": "242085",
+                "name": "Sí",
+                "metadata": {
+                    "value": true
+                }
+            }
+        ],
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "SEX",
+        "name": "Género",
+        "tags": {
+            "hidden": true
+        },
+        "hierarchy": "FAMILY",
+        "relevance": 2,
+        "value_type": "list",
+        "values": [
+            {
+                "id": "415959",
+                "name": "Masculino"
+            },
+            {
+                "id": "415960",
+                "name": "Femenino"
+            },
+            {
+                "id": "1176627",
+                "name": "Unisex"
+            }
+        ],
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "AGE_GROUP",
+        "name": "Edad",
+        "tags": {
+            "hidden": true
+        },
+        "hierarchy": "FAMILY",
+        "relevance": 2,
+        "value_type": "list",
+        "values": [
+            {
+                "id": "1065183",
+                "name": "Niños"
+            },
+            {
+                "id": "1065182",
+                "name": "Adultos"
+            },
+            {
+                "id": "1119327",
+                "name": "Bebés"
+            }
+        ],
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "IS_WATER_RESISTANT",
+        "name": "Es resistente al agua",
+        "tags": {
+            "hidden": true
+        },
+        "hierarchy": "FAMILY",
+        "relevance": 2,
+        "value_type": "boolean",
+        "values": [
+            {
+                "id": "242084",
+                "name": "No",
+                "metadata": {
+                    "value": false
+                }
+            },
+            {
+                "id": "242085",
+                "name": "Sí",
+                "metadata": {
+                    "value": true
+                }
+            }
+        ],
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "INCLUDES_MICROPHONE",
+        "name": "Incluye micrófono",
+        "tags": {
+            "hidden": true
+        },
+        "hierarchy": "FAMILY",
+        "relevance": 2,
+        "value_type": "boolean",
+        "values": [
+            {
+                "id": "242084",
+                "name": "No",
+                "metadata": {
+                    "value": false
+                }
+            },
+            {
+                "id": "242085",
+                "name": "Sí",
+                "metadata": {
+                    "value": true
+                }
+            }
+        ],
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "WITH_USB",
+        "name": "Con USB",
+        "tags": {
+            "hidden": true
+        },
+        "hierarchy": "FAMILY",
+        "relevance": 2,
+        "value_type": "boolean",
+        "values": [
+            {
+                "id": "242084",
+                "name": "No",
+                "metadata": {
+                    "value": false
+                }
+            },
+            {
+                "id": "242085",
+                "name": "Sí",
+                "metadata": {
+                    "value": true
+                }
+            }
+        ],
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "NFC",
+        "name": "Con NFC",
+        "tags": {
+            "hidden": true
+        },
+        "hierarchy": "FAMILY",
+        "relevance": 2,
+        "value_type": "boolean",
+        "values": [
+            {
+                "id": "242084",
+                "name": "No",
+                "metadata": {
+                    "value": false
+                }
+            },
+            {
+                "id": "242085",
+                "name": "Sí",
+                "metadata": {
+                    "value": true
+                }
+            }
+        ],
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "ITEM_CONDITION",
+        "name": "Condición del ítem",
+        "tags": {
+            "hidden": true
+        },
+        "hierarchy": "ITEM",
+        "relevance": 2,
+        "value_type": "list",
+        "values": [
+            {
+                "id": "2230581",
+                "name": "Usado"
+            },
+            {
+                "id": "2230284",
+                "name": "Nuevo"
+            }
+        ],
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "UPC",
+        "name": "UPC",
+        "tags": {
+            "hidden": true,
+            "multivalued": true,
+            "variation_attribute": true
+        },
+        "hierarchy": "PRODUCT_IDENTIFIER",
+        "relevance": 2,
+        "type": "product_identifier",
+        "value_type": "string",
+        "value_max_length": 255,
+        "tooltip": "Este es el número de 12 dígitos que está en el código de barras de tu producto.",
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "MPN",
+        "name": "MPN",
+        "tags": {
+            "hidden": true,
+            "multivalued": true,
+            "variation_attribute": true
+        },
+        "hierarchy": "PRODUCT_IDENTIFIER",
+        "relevance": 2,
+        "type": "product_identifier",
+        "value_type": "string",
+        "value_max_length": 255,
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "EAN",
+        "name": "EAN",
+        "tags": {
+            "hidden": true,
+            "multivalued": true,
+            "variation_attribute": true
+        },
+        "hierarchy": "PRODUCT_IDENTIFIER",
+        "relevance": 2,
+        "type": "product_identifier",
+        "value_type": "string",
+        "value_max_length": 255,
+        "tooltip": "Este es el número de 8, 13 o 14 dígitos que está en el código de barras de tu producto.",
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "SELLER_SKU",
+        "name": "SKU ",
+        "tags": {
+            "hidden": true,
+            "variation_attribute": true
+        },
+        "hierarchy": "ITEM",
+        "relevance": 1,
+        "value_type": "string",
+        "value_max_length": 255,
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "IS_FLAMMABLE",
+        "name": "Es inflamable",
+        "tags": {
+            "hidden": true,
+            "read_only": true
+        },
+        "hierarchy": "FAMILY",
+        "relevance": 2,
+        "value_type": "boolean",
+        "values": [
+            {
+                "id": "242084",
+                "name": "No",
+                "metadata": {
+                    "value": false
+                }
+            },
+            {
+                "id": "242085",
+                "name": "Sí",
+                "metadata": {
+                    "value": true
+                }
+            }
+        ],
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "IS_KIT",
+        "name": "Es kit",
+        "tags": {
+            "hidden": true
+        },
+        "hierarchy": "ITEM",
+        "relevance": 2,
+        "value_type": "boolean",
+        "values": [
+            {
+                "id": "242084",
+                "name": "No",
+                "metadata": {
+                    "value": false
+                }
+            },
+            {
+                "id": "242085",
+                "name": "Sí",
+                "metadata": {
+                    "value": true
+                }
+            }
+        ],
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "DESCRIPTIVE_TAGS",
+        "name": "Tags descriptivos",
+        "tags": {
+            "hidden": true,
+            "multivalued": true,
+            "read_only": true
+        },
+        "hierarchy": "ITEM",
+        "relevance": 2,
+        "value_type": "string",
+        "value_max_length": 255,
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "PACKAGE_LENGTH",
+        "name": "Largo del paquete",
+        "tags": {
+            "hidden": true,
+            "read_only": true,
+            "variation_attribute": true
+        },
+        "hierarchy": "ITEM",
+        "relevance": 2,
+        "value_type": "number_unit",
+        "value_max_length": 255,
+        "allowed_units": [
+            {
+                "id": "manos",
+                "name": "manos"
+            },
+            {
+                "id": "u",
+                "name": "u"
+            },
+            {
+                "id": "in",
+                "name": "in"
+            },
+            {
+                "id": "m",
+                "name": "m"
+            },
+            {
+                "id": "km",
+                "name": "km"
+            },
+            {
+                "id": "ft",
+                "name": "ft"
+            },
+            {
+                "id": "\"",
+                "name": "\""
+            },
+            {
+                "id": "mm",
+                "name": "mm"
+            },
+            {
+                "id": "nm",
+                "name": "nm"
+            },
+            {
+                "id": "micras",
+                "name": "micras"
+            },
+            {
+                "id": "pulgadas",
+                "name": "pulgadas"
+            },
+            {
+                "id": "cm",
+                "name": "cm"
+            }
+        ],
+        "default_unit": "cm",
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "PACKAGE_WEIGHT",
+        "name": "Peso del paquete",
+        "tags": {
+            "hidden": true,
+            "read_only": true,
+            "variation_attribute": true
+        },
+        "hierarchy": "ITEM",
+        "relevance": 2,
+        "value_type": "number_unit",
+        "value_max_length": 255,
+        "allowed_units": [
+            {
+                "id": "kg",
+                "name": "kg"
+            },
+            {
+                "id": "mg",
+                "name": "mg"
+            },
+            {
+                "id": "lb",
+                "name": "lb"
+            },
+            {
+                "id": "oz",
+                "name": "oz"
+            },
+            {
+                "id": "mcg",
+                "name": "mcg"
+            },
+            {
+                "id": "t",
+                "name": "t"
+            },
+            {
+                "id": "g",
+                "name": "g"
+            }
+        ],
+        "default_unit": "g",
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "PACKAGE_WIDTH",
+        "name": "Ancho del paquete",
+        "tags": {
+            "hidden": true,
+            "read_only": true,
+            "variation_attribute": true
+        },
+        "hierarchy": "ITEM",
+        "relevance": 2,
+        "value_type": "number_unit",
+        "value_max_length": 255,
+        "allowed_units": [
+            {
+                "id": "manos",
+                "name": "manos"
+            },
+            {
+                "id": "u",
+                "name": "u"
+            },
+            {
+                "id": "in",
+                "name": "in"
+            },
+            {
+                "id": "m",
+                "name": "m"
+            },
+            {
+                "id": "km",
+                "name": "km"
+            },
+            {
+                "id": "ft",
+                "name": "ft"
+            },
+            {
+                "id": "\"",
+                "name": "\""
+            },
+            {
+                "id": "mm",
+                "name": "mm"
+            },
+            {
+                "id": "nm",
+                "name": "nm"
+            },
+            {
+                "id": "micras",
+                "name": "micras"
+            },
+            {
+                "id": "pulgadas",
+                "name": "pulgadas"
+            },
+            {
+                "id": "cm",
+                "name": "cm"
+            }
+        ],
+        "default_unit": "cm",
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "PACKAGE_HEIGHT",
+        "name": "Altura del paquete",
+        "tags": {
+            "hidden": true,
+            "read_only": true,
+            "variation_attribute": true
+        },
+        "hierarchy": "ITEM",
+        "relevance": 2,
+        "value_type": "number_unit",
+        "value_max_length": 255,
+        "allowed_units": [
+            {
+                "id": "manos",
+                "name": "manos"
+            },
+            {
+                "id": "u",
+                "name": "u"
+            },
+            {
+                "id": "in",
+                "name": "in"
+            },
+            {
+                "id": "m",
+                "name": "m"
+            },
+            {
+                "id": "km",
+                "name": "km"
+            },
+            {
+                "id": "ft",
+                "name": "ft"
+            },
+            {
+                "id": "\"",
+                "name": "\""
+            },
+            {
+                "id": "mm",
+                "name": "mm"
+            },
+            {
+                "id": "nm",
+                "name": "nm"
+            },
+            {
+                "id": "micras",
+                "name": "micras"
+            },
+            {
+                "id": "pulgadas",
+                "name": "pulgadas"
+            },
+            {
+                "id": "cm",
+                "name": "cm"
+            }
+        ],
+        "default_unit": "cm",
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "JAN",
+        "name": "JAN",
+        "tags": {
+            "hidden": true,
+            "multivalued": true,
+            "variation_attribute": true
+        },
+        "hierarchy": "PRODUCT_IDENTIFIER",
+        "relevance": 2,
+        "type": "product_identifier",
+        "value_type": "string",
+        "value_max_length": 255,
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    },
+    {
+        "id": "GTIN14",
+        "name": "GTIN-14",
+        "tags": {
+            "hidden": true,
+            "multivalued": true,
+            "variation_attribute": true
+        },
+        "hierarchy": "PRODUCT_IDENTIFIER",
+        "relevance": 2,
+        "type": "product_identifier",
+        "value_type": "string",
+        "value_max_length": 255,
+        "attribute_group_id": "OTHERS",
+        "attribute_group_name": "Otros"
+    }
+]

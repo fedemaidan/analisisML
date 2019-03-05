@@ -52,31 +52,6 @@ class PublicacionML
     
     
 
-    /**
-     * @ORM\ManyToMany(targetEntity="AtributoML", inversedBy="publicacionML")
-     * @ORM\JoinTable(name="publicaciones_atributos_ml")
-     */
-    private $atributos;
-
-    public function getAtributos() {
-        return $this->atributos;
-    }
-
-    public function setAtributos($atributos) {
-        return $this->atributos = $atributos;
-    }
-
-    public function addAtributo($attr) {
-        $this->atributos[] = $attr;
-    }
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->atributos = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Set brand
@@ -174,16 +149,7 @@ class PublicacionML
         return $this->upc;
     }
 
-    /**
-     * Remove atributo
-     *
-     * @param \AppBundle\Entity\AtributoML $atributo
-     */
-    public function removeAtributo(\AppBundle\Entity\AtributoML $atributo)
-    {
-        $this->atributos->removeElement($atributo);
-    }
-
+    
     /**
      * Set ean
      *

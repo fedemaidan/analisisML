@@ -74,3 +74,9 @@ services:
          tags:
              - { name: sonata.admin, manager_type: orm, group: MercadoLibre, label: Publicaciones propias }
          public: true
+
+    publicacion_propia.subscriber:
+        class: AppBundle\Subscriber\PublicacionPropiaSubscriber
+        arguments: [ @service_container]
+        tags:
+            - { name: doctrine.event_subscriber, , event: preUpdate , lazy: true }
