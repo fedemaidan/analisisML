@@ -311,9 +311,9 @@ class MeliService
     public function actualizarPublicacion($publicacionPropia) {
         $ebay = $publicacionPropia->getPublicacionEbay();
         $precio = $this->calcularPrecio($ebay->getCategoriaEbay(), $ebay->getPrecioCompra());
-        $publicacion->setTitulo($this->armarTitulo($ebay->getTitulo()));
-        $publicacion->setDescripcion($this->generarDescripcion($ebay));
-        $publicacion->setPrecioCompra($precio);
+        $publicacionPropia->setTitulo($this->armarTitulo($ebay->getTitulo()));
+        $publicacionPropia->setDescripcion($this->generarDescripcion($ebay));
+        $publicacionPropia->setPrecioCompra($precio);
         $this->em->persist($busqueda);
         $this->em->flush();
     }
