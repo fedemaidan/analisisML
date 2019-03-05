@@ -322,6 +322,18 @@ class MeliService
             $atributo = $this->em->getRepository(AtributoML::class)
             ->findOneBy(["ebayName" => $nombreEspecificacion, "valueName" => $especificacion->getValue()]);
 
+
+            if (!$atributo && ($nombreEspecificacion == "MPN" || $nombreEspecificacion == "UPC" || $nombreEspecificacion == "EAN")) {
+                $atributo = new AtributoML();
+                $atributo->setIdMl($nombreEspecificacion);
+                $atributo->setName($nombreEspecificacion);
+                $atributo->setValueName($especificacion->getValue());
+                $atributo->setAttributeGroupId("OTHERS");
+                $atributo->setAttributeGroupName("Otros");
+                $atributo->setEbayName($nombreEspecificacion);
+                $this->em->persist($atributo);
+            } 
+
             if ($atributo) {
                 $publicacionPropia->addAtributo($atributo);
             }
