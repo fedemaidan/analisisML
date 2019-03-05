@@ -330,6 +330,8 @@ class MeliService
                 $body[self::MATCH_ARRAY[$key]] = $campo[1];
             else {
                 $desc["plain_text"] = $campo[1];
+                $desc["text_plain"] = $campo[1];
+                $desc["text"] = $campo[1];
                 $datos = $meli->put("items/".$publicacionPropia->getIdMl()."/description", $desc, [ "access_token" => $token ]);
         
                 if ($datos["httpCode"] != 200 ) {
