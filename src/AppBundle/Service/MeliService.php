@@ -315,6 +315,9 @@ class MeliService
         $publicacionPropia->setDescripcion($this->generarDescripcion($ebay));
         $publicacionPropia->setPrecioCompra($precio);
 
+
+        var_dump($publicacionPropia->getAtributos()[0]->getId());
+
         foreach ($ebay->getEspecificaciones() as $key => $especificacion) {
             /** Buscamos un attributo con nombre y valor igual al de la especificacion */
             $nombreEspecificacion = $especificacion->getName();
