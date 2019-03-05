@@ -6,7 +6,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use AppBundle\Utils\Meli\Meli;
-use AppBundle\Entity\CategoriaML;
+use AppBundle\Entity\PublicacionPropia;
 
 class ActualizarPublicacionPropiaCommand extends ContainerAwareCommand
 {
