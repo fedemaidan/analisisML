@@ -323,14 +323,14 @@ class MeliService
         $token = $this->dameToken($publicacionPropia->getCuenta());
         $meli = new Meli("","");
         $body = [ ];
-
+        $desc = [ ]
 
         foreach ($campos as $key => $campo) {
             if ($key != "descripcion")
                 $body[self::MATCH_ARRAY[$key]] = $campo[1];
             else {
-                $body["text"] = $campo[1];
-                $datos = $meli->put("items/".$publicacionPropia->getIdMl()."/description", $body, [ "access_token" => $token ]);
+                $desc["text"] = $campo[1];
+                $datos = $meli->put("items/".$publicacionPropia->getIdMl()."/description", $desc, [ "access_token" => $token ]);
         
                 if ($datos["httpCode"] != 200 ) {
                     throw new \Exception($datos["body"]->message, 1);
@@ -338,7 +338,6 @@ class MeliService
         
             }
         }
-
 
         $datos = $meli->put("items/".$publicacionPropia->getIdMl(), $body, [ "access_token" => $token ]);
         
