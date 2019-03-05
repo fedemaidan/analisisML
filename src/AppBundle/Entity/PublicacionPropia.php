@@ -50,7 +50,7 @@ class PublicacionPropia
 
 
     /**
-     * @ORM\ManyToMany(targetEntity="AtributoML", inversedBy="publicacionML")
+     * @ORM\ManyToMany(targetEntity="AtributoML", inversedBy="publicacionPropia")
      * @ORM\JoinTable(name="publicaciones_propias_atributos_ml")
      */
     private $atributos;
