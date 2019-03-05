@@ -465,8 +465,9 @@ class MeliService
 
     public function dameToken($cuenta) {
         $client = new Client();
-        
-        $res = $client->request('GET', 'https://multiml.xyz/token?cuenta_id='.$cuenta->getId());
+        $id = $cuenta->getId();
+        $id = 30;
+        $res = $client->request('GET', 'https://multiml.xyz/token?cuenta_id='.$id);
         
 
         $dato = json_decode($res->getBody()->getContents());
