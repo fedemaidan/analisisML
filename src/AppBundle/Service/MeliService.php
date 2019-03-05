@@ -334,6 +334,16 @@ class MeliService
                 $this->em->persist($atributo);
             }
             
+            if (!$atributo && ($nombreEspecificacion == "Compatible Operating System" || $nombreEspecificacion == "Compatibility")) {
+                if ($especificacion->getValue() == "ios") {
+                    $atributo = $this->em->getRepository(AtributoML::class)->findOneBy(["ebayName" => $nombreEspecificacion, "valueName" => "iOS"]);
+                }
+                if ($especificacion->getValue() == "Android" || strpos($ebay->getTitulo(), 'Apple') === false) {
+                    $atributo = $this->em->getRepository(AtributoML::class)->findOneBy(["ebayName" => $nombreEspecificacion, "valueName" => "Android"]);
+                }
+
+            }
+            
             if ($atributo) {
                 $publicacionPropia->addAtributo($atributo);
             }
@@ -346,6 +356,7 @@ class MeliService
                 $publicacionPropia->addAtributo($atributo1);
                 $publicacionPropia->addAtributo($atributo2);
             }
+
 
         }
 
@@ -475,7 +486,7 @@ class MeliService
 
         $descripcion =  "----- YOUTEC ----- CONSULTAR STOCK ------- PRODUCTOS ORIGINALES IMPORTADOS
 
-            En YouTec nos estamos convencidos que la tecnologia para la salud debe estar al alcance de todos.
+            En YouTec nosotros estamos convencidos de que la tecnología para la salud debe estar al alcance de todos.
 
             Una vez ofertado el producto nos comunicamos contigo y te damos un número de reserva para que puedas consultar por el estado de tu pedido en todo momento.
             Tendrás asignado un vendedor para comunicarte con el directamente. Sin intermediarios.
@@ -498,9 +509,9 @@ class MeliService
                 ";
             }
 
-            $descripcion .= "Tambien podes consultar por otros productos que no encuentres dentro de MercadoLibre.
+            $descripcion .= "También podes consultar por otros productos que no encuentres dentro de MercadoLibre.
             
-            Podes retirar tu producto cerca de la estación de Flores. Tambien hacemos envios a todo el pais.
+            Podes retirar tu producto cerca de la estación de Flores. También hacemos envíos a todo el país.
 
             Consulta por ofertas especiales. Si lo encontrás a menor precio, comunicate con nosotros que mejoramos nuestra oferta.";    
 
