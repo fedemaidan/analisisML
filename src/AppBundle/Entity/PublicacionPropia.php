@@ -48,6 +48,13 @@ class PublicacionPropia
 
     public $notificar_ml = true;
 
+
+    /**
+     * @ORM\ManyToMany(targetEntity="AtributoML", inversedBy="publicacionML")
+     * @ORM\JoinTable(name="publicaciones_propias_atributos_ml")
+     */
+    private $atributos;
+
     /**
      * Set descripcion
      *
