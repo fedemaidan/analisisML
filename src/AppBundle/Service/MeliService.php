@@ -328,10 +328,6 @@ class MeliService
 
         }
 
-
-        var_dump($publicacionPropia->getAtributos()[0]->getId());
-
-        
         $this->em->persist($publicacionPropia);
         $this->em->flush();
     }
@@ -342,7 +338,7 @@ class MeliService
         $meli = new Meli("","");
         $body = [ ];
         $desc = [ ];
-        var_dump($campos);die;
+        
         foreach ($campos as $key => $campo) {
             if ($key != "descripcion")
                 $body[self::MATCH_ARRAY[$key]] = $campo[1];
