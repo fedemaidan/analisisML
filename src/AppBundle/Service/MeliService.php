@@ -329,8 +329,6 @@ class MeliService
             if ($key != "descripcion")
                 $body[self::MATCH_ARRAY[$key]] = $campo[1];
             else {
-                $body["plain_text"] = $campo[1];
-                $body["text_plain"] = $campo[1];
                 $body["text"] = $campo[1];
                 $datos = $meli->put("items/".$publicacionPropia->getIdMl()."/description", $body, [ "access_token" => $token ]);
         
