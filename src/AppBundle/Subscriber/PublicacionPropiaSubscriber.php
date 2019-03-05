@@ -24,7 +24,7 @@ class PublicacionPropiaSubscriber implements EventSubscriber
     public function preUpdate(LifecycleEventArgs $args)
     {
         $entidad = $args->getEntity();
-
+        var_dump(get_class($entidad));
         if ($entidad instanceof PublicacionPropia) {
 
             $arrayCambios = $args->getEntityChangeSet();
