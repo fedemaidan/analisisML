@@ -279,7 +279,7 @@ class MeliService
 
     public function publicar($publicacion) {
         $token = $this->dameToken($publicacion->getCuenta());
-        $token = "APP_USR-3659532861516182-030412-361fceb71546df16aea444d560b78562-73995669";
+
         $arrayimagenes = explode(',', $publicacion->getImagenes());
         $imagenes = [];
         foreach ($arrayimagenes as $key => $img) {
@@ -321,17 +321,25 @@ class MeliService
     public function editarCamposPublicacionMercadolibre($publicacionPropia, $campos = [] ) {
         
         $token = $this->dameToken($publicacionPropia->getCuenta());
-
+        $meli = new Meli("","");
         $body = [ ];
-        
+
 
         foreach ($campos as $key => $campo) {
             if ($key != "descripcion")
                 $body[self::MATCH_ARRAY[$key]] = $campo[1];
+            else {
+                $body["plain_text"] = $campo[1];
+                $datos = $meli->put("items/".$publicacionPropia->getIdMl()."/description", $body, [ "access_token" => $token ]);
+        
+                if ($datos["httpCode"] != 200 ) {
+                    throw new \Exception($datos["body"]->message, 1);
+                }
+        
+            }
         }
 
 
-        $meli = new Meli("","");
         $datos = $meli->put("items/".$publicacionPropia->getIdMl(), $body, [ "access_token" => $token ]);
         
         if ($datos["httpCode"] != 200 ) {
@@ -422,7 +430,9 @@ class MeliService
 
             
             $descripcion .= "
+            
             ESPECIFICACIONES DEL PRODUCTO
+            
             ";
 
             foreach ($ebay->getEspecificaciones() as $espe) {
