@@ -314,6 +314,19 @@ class MeliService
         $publicacionPropia->setTitulo($this->armarTitulo($ebay->getTitulo()));
         $publicacionPropia->setDescripcion($this->generarDescripcion($ebay));
         $publicacionPropia->setPrecioCompra($precio);
+
+        foreach ($ebay->getEspecificaciones() as $key => $especificacion) {
+            /** Buscamos un attributo con nombre y valor igual al de la especificacion */
+            $nombreEspecificacion = $especificacion->getName();
+            $atributo = $this->em->getRepository(AtributoML::class)
+            ->findOneBy(["ebayName" => $nombreEspecificacion, "valueName" => $especificacion->getValue()]);
+
+            if ($atributo) {
+                $publicacionPropia->addAtributo($atributo);
+            }
+
+        }
+
         $this->em->persist($publicacionPropia);
         $this->em->flush();
     }
