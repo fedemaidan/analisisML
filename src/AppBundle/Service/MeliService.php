@@ -314,7 +314,7 @@ class MeliService
         
         // $publicacionPropia->setTitulo($this->armarTitulo($ebay->getTitulo()));
         // $publicacionPropia->setDescripcion($this->generarDescripcion($ebay));
-        $publicacionPropia->setPrecioCompra($precio);
+        // $publicacionPropia->setPrecioCompra($precio);
 
 
         // foreach ($ebay->getEspecificaciones() as $key => $especificacion) {
@@ -386,7 +386,7 @@ class MeliService
         
             }
         }
-
+/*
         $atributos = [];
         foreach ($publicacionPropia->getAtributos() as $key => $attr) {
             $atributos[] = ["id" => $attr->getIdMl(), "value_name" => $attr->getValueName() ];
@@ -401,7 +401,7 @@ class MeliService
         if ($datos["httpCode"] != 200 ) {
             throw new \Exception($datos["body"]->message, 1);
         }
-
+*/
         return $datos;
 
     }
