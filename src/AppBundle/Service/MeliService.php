@@ -314,7 +314,7 @@ class MeliService
         
         // $publicacionPropia->setTitulo($this->armarTitulo($ebay->getTitulo()));
         // $publicacionPropia->setDescripcion($this->generarDescripcion($ebay));
-        // $publicacionPropia->setPrecioCompra($precio);
+        $publicacionPropia->setPrecioCompra($precio);
 
 
         // foreach ($ebay->getEspecificaciones() as $key => $especificacion) {
