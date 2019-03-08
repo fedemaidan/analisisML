@@ -170,7 +170,7 @@ class MeliService
             }
                 
             $visits = $meli->get("visits/items?ids=".$publicacionDatos->id);
-            var_dump($visits);die;
+            var_dump($visits["body"][$publicacionDatos->id]);die;
             $publicacion->setCantidadVisitas($visits);
             $publicacion->setIdMl($publicacionDatos->id);
             $publicacion->setTitulo($publicacionDatos->title);
