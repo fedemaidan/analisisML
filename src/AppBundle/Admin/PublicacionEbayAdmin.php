@@ -66,7 +66,6 @@ class PublicacionEbayAdmin extends AbstractAdmin
     {
         $formMapper
             ->with('General')
-                ->add('id')
                 ->add('idEbay')
                 ->add('titulo')
                 ->add('precio_compra')

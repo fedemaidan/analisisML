@@ -24,8 +24,10 @@ class PublicacionPropiaSubscriber implements EventSubscriber
     public function preUpdate(LifecycleEventArgs $args)
     {
         $entidad = $args->getEntity();
-        var_dump(get_class($entidad));
+
         if ($entidad instanceof PublicacionPropia) {
+
+            var_dump($entidad->getSincronizar());die;
 
             $arrayCambios = $args->getEntityChangeSet();
             $this->container->get('meli_service')->editarCamposPublicacionMercadolibre($entidad, $arrayCambios);

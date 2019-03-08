@@ -178,6 +178,9 @@ class MeliService
             $publicacion->setCantidadVendidos($publicacionDatos->sold_quantity);
             $publicacion->setCategoriaML($publicacionDatos->category_id);
 
+            var_dump($publicacion->getSincronizar());
+            $publicacion->cancelSinc();
+            var_dump($publicacion->getSincronizar());die;
             /* Cargar datos */
             $this->em->persist($publicacion);	
 

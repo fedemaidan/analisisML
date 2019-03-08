@@ -41,11 +41,11 @@ class PublicacionPropiaMLAdmin extends AbstractAdmin
         $listMapper
             ->add('imagenPrincipal','html')
             ->add('titulo')
-            ->add('publicacion_ebay.cantidadVendidosEbay')
             ->add('precioCompra')
             ->add('link','url')
             ->add('vendedor',null, ["label" => "Id Vendedor"])
             ->add('categoriaML')
+            ->add('publicacion_ebay.cantidadVendidosEbay', null, ["label" => "Vendidos Ebay"])
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),

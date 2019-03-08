@@ -5,6 +5,7 @@ use AppBundle\Entity\Autoridad;
 
 trait PublicacionMLTrait 
 {
+    private $sincronizar = true;
 
     /**
      * @var int
@@ -65,12 +66,18 @@ trait PublicacionMLTrait
     private $cantidadVendidos;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="cantidadVistas", type="integer", nullable=true)
+     */
+    private $cantidadVistas;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="categoria_ml", type="string", length=255)
      */
     private $categoriaML;
-
     
     /**
      * @var Producto
@@ -322,6 +329,29 @@ trait PublicacionMLTrait
         return $this->cantidadVendidos;
     }
 
+    /**
+     * Set cantidadVistas
+     *
+     * @param integer $cantidadVistas
+     *
+     * @return PublicacionML
+     */
+    public function setCantidadVistas($cantidadVistas)
+    {
+        $this->cantidadVistas = $cantidadVistas;
+
+        return $this;
+    }
+
+    /**
+     * Get cantidadVistas
+     *
+     * @return int
+     */
+    public function getCantidadVistas()
+    {
+        return $this->cantidadVistas;
+    }
 
 //trait
     public function getImagenesFoto() {
@@ -393,7 +423,12 @@ public function getImagenPrincipal() {
         return $this->producto;
     }
 
-    
+    public function cancelSinc() {
+        $this->sincronizar = false;
+    }
 
+    public function getSincronizar() {
+        return $this->sincronizar;
+    }
     
 }
