@@ -314,53 +314,53 @@ class MeliService
         $ebay = $publicacionPropia->getPublicacionEbay();
         $precio = $this->calcularPrecio($ebay->getCategoriaEbay(), $ebay->getPrecioCompra());
         
-        // $publicacionPropia->setTitulo($this->armarTitulo($ebay->getTitulo()));
-        // $publicacionPropia->setDescripcion($this->generarDescripcion($ebay));
-        // $publicacionPropia->setPrecioCompra($precio);
+        $publicacionPropia->setTitulo($this->armarTitulo($ebay->getTitulo()));
+        $publicacionPropia->setDescripcion($this->generarDescripcion($ebay));
+        $publicacionPropia->setPrecioCompra($precio);
 
 
-        // foreach ($ebay->getEspecificaciones() as $key => $especificacion) {
-        //     /** Buscamos un attributo con nombre y valor igual al de la especificacion */
-        //     $nombreEspecificacion = $especificacion->getName();
-        //     $atributo = $this->em->getRepository(AtributoML::class)
-        //     ->findOneBy(["ebayName" => $nombreEspecificacion, "valueName" => $especificacion->getValue()]);
+        foreach ($ebay->getEspecificaciones() as $key => $especificacion) {
+            /** Buscamos un attributo con nombre y valor igual al de la especificacion */
+            $nombreEspecificacion = $especificacion->getName();
+            $atributo = $this->em->getRepository(AtributoML::class)
+            ->findOneBy(["ebayName" => $nombreEspecificacion, "valueName" => $especificacion->getValue()]);
 
 
-        //     if (!$atributo && ($nombreEspecificacion == "MPN" || $nombreEspecificacion == "UPC" || $nombreEspecificacion == "EAN")) {
-        //         $atributo = new AtributoML();
-        //         $atributo->setIdMl($nombreEspecificacion);
-        //         $atributo->setName($nombreEspecificacion);
-        //         $atributo->setValueName($especificacion->getValue());
-        //         $atributo->setAttributeGroupId("OTHERS");
-        //         $atributo->setAttributeGroupName("Otros");
-        //         $atributo->setEbayName($nombreEspecificacion);
-        //         $this->em->persist($atributo);
-        //     }
+            if (!$atributo && ($nombreEspecificacion == "MPN" || $nombreEspecificacion == "UPC" || $nombreEspecificacion == "EAN")) {
+                $atributo = new AtributoML();
+                $atributo->setIdMl($nombreEspecificacion);
+                $atributo->setName($nombreEspecificacion);
+                $atributo->setValueName($especificacion->getValue());
+                $atributo->setAttributeGroupId("OTHERS");
+                $atributo->setAttributeGroupName("Otros");
+                $atributo->setEbayName($nombreEspecificacion);
+                $this->em->persist($atributo);
+            }
             
-        //     if (!$atributo && ($nombreEspecificacion == "Compatible Operating System" || $nombreEspecificacion == "Compatibility")) {
-        //         if ($especificacion->getValue() == "ios") {
-        //             $atributo = $this->em->getRepository(AtributoML::class)->findOneBy(["ebayName" => $nombreEspecificacion, "valueName" => "iOS"]);
-        //         }
-        //         if ($especificacion->getValue() == "Android" || strpos($ebay->getTitulo(), 'pple') === false) {
-        //             $atributo = $this->em->getRepository(AtributoML::class)->findOneBy(["ebayName" => $nombreEspecificacion, "valueName" => "Android"]);
-        //         }
-        //     }
+            if (!$atributo && ($nombreEspecificacion == "Compatible Operating System" || $nombreEspecificacion == "Compatibility")) {
+                if ($especificacion->getValue() == "ios") {
+                    $atributo = $this->em->getRepository(AtributoML::class)->findOneBy(["ebayName" => $nombreEspecificacion, "valueName" => "iOS"]);
+                }
+                if ($especificacion->getValue() == "Android" || strpos($ebay->getTitulo(), 'pple') === false) {
+                    $atributo = $this->em->getRepository(AtributoML::class)->findOneBy(["ebayName" => $nombreEspecificacion, "valueName" => "Android"]);
+                }
+            }
             
-        //     if ($atributo) {
-        //         $publicacionPropia->addAtributo($atributo);
-        //     }
+            if ($atributo) {
+                $publicacionPropia->addAtributo($atributo);
+            }
 
 
-        //     if (!$atributo && ($nombreEspecificacion == "Waterproof")) {
+            if (!$atributo && ($nombreEspecificacion == "Waterproof")) {
 
-        //         $atributo1 = $this->em->getRepository(AtributoML::class)->findOneBy([ "idMl" =>  "IS_WATER_RESISTANT", "valueName" => "Sí"]);
-        //         $atributo2 = $this->em->getRepository(AtributoML::class)->findOneBy([ "idMl" =>  "IS_WATERPROOF", "valueName" => "Sí"]);
-        //         $publicacionPropia->addAtributo($atributo1);
-        //         $publicacionPropia->addAtributo($atributo2);
-        //     }
+                $atributo1 = $this->em->getRepository(AtributoML::class)->findOneBy([ "idMl" =>  "IS_WATER_RESISTANT", "valueName" => "Sí"]);
+                $atributo2 = $this->em->getRepository(AtributoML::class)->findOneBy([ "idMl" =>  "IS_WATERPROOF", "valueName" => "Sí"]);
+                $publicacionPropia->addAtributo($atributo1);
+                $publicacionPropia->addAtributo($atributo2);
+            }
 
 
-        // }
+        }
 
         $this->em->persist($publicacionPropia);
         $this->em->flush();
