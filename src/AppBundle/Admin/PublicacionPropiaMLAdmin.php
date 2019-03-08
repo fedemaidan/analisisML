@@ -29,6 +29,7 @@ class PublicacionPropiaMLAdmin extends AbstractAdmin
             ->add('producto.modelo')
             ->add('producto','doctrine_orm_model_autocomplete',[], null, ['property'=>'nombre', 'multiple' => true])
             ->add('cantidadVendidos')
+            ->add('cantidadVistas')
             ->add('categoriaML')
         ;
     }
@@ -46,6 +47,7 @@ class PublicacionPropiaMLAdmin extends AbstractAdmin
             ->add('vendedor',null, ["label" => "Id Vendedor"])
             ->add('categoriaML')
             ->add('publicacion_ebay.cantidadVendidosEbay', null, ["label" => "Vendidos Ebay"])
+            ->add('cantidadVistas')
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
@@ -93,6 +95,7 @@ class PublicacionPropiaMLAdmin extends AbstractAdmin
             ->add('link')
             ->add('imagenesFoto','html')
             ->add('cantidadVendidos')
+            ->add('cantidadVistas')
             ->add('categoriaML')
             ->add('atributos', null, array('label' => 'Atributos', 'expanded' => true, 'by_reference' => true, 'multiple' => true))
         ;
