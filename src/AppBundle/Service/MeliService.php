@@ -117,7 +117,7 @@ class MeliService
 
                     $publicacion->setImagenes($pictures);
                 }
-                if ($clase != "PublicacionPropia") {
+                
                     
                     if (isset($datosItem->attributes)) {
                         foreach ($datosItem->attributes as $key => $attr) {
@@ -137,32 +137,33 @@ class MeliService
                                 $this->em->flush();
                             }
 
+                            if ($clase != "PublicacionPropia") {
+                                if ($atributo->getIdMl() == 'UPC') {
+                                    
+                                        $publicacion->setUpc((int)$atributo->getValueName());
+                                }
 
-                            if ($atributo->getIdMl() == 'UPC') {
-                                
-                                    $publicacion->setUpc((int)$atributo->getValueName());
-                            }
+                                if ($atributo->getIdMl() == 'BRAND') {
+                                    $publicacion->setBrand($atributo->getValueName());
+                                }
 
-                            if ($atributo->getIdMl() == 'BRAND') {
-                                $publicacion->setBrand($atributo->getValueName());
-                            }
+                                if ($atributo->getIdMl() == 'MODEL') {
+                                    $publicacion->setModel($atributo->getValueName());
+                                }
 
-                            if ($atributo->getIdMl() == 'MODEL') {
-                                $publicacion->setModel($atributo->getValueName());
-                            }
+                                if ($atributo->getIdMl() == 'MPN') {
+                                    $publicacion->setMpn($atributo->getValueName());
+                                }
 
-                            if ($atributo->getIdMl() == 'MPN') {
-                                $publicacion->setMpn($atributo->getValueName());
-                            }
-
-                            if ($atributo->getIdMl() == 'EAN') {
-                                $publicacion->setEan((int)$atributo->getValueName());
+                                if ($atributo->getIdMl() == 'EAN') {
+                                    $publicacion->setEan((int)$atributo->getValueName());
+                                }
                             }
                             
                             $publicacion->addAtributo($atributo);
                         }
                     } 
-                } else {
+                if ($clase == "PublicacionPropia") { 
                     $desc = $meli->get("items/".$publicacionDatos->id."/description");
                     $publicacion->setDescripcion($desc["body"]->plain_text);
                 }
