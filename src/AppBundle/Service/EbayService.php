@@ -93,8 +93,8 @@ class EbayService
     	$serviceShopping = $this->getShoppingService();
 
     	/* Genero busqueda para calcular páginas*/
-        $request = $this->generarRequestBusqueda($busqueda, 1, 100);
-		$response = $serviceFinding->findItemsAdvanced($request);
+        $request = $this->generarRequestBusqueda($busqueda, 1, 10);
+        $response = $serviceFinding->findItemsAdvanced($request);
         $limit = $response->paginationOutput->totalPages;
 
         if ($limit > 100) {
@@ -310,7 +310,9 @@ class EbayService
     		$this->imprimo("Guardo categoría " . $primaryCategory->categoryName . " - ". $primaryCategory->categoryId);
     		$categoria = new CategoriaEbay();
     		$categoria->setIdEbay($primaryCategory->categoryId);
-    		$categoria->setName($primaryCategory->categoryName);
+            $categoria->setName($primaryCategory->categoryName);
+            $categoria->setRatio(2.2);
+            $categoria->setShipping(10);
     		$this->em->persist($categoria);
     		$this->em->flush();
     	}
@@ -475,12 +477,37 @@ class EbayService
 
     private function cargoEspecificaciones($datosItem) {
         $especificaciones = [];
+        $hasUpc = false;
+
         if (isset($datosItem->Item->ItemSpecifics)) 
         {
             foreach ($datosItem->Item->ItemSpecifics->NameValueList as $key => $value) {
                 $especificaciones[$value->Name] = $value->Value[0];
+                if ($value->Name == 'UPC' && $value->Value[0] != 'Does not apply')
+                    $hasUpc = true;
             }
         }
+
+        if (!$hasUpc) {
+            $descripcion = $datosItem->Item->Description;
+            $document = new \DOMDocument('1.0', 'UTF-8');
+            
+            $internalErrors = libxml_use_internal_errors(true);
+            $document->loadHTML($descripcion);
+            libxml_use_internal_errors($internalErrors);
+
+            $element = $document->getElementById('subinfo');
+            $str = $element->nodeValue;
+            $pos = strpos($str, 'UPC:') + 4;
+            $length = strpos($str, '|') - $pos;
+        
+            $upc = trim(substr($str,$pos,$length));
+            var_dump($str);
+            var_dump($upc);
+            $especificaciones['UPC'] = $upc;
+        }
+
+        
         return $especificaciones;
     }
 
