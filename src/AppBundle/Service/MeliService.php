@@ -347,6 +347,8 @@ class MeliService
                 if ($especificacion->getValue() == "Android" || strpos($ebay->getTitulo(), 'pple') === false) {
                     $atributo = $this->em->getRepository(AtributoML::class)->findOneBy(["ebayName" => $nombreEspecificacion, "valueName" => "Android"]);
                 }
+
+                $publicacionPropia->addAtributo($atributo);
             }
 
 
