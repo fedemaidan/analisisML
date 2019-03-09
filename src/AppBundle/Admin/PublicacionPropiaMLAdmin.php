@@ -100,4 +100,16 @@ class PublicacionPropiaMLAdmin extends AbstractAdmin
             ->add('atributos', null, array('label' => 'Atributos', 'expanded' => true, 'by_reference' => true, 'multiple' => true))
         ;
     }
+
+    /**
+     * Overriden from (AbstractAdmin)
+     */
+    public function configureActionButtons($action, $object = null)
+    {
+        $list = parent::configureActionButtons($action, $object);
+        $list['custom_action'] = array(
+            'template' =>  'AppBundle:PublicacionesPropias:woocommerce_csv.html.twig',
+    );
+        return $list;
+    }
 }

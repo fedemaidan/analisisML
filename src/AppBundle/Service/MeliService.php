@@ -168,6 +168,7 @@ class MeliService
                 }
                 
             }
+            
             $idPubli = $publicacionDatos->id;
             $visits = $meli->get("visits/items?ids=".$publicacionDatos->id);
             $publicacion->setCantidadVistas($visits["body"]->$idPubli);

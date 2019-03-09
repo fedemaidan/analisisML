@@ -46,14 +46,29 @@ class PublicacionPropia
      */
     private $estado;
 
-    public $notificar_ml = true;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="woocommerce_id", type="string", length=255, nullable=true)
+     */
+    private $woocommerceId;
 
+    
+    public $notificar_ml = true;
 
     /**
      * @ORM\ManyToMany(targetEntity="AtributoML", inversedBy="publicacionPropia")
      * @ORM\JoinTable(name="publicaciones_propias_atributos_ml")
      */
     private $atributos;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="destacado", type="boolean", nullable=true)
+     */
+    private $destacado;
+
 
     /**
      * Set descripcion
@@ -149,5 +164,77 @@ class PublicacionPropia
     public function getEstado()
     {
         return $this->estado;
+    }
+
+    /**
+     * Set woocommerceId
+     *
+     * @param string $woocommerceId
+     *
+     * @return PublicacionPropia
+     */
+    public function setWoocommerceId($woocommerceId)
+    {
+        $this->woocommerceId = $woocommerceId;
+
+        return $this;
+    }
+
+    /**
+     * Get woocommerceId
+     *
+     * @return string
+     */
+    public function getWoocommerceId()
+    {
+        return $this->woocommerceId;
+    }
+
+    /**
+     * Set filtrarNew
+     *
+     * @param boolean $filtrarNew
+     *
+     * @return PublicacionPropia
+     */
+    public function setFiltrarNew($filtrarNew)
+    {
+        $this->filtrarNew = $filtrarNew;
+
+        return $this;
+    }
+
+    /**
+     * Get filtrarNew
+     *
+     * @return boolean
+     */
+    public function getFiltrarNew()
+    {
+        return $this->filtrarNew;
+    }
+
+    /**
+     * Set destacado
+     *
+     * @param boolean $destacado
+     *
+     * @return PublicacionPropia
+     */
+    public function setDestacado($destacado)
+    {
+        $this->destacado = $destacado;
+
+        return $this;
+    }
+
+    /**
+     * Get destacado
+     *
+     * @return boolean
+     */
+    public function getDestacado()
+    {
+        return $this->destacado;
     }
 }

@@ -430,5 +430,13 @@ public function getImagenPrincipal() {
     public function getSincronizar() {
         return $this->sincronizar;
     }
+
+    public function getMarca() {
+        foreach ($this->getAtributos() as $attr) {
+            if ($attr->getIdMl() == "BRAND") 
+                return $attr->getValueName();
+        }
+        return '';
+    }
     
 }
