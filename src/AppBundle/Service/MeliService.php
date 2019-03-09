@@ -117,7 +117,7 @@ class MeliService
 
                     $publicacion->setImagenes($pictures);
                 }
-                 
+                if ($clase != "PublicacionPropia") {
                     
                     if (isset($datosItem->attributes)) {
                         foreach ($datosItem->attributes as $key => $attr) {
@@ -162,7 +162,7 @@ class MeliService
                             $publicacion->addAtributo($atributo);
                         }
                     } 
-                if ($clase == "PublicacionPropia") {
+                } else {
                     $desc = $meli->get("items/".$publicacionDatos->id."/description");
                     $publicacion->setDescripcion($desc["body"]->plain_text);
                 }
