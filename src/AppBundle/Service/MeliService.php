@@ -337,6 +337,7 @@ class MeliService
                 $atributo->setAttributeGroupName("Otros");
                 $atributo->setEbayName($nombreEspecificacion);
                 $this->em->persist($atributo);
+                $publicacionPropia->addAtributo($atributo);
             }
             
             if (!$atributo && ($nombreEspecificacion == "Compatible Operating System" || $nombreEspecificacion == "Compatibility")) {
@@ -346,10 +347,6 @@ class MeliService
                 if ($especificacion->getValue() == "Android" || strpos($ebay->getTitulo(), 'pple') === false) {
                     $atributo = $this->em->getRepository(AtributoML::class)->findOneBy(["ebayName" => $nombreEspecificacion, "valueName" => "Android"]);
                 }
-            }
-            
-            if ($atributo) {
-                $publicacionPropia->addAtributo($atributo);
             }
 
 
