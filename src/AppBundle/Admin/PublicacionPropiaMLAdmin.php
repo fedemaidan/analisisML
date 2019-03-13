@@ -43,16 +43,14 @@ class PublicacionPropiaMLAdmin extends AbstractAdmin
             ->add('imagenPrincipal','html')
             ->add('titulo')
             ->add('precioCompra')
-            ->add('link','url')
-            ->add('vendedor',null, ["label" => "Id Vendedor"])
-            ->add('categoriaML')
-            ->add('publicacion_ebay.cantidadVendidosEbay', null, ["label" => "Vendidos Ebay"])
             ->add('cantidadVistas')
+            ->add('publicacion_ebay.cantidadVendidosEbay', null, ["label" => "Vendidos Ebay"])
+            ->add('destacado',null, ["editable" => true])
+            ->add('linkHTML','html')
+            ->add('linkEbayHTML','html')
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
-                    'edit' => array(),
-                    'delete' => array(),
                 ),
             ))
         ;

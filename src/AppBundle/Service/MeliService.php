@@ -376,18 +376,20 @@ class MeliService
         $desc = [ ];
 
         foreach ($campos as $key => $campo) {
-            if ($key != "descripcion")
-                $body[self::MATCH_ARRAY[$key]] = $campo[1];
-            else {
-                $desc["plain_text"] = $campo[1];
-                $desc["text_plain"] = $campo[1];
-                $desc["text"] = $campo[1];
-                $datos = $meli->put("items/".$publicacionPropia->getIdMl()."/description", $desc, [ "access_token" => $token ]);
-        
-                if ($datos["httpCode"] != 200 ) {
-                    throw new \Exception($datos["body"]->message, 1);
+            if (array_key_exists($key ,self::MATCH_ARRAY)){
+                if ($key != "descripcion")
+                    $body[self::MATCH_ARRAY[$key]] = $campo[1];
+                else {
+                    $desc["plain_text"] = $campo[1];
+                    $desc["text_plain"] = $campo[1];
+                    $desc["text"] = $campo[1];
+                    $datos = $meli->put("items/".$publicacionPropia->getIdMl()."/description", $desc, [ "access_token" => $token ]);
+            
+                    if ($datos["httpCode"] != 200 ) {
+                        throw new \Exception($datos["body"]->message, 1);
+                    }
+            
                 }
-        
             }
         }
 
@@ -399,14 +401,16 @@ class MeliService
 
         if (count($atributos) > 0)
             $body["attributes"] = $atributos;
-
-        $datos = $meli->put("items/".$publicacionPropia->getIdMl(), $body, [ "access_token" => $token ]);
+        if (count($body) > 0) {
+            $datos = $meli->put("items/".$publicacionPropia->getIdMl(), $body, [ "access_token" => $token ]);
         
-        if ($datos["httpCode"] != 200 ) {
-            throw new \Exception($datos["body"]->message, 1);
-        }
+            if ($datos["httpCode"] != 200 ) {
+                throw new \Exception($datos["body"]->message, 1);
+            }
 
-        return $datos;
+            return $datos;
+        }
+        
 
     }
 

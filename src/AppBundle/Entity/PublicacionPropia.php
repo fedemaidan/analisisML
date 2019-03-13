@@ -237,4 +237,9 @@ class PublicacionPropia
     {
         return $this->destacado;
     }
+
+
+    public function getLinkEbayHTML() {
+        return "<a class='btn btn-primary' href='".$this->getPublicacionEbay()->getLinkPublicacion()."' target='_blank'>Link EBAY</a>";
+    }
 }

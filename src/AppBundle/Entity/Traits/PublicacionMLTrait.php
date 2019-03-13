@@ -438,5 +438,9 @@ public function getImagenPrincipal() {
         }
         return '';
     }
+
+    public function getLinkHTML() {
+        return "<a class='btn btn-warning' href='".$this->link."' target='_blank'>Link ML</a>";
+    }
     
 }
