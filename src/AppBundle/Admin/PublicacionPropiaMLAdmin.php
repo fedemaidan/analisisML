@@ -110,4 +110,9 @@ class PublicacionPropiaMLAdmin extends AbstractAdmin
     );
         return $list;
     }
+
+    public function preUpdate($publicacion)
+    {
+        $publicacion->cancelSinc();
+    }    
 }
