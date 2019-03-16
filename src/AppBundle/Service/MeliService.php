@@ -21,7 +21,7 @@ use GuzzleHttp\Client;
 
 class MeliService
 {
-    const DOLAR = 43;
+    const DOLAR = 42;
     const MATCH_ARRAY = [
                             "titulo"        => "title",
                             "categoriaML"   => "category_id",
@@ -400,7 +400,7 @@ class MeliService
         }
 
         if (count($atributos) > 0)
-            $body["attributes"] = $atributos;
+            $body["attributes"] = $atributos; */
         if (count($body) > 0) {
             $datos = $meli->put("items/".$publicacionPropia->getIdMl(), $body, [ "access_token" => $token ]);
         
@@ -411,7 +411,7 @@ class MeliService
             return $datos;
         }
         
-*/
+
     }
 
     
