@@ -407,10 +407,10 @@ class MeliService
             if ($datos["httpCode"] != 200 ) {
                 throw new \Exception($datos["body"]->message, 1);
             }
-*/
+
             return $datos;
-  //      }
-        
+        }
+*/        
 
     }
 
