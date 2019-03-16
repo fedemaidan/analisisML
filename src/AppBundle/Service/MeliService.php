@@ -21,7 +21,7 @@ use GuzzleHttp\Client;
 
 class MeliService
 {
-    const DOLAR = 48;
+    const DOLAR = 42;
     const MATCH_ARRAY = [
                             "titulo"        => "title",
                             "categoriaML"   => "category_id",
