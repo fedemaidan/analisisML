@@ -314,6 +314,7 @@ class MeliService
     }
 
     public function actualizarPublicacion($publicacionPropia) {
+        var_dump($publicacionPropia->getId());
         $ebay = $publicacionPropia->getPublicacionEbay();
         $precio = $this->calcularPrecio($ebay->getCategoriaEbay(), $ebay->getPrecioCompra());
         
