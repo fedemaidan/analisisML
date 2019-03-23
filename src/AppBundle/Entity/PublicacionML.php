@@ -18,20 +18,6 @@ class PublicacionML
     /**
      * @var string
      *
-     * @ORM\Column(name="brand", type="string", length=255, nullable=true)
-     */
-    private $brand;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="model", type="string", length=255, nullable=true)
-     */
-    private $model;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="mpn", type="string", length=255, nullable=true)
      */
     private $mpn;
@@ -51,56 +37,7 @@ class PublicacionML
     private $ean;
     
     
-
-
-    /**
-     * Set brand
-     *
-     * @param string $brand
-     *
-     * @return PublicacionML
-     */
-    public function setBrand($brand)
-    {
-        $this->brand = $brand;
-
-        return $this;
-    }
-
-    /**
-     * Get brand
-     *
-     * @return string
-     */
-    public function getBrand()
-    {
-        return $this->brand;
-    }
-
-    /**
-     * Set model
-     *
-     * @param string $model
-     *
-     * @return PublicacionML
-     */
-    public function setModel($model)
-    {
-        $this->model = $model;
-
-        return $this;
-    }
-
-    /**
-     * Get model
-     *
-     * @return string
-     */
-    public function getModel()
-    {
-        return $this->model;
-    }
-
+    
     /**
      * Set mpn
      *

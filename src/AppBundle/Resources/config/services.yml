@@ -80,3 +80,22 @@ services:
         arguments: [ @service_container]
         tags:
             - { name: doctrine.event_subscriber, , event: preUpdate , lazy: true }
+    
+    productos_service:
+        class:     AppBundle\Service\ProductosService
+        arguments:
+            { container: @service_container, entityManager: "@doctrine.orm.entity_manager" }
+    
+    app.admin.producto:
+        class: AppBundle\Admin\ProductoAdmin
+        arguments: [~, AppBundle\Entity\Producto, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Gestión, label: Producto }
+        public: true
+
+    app.admin.atributo_ml:
+        class: AppBundle\Admin\AtributoMLAdmin
+        arguments: [~, AppBundle\Entity\AtributoML, Sonata\AdminBundle\Controller\CRUDController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: AtributoML }
+        public: true

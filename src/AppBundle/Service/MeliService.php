@@ -100,6 +100,7 @@ class MeliService
 
     public function cargarPublicacion($publicacionDatos, $clase) {
             $meli = new Meli("","");
+            
     		$publicacion = $this->em->getRepository("AppBundle:".$clase)->findOneByIdMl($publicacionDatos->id);
 
             if (!$publicacion) {
@@ -136,11 +137,9 @@ class MeliService
                                 $this->em->persist($atributo);
                                 $this->em->flush();
                             }
-
-                            if ($clase != "PublicacionPropia") {
-                                if ($atributo->getIdMl() == 'UPC') {
-                                    
-                                        $publicacion->setUpc((int)$atributo->getValueName());
+                            else {
+                                if ($atributo->getIdMl() == 'UPC') {    
+                                    $publicacion->setUpc((int)$atributo->getValueName());
                                 }
 
                                 if ($atributo->getIdMl() == 'BRAND') {
@@ -158,8 +157,9 @@ class MeliService
                                 if ($atributo->getIdMl() == 'EAN') {
                                     $publicacion->setEan((int)$atributo->getValueName());
                                 }
+
                             }
-                            
+                                
                             $publicacion->addAtributo($atributo);
                         }
                     } 
@@ -322,10 +322,9 @@ class MeliService
         $publicacionPropia->setDescripcion($this->generarDescripcion($ebay));
         $publicacionPropia->setPrecioCompra($precio);
 
-/*
         foreach ($ebay->getEspecificaciones() as $key => $especificacion) {
             /** Buscamos un attributo con nombre y valor igual al de la especificacion */
-  /*          $nombreEspecificacion = $especificacion->getName();
+            $nombreEspecificacion = $especificacion->getName();
             $atributo = $this->em->getRepository(AtributoML::class)
             ->findOneBy(["ebayName" => $nombreEspecificacion, "valueName" => $especificacion->getValue()]);
 
@@ -364,7 +363,7 @@ class MeliService
 
 
         }
-*/
+
         $this->em->persist($publicacionPropia);
         $this->em->flush();
     }

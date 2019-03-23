@@ -32,11 +32,11 @@ class CRUDController extends Controller
     public function sincronizarCuentaMLAction()
     {
         $cuenta = $this->admin->getSubject();
+        $empresa = 'youtec';
         
         /** Sincronizar con ML **/
         $id = $cuenta->getId();
-        $id = 30;
-        return new RedirectResponse("https://multiml.xyz/iniciarConML?cuenta_id=".$id);
+        
+        return new RedirectResponse("https://multiml.xyz/iniciarConML?cuenta_id=".$id.'&empresa='+$empresa);
     }
 }
-

@@ -87,7 +87,7 @@ sonata_admin:
             OPERATOR: OPERATOR
             EXPORT: EXPORT
             MASTER: MASTER
-    title:      SymfonyAdmin
+    #title:      SymfonyAdmin
 #    title_logo: bundles/BUNDLE1/images/ico.png # Define your own logo here
 
 sonata_doctrine_orm_admin:

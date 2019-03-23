@@ -242,4 +242,27 @@ class PublicacionPropia
     public function getLinkEbayHTML() {
         return "<a class='btn btn-primary' href='".$this->getPublicacionEbay()->getLinkPublicacion()."' target='_blank'>Link EBAY</a>";
     }
+
+        
+    public function getUpc() {
+       return $this->getValueAttr("UPC");
+    }
+
+    public function getMpn() {
+        return $this->getValueAttr("MPN");
+    }
+
+    public function getEan() {
+        return $this->getValueAttr("EAN");
+    }
+    
+    private function getValueAttr($attrId) {
+        foreach ($this->getAtributos() as $attr) {
+            if ($attr->getIdMl() == $attrId)
+                    return $attr->getValueName();
+                
+        }
+
+        return null;
+    }
 }

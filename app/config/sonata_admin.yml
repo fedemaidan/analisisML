@@ -1,5 +1,5 @@
 sonata_admin:
-    title:      Gestión YouTec-Inova
+    title:      Gestión YouTec
     title_logo: youtec.jpg
     security:
         handler: sonata.admin.security.handler.role
@@ -38,4 +38,4 @@ sonata_admin:
             Otros:
                 items:
                     - app.admin.cuenta
-            
+                    - app.admin.producto

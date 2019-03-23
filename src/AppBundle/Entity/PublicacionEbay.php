@@ -131,6 +131,15 @@ class PublicacionEbay
      */
     private $especificaciones;
 
+        
+    /**
+     * @var Producto
+     * @ORM\ManyToOne(targetEntity="Producto")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $producto;
+
+
 
     /**
      * Get id
@@ -603,5 +612,29 @@ class PublicacionEbay
 
     public function __toString() {
         return $this->id." - ".$this->titulo;
+    }
+
+    /**
+     * Set producto
+     *
+     * @param \AppBundle\Entity\Producto $producto
+     *
+     * @return PublicacionEbay
+     */
+    public function setProducto(\AppBundle\Entity\Producto $producto = null)
+    {
+        $this->producto = $producto;
+
+        return $this;
+    }
+
+    /**
+     * Get producto
+     *
+     * @return \AppBundle\Entity\Producto
+     */
+    public function getProducto()
+    {
+        return $this->producto;
     }
 }

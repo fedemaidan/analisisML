@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Producto
 {
     const ORM_ENTITY = "AppBundle:Producto";
-    const NO_ESTA_CODIGO = "NO_ESTA";
+
     /**
      * @var int
      *
@@ -23,6 +23,14 @@ class Producto
      */
     private $id;
 
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="destacado", type="boolean", nullable=true)
+     */
+    private $destacado;
+
     /**
      * @var string
      *
@@ -30,33 +38,6 @@ class Producto
      */
     private $nombre;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="codigo", type="string", length=255)
-     */
-    private $codigo;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="categoria_interna", type="string", length=255, nullable=true)
-     */
-    private $categoria_interna;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="categoria_match_ml", type="string", length=255, nullable=true)
-     */
-    private $categoria_match_ml;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="rotacion", type="string", length=255, nullable=true)
-     */
-    private $rotacion;
 
     /**
      * @var string
@@ -68,51 +49,10 @@ class Producto
     /**
      * @var string
      *
-     * @ORM\Column(name="peso", type="decimal", precision=7, scale=2, nullable=true)
+     * @ORM\Column(name="precio_referencia", type="decimal", precision=9, scale=2, nullable=true)
      */
-    private $peso;
+    private $precioReferencia;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="peso_caja", type="decimal", precision=7, scale=2, nullable=true)
-     */
-    private $peso_caja;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="ancho", type="decimal", precision=7, scale=2, nullable=true)
-     */
-    private $ancho;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="largo", type="decimal", precision=7, scale=2, nullable=true)
-     */
-    private $largo;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="profundidad", type="decimal", precision=7, scale=2, nullable=true)
-     */
-    private $profundidad;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="precio_minimo", type="decimal", precision=7, scale=2, nullable=true)
-     */
-    private $precio_minimo;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="precio_maximo", type="decimal", precision=7, scale=2, nullable=true)
-     */
-    private $precio_maximo;
     /**
      * @var string
      *
@@ -144,6 +84,20 @@ class Producto
     /**
      * @var string
      *
+     * @ORM\Column(name="modelo4", type="string", length=255, nullable=true)
+     */
+    private $modelo4;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="modelo5", type="string", length=255, nullable=true)
+     */
+    private $modelo5;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="ean", type="bigint", nullable=true)
      */
     private $ean;
@@ -165,46 +119,50 @@ class Producto
     /**
      * @var string
      *
-     * @ORM\Column(name="contenido_paquete", type="string", length=610, nullable=true)
-     */
-    private $contenido_paquete;
-
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="web_oficial", type="string", length=255, nullable=true)
-     */
-    private $web_oficial;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="manual_url", type="string", length=255, nullable=true)
-     */
-    private $manual_url;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="origen", type="string", length=255, nullable=true)
-     */
-    private $origen;
-
-
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="cantidad", type="integer")
      */
     private $cantidad;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="AtributoML", inversedBy="producto")
+     * @ORM\JoinTable(name="productos_atributos_ml")
+     */
+    private $atributos;
+
+    /**
+     * @ORM\OneToMany(targetEntity="PublicacionML", mappedBy="producto")
+     */
+    private $competencia;
+
+    /**
+     * @ORM\OneToMany(targetEntity="PublicacionPropia", mappedBy="producto")
+     */
+    private $publicaciones;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="PublicacionEbay", mappedBy="producto")
+     */
+    private $proveedores;
+    /**
+     * @var CategoriaML
+     * @ORM\ManyToOne(targetEntity="CategoriaML")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $categoriaMl;
+
+
+    /**
+     * @var CategoriaEbay
+     * @ORM\ManyToOne(targetEntity="CategoriaEbay")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $categoriaEbay;
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -233,6 +191,54 @@ class Producto
     public function getNombre()
     {
         return $this->nombre;
+    }
+
+    /**
+     * Set descripcion
+     *
+     * @param string $descripcion
+     *
+     * @return Producto
+     */
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
+
+        return $this;
+    }
+
+    /**
+     * Get descripcion
+     *
+     * @return string
+     */
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
+
+    /**
+     * Set precioReferencia
+     *
+     * @param string $precioReferencia
+     *
+     * @return Producto
+     */
+    public function setPrecioReferencia($precioReferencia)
+    {
+        $this->precioReferencia = $precioReferencia;
+
+        return $this;
+    }
+
+    /**
+     * Get precioReferencia
+     *
+     * @return string
+     */
+    public function getPrecioReferencia()
+    {
+        return $this->precioReferencia;
     }
 
     /**
@@ -284,334 +290,6 @@ class Producto
     }
 
     /**
-     * Set cantidad
-     *
-     * @param integer $cantidad
-     *
-     * @return Producto
-     */
-    public function setCantidad($cantidad = 0)
-    {
-        $this->cantidad = $cantidad;
-
-        return $this;
-    }
-
-    /**
-     * Get cantidad
-     *
-     * @return integer
-     */
-    public function getCantidad()
-    {
-        return $this->cantidad;
-    }
-
-    public function __toString() {
-        $aux = "";
-        
-        if ($this->getMarca() != null) {
-            $aux .= $this->getMarca();
-        }
-        $aux .= "_";
-
-        if ($this->getModelo() != null) {
-            $aux .= $this->getModelo();
-        } 
-
-        return $aux;
-        
-    }
-
-    /**
-     * Set codigo
-     *
-     * @param string $codigo
-     *
-     * @return Producto
-     */
-    public function setCodigo($codigo)
-    {
-        $this->codigo = $codigo;
-
-        return $this;
-    }
-
-    /**
-     * Get codigo
-     *
-     * @return string
-     */
-    public function getCodigo()
-    {
-        return $this->codigo;
-    }
-
-    /**
-     * Set categoriaInterna
-     *
-     * @param string $categoriaInterna
-     *
-     * @return Producto
-     */
-    public function setCategoriaInterna($categoriaInterna)
-    {
-        $this->categoria_interna = $categoriaInterna;
-
-        return $this;
-    }
-
-    /**
-     * Get categoriaInterna
-     *
-     * @return string
-     */
-    public function getCategoriaInterna()
-    {
-        return $this->categoria_interna;
-    }
-
-    /**
-     * Set categoriaMatchMl
-     *
-     * @param string $categoriaMatchMl
-     *
-     * @return Producto
-     */
-    public function setCategoriaMatchMl($categoriaMatchMl)
-    {
-        $this->categoria_match_ml = $categoriaMatchMl;
-
-        return $this;
-    }
-
-    /**
-     * Get categoriaMatchMl
-     *
-     * @return string
-     */
-    public function getCategoriaMatchMl()
-    {
-        return $this->categoria_match_ml;
-    }
-
-    /**
-     * Set rotacion
-     *
-     * @param string $rotacion
-     *
-     * @return Producto
-     */
-    public function setRotacion($rotacion)
-    {
-        $this->rotacion = $rotacion;
-
-        return $this;
-    }
-
-    /**
-     * Get rotacion
-     *
-     * @return string
-     */
-    public function getRotacion()
-    {
-        return $this->rotacion;
-    }
-
-    /**
-     * Set descripcion
-     *
-     * @param string $descripcion
-     *
-     * @return Producto
-     */
-    public function setDescripcion($descripcion)
-    {
-        $this->descripcion = $descripcion;
-
-        return $this;
-    }
-
-    /**
-     * Get descripcion
-     *
-     * @return string
-     */
-    public function getDescripcion()
-    {
-        return $this->descripcion;
-    }
-
-    /**
-     * Set peso
-     *
-     * @param string $peso
-     *
-     * @return Producto
-     */
-    public function setPeso($peso)
-    {
-        $this->peso = $peso;
-
-        return $this;
-    }
-
-    /**
-     * Get peso
-     *
-     * @return string
-     */
-    public function getPeso()
-    {
-        return $this->peso;
-    }
-
-    /**
-     * Set pesoCaja
-     *
-     * @param string $pesoCaja
-     *
-     * @return Producto
-     */
-    public function setPesoCaja($pesoCaja)
-    {
-        $this->peso_caja = $pesoCaja;
-
-        return $this;
-    }
-
-    /**
-     * Get pesoCaja
-     *
-     * @return string
-     */
-    public function getPesoCaja()
-    {
-        return $this->peso_caja;
-    }
-
-    /**
-     * Set ancho
-     *
-     * @param string $ancho
-     *
-     * @return Producto
-     */
-    public function setAncho($ancho)
-    {
-        $this->ancho = $ancho;
-
-        return $this;
-    }
-
-    /**
-     * Get ancho
-     *
-     * @return string
-     */
-    public function getAncho()
-    {
-        return $this->ancho;
-    }
-
-    /**
-     * Set largo
-     *
-     * @param string $largo
-     *
-     * @return Producto
-     */
-    public function setLargo($largo)
-    {
-        $this->largo = $largo;
-
-        return $this;
-    }
-
-    /**
-     * Get largo
-     *
-     * @return string
-     */
-    public function getLargo()
-    {
-        return $this->largo;
-    }
-
-    /**
-     * Set profundidad
-     *
-     * @param string $profundidad
-     *
-     * @return Producto
-     */
-    public function setProfundidad($profundidad)
-    {
-        $this->profundidad = $profundidad;
-
-        return $this;
-    }
-
-    /**
-     * Get profundidad
-     *
-     * @return string
-     */
-    public function getProfundidad()
-    {
-        return $this->profundidad;
-    }
-
-    /**
-     * Set precioMinimo
-     *
-     * @param string $precioMinimo
-     *
-     * @return Producto
-     */
-    public function setPrecioMinimo($precioMinimo)
-    {
-        $this->precio_minimo = $precioMinimo;
-
-        return $this;
-    }
-
-    /**
-     * Get precioMinimo
-     *
-     * @return string
-     */
-    public function getPrecioMinimo()
-    {
-        return $this->precio_minimo;
-    }
-
-    /**
-     * Set precioMaximo
-     *
-     * @param string $precioMaximo
-     *
-     * @return Producto
-     */
-    public function setPrecioMaximo($precioMaximo)
-    {
-        $this->precio_maximo = $precioMaximo;
-
-        return $this;
-    }
-
-    /**
-     * Get precioMaximo
-     *
-     * @return string
-     */
-    public function getPrecioMaximo()
-    {
-        return $this->precio_maximo;
-    }
-
-    /**
      * Set modelo2
      *
      * @param string $modelo2
@@ -660,99 +338,51 @@ class Producto
     }
 
     /**
-     * Set contenidoPaquete
+     * Set modelo4
      *
-     * @param string $contenidoPaquete
+     * @param string $modelo4
      *
      * @return Producto
      */
-    public function setContenidoPaquete($contenidoPaquete)
+    public function setModelo4($modelo4)
     {
-        $this->contenido_paquete = $contenidoPaquete;
+        $this->modelo4 = $modelo4;
 
         return $this;
     }
 
     /**
-     * Get contenidoPaquete
+     * Get modelo4
      *
      * @return string
      */
-    public function getContenidoPaquete()
+    public function getModelo4()
     {
-        return $this->contenido_paquete;
+        return $this->modelo4;
     }
 
     /**
-     * Set webOficial
+     * Set modelo5
      *
-     * @param string $webOficial
+     * @param string $modelo5
      *
      * @return Producto
      */
-    public function setWebOficial($webOficial)
+    public function setModelo5($modelo5)
     {
-        $this->web_oficial = $webOficial;
+        $this->modelo5 = $modelo5;
 
         return $this;
     }
 
     /**
-     * Get webOficial
+     * Get modelo5
      *
      * @return string
      */
-    public function getWebOficial()
+    public function getModelo5()
     {
-        return $this->web_oficial;
-    }
-
-    /**
-     * Set manualUrl
-     *
-     * @param string $manualUrl
-     *
-     * @return Producto
-     */
-    public function setManualUrl($manualUrl)
-    {
-        $this->manual_url = $manualUrl;
-
-        return $this;
-    }
-
-    /**
-     * Get manualUrl
-     *
-     * @return string
-     */
-    public function getManualUrl()
-    {
-        return $this->manual_url;
-    }
-
-    /**
-     * Set origen
-     *
-     * @param string $origen
-     *
-     * @return Producto
-     */
-    public function setOrigen($origen)
-    {
-        $this->origen = $origen;
-
-        return $this;
-    }
-
-    /**
-     * Get origen
-     *
-     * @return string
-     */
-    public function getOrigen()
-    {
-        return $this->origen;
+        return $this->modelo5;
     }
 
     /**
@@ -825,5 +455,313 @@ class Producto
     public function getUpc()
     {
         return $this->upc;
+    }
+
+    /**
+     * Set cantidad
+     *
+     * @param integer $cantidad
+     *
+     * @return Producto
+     */
+    public function setCantidad($cantidad)
+    {
+        $this->cantidad = $cantidad;
+
+        return $this;
+    }
+
+    /**
+     * Get cantidad
+     *
+     * @return integer
+     */
+    public function getCantidad()
+    {
+        return $this->cantidad;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->atributos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add atributo
+     *
+     * @param \AppBundle\Entity\AtributoML $atributo
+     *
+     * @return Producto
+     */
+    public function addAtributo(\AppBundle\Entity\AtributoML $atributo)
+    {
+        $this->atributos[] = $atributo;
+
+        return $this;
+    }
+
+    /**
+     * Remove atributo
+     *
+     * @param \AppBundle\Entity\AtributoML $atributo
+     */
+    public function removeAtributo(\AppBundle\Entity\AtributoML $atributo)
+    {
+        $this->atributos->removeElement($atributo);
+    }
+
+    /**
+     * Get atributos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAtributos()
+    {
+        return $this->atributos;
+    }
+
+    public function mergeCodes($prd) {
+        $upc = $this->correctCode($this->getUpc(), $prd->getUpc(),true);
+        $mpn = $this->correctCode($this->getMpn(), $prd->getMpn(),false);
+        $ean = $this->correctCode($this->getEan(), $prd->getEan(),false);
+
+        $this->setUpc($upc);
+        $this->setMpn($mpn);
+        $this->setEan($ean);
+    }
+
+    public function correctCode($code1, $code2,$exception) {
+        if ($code1 == null) {
+            return $code2;
+        }
+        
+        if ($code2 == null) {
+            return $code1;
+        }
+
+        if ($code1 == $code2) {
+            return $code1;
+        } else {
+            if ($exception)
+                throw new \Exception("$code1 distinto $code2");
+            else
+                return $code1;
+        }
+    }
+
+    public function hasCode() {
+        return $this->getUpc() || $this->getMpn() || $this->getEan();
+    }
+
+    public function addModelos($modelos) {
+        if ($modelos[0])
+            $this->modelo = $modelos[0];
+        if ($modelos[1])
+            $this->modelo2 = $modelos[1];
+        if ($modelos[2])
+            $this->modelo3 = $modelos[2];
+        if ($modelos[3])
+            $this->modelo4 = $modelos[3];
+        if ($modelos[4])
+            $this->modelo5 = $modelos[4];
+    }    
+
+
+    /**
+     * Set categoriaMl
+     *
+     * @param \AppBundle\Entity\CategoriaML $categoriaMl
+     *
+     * @return Producto
+     */
+    public function setCategoriaMl(\AppBundle\Entity\CategoriaML $categoriaMl = null)
+    {
+        $this->categoriaMl = $categoriaMl;
+
+        return $this;
+    }
+
+    /**
+     * Get categoriaMl
+     *
+     * @return \AppBundle\Entity\CategoriaML
+     */
+    public function getCategoriaMl()
+    {
+        return $this->categoriaMl;
+    }
+
+    /**
+     * Set categoriaEbay
+     *
+     * @param \AppBundle\Entity\CategoriaEbay $categoriaEbay
+     *
+     * @return Producto
+     */
+    public function setCategoriaEbay(\AppBundle\Entity\CategoriaEbay $categoriaEbay = null)
+    {
+        $this->categoriaEbay = $categoriaEbay;
+
+        return $this;
+    }
+
+    /**
+     * Get categoriaEbay
+     *
+     * @return \AppBundle\Entity\CategoriaEbay
+     */
+    public function getCategoriaEbay()
+    {
+        return $this->categoriaEbay;
+    }
+
+    /**
+     * Add competencium
+     *
+     * @param \AppBundle\Entity\PublicacionML $competencium
+     *
+     * @return Producto
+     */
+    public function addCompetencium(\AppBundle\Entity\PublicacionML $competencium)
+    {
+        $this->competencia[] = $competencium;
+
+        return $this;
+    }
+
+    /**
+     * Remove competencium
+     *
+     * @param \AppBundle\Entity\PublicacionML $competencium
+     */
+    public function removeCompetencium(\AppBundle\Entity\PublicacionML $competencium)
+    {
+        $this->competencia->removeElement($competencium);
+    }
+
+    /**
+     * Get competencia
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCompetencia()
+    {
+        return $this->competencia;
+    }
+
+    /**
+     * Add publicacione
+     *
+     * @param \AppBundle\Entity\PublicacionPropia $publicacione
+     *
+     * @return Producto
+     */
+    public function addPublicacione(\AppBundle\Entity\PublicacionPropia $publicacione)
+    {
+        $this->publicaciones[] = $publicacione;
+
+        return $this;
+    }
+
+    /**
+     * Remove publicacione
+     *
+     * @param \AppBundle\Entity\PublicacionPropia $publicacione
+     */
+    public function removePublicacione(\AppBundle\Entity\PublicacionPropia $publicacione)
+    {
+        $this->publicaciones->removeElement($publicacione);
+    }
+
+    /**
+     * Get publicaciones
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPublicaciones()
+    {
+        return $this->publicaciones;
+    }
+
+    /**
+     * Add proveedore
+     *
+     * @param \AppBundle\Entity\PublicacionEbay $proveedore
+     *
+     * @return Producto
+     */
+    public function addProveedore(\AppBundle\Entity\PublicacionEbay $proveedore)
+    {
+        $this->proveedores[] = $proveedore;
+
+        return $this;
+    }
+
+    /**
+     * Remove proveedore
+     *
+     * @param \AppBundle\Entity\PublicacionEbay $proveedore
+     */
+    public function removeProveedore(\AppBundle\Entity\PublicacionEbay $proveedore)
+    {
+        $this->proveedores->removeElement($proveedore);
+    }
+
+    /**
+     * Get proveedores
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProveedores()
+    {
+        return $this->proveedores;
+    }
+    
+
+    /**
+     * Set destacado
+     *
+     * @param boolean $destacado
+     *
+     * @return Producto
+     */
+    public function setDestacado($destacado)
+    {
+        $this->destacado = $destacado;
+
+        return $this;
+    }
+
+    /**
+     * Get destacado
+     *
+     * @return boolean
+     */
+    public function getDestacado()
+    {
+        return $this->destacado;
+    }
+
+    public function getCantidadCompetidores() {
+        return count($this->getCompetencia());
+    }
+
+    public function getVentasCompetidores() {
+        $aux = 0;
+        foreach ($this->getCompetencia() as $publi) {
+            $aux += $publi->getCantidadVendidos();
+        }
+        return $aux;
+    }
+
+    public function getPrecioProveedores() {
+        $min = 9999999999;
+        foreach ($this->getCompetencia() as $publi) {
+            if ($min > $publi->getPrecioCompra())
+                $min = $publi->getPrecioCompra();
+        }
+        return $min;
     }
 }

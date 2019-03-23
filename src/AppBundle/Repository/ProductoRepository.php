@@ -15,18 +15,22 @@ class ProductoRepository extends \Doctrine\ORM\EntityRepository
 		$query  = $this->createQueryBuilder('p');
      
 		if ($brand && $model) {
-			$query->orWhere("(p.marca = '$brand' and p.modelo = '$model')");
+			var_dump("1");
+			$query->orWhere("(p.marca = '$brand' and p.modelo = '$model' and p.modelo is not null and p.marca is not null)");
 		}
 		if ($upc) {
-			$query->orWhere("p.upc = $upc");
+			var_dump("2");
+			$query->orWhere("p.upc = '$upc' and p.upc is not null");
 		}
 		if ($mpn) {
-			$query->orWhere("p.mpn = $mpn");
+			var_dump("3");
+			$query->orWhere("p.mpn = '$mpn' and p.mpn is not null");
 		}
 		if ($ean) {
-			$query->orWhere("p.ean = $ean");
+			var_dump("4");
+			$query->orWhere("p.ean = '$ean' and p.ean is not null");
 		}
-
+		
 		return $query->getQuery()->getResult();
 	
 	}

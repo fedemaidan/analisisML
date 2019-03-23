@@ -10,4 +10,6 @@ namespace AppBundle\Repository;
  */
 class PublicacionPropiaRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    use Traits\PublicacionRepositoryTrait;
 }
