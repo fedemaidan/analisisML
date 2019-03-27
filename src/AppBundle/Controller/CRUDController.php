@@ -36,7 +36,8 @@ class CRUDController extends Controller
         
         /** Sincronizar con ML **/
         $id = $cuenta->getId();
-        return $this->redirect("https://multiml.xyz/iniciarConML?cuenta_id=".$id.'&empresa='+$empresa);
-        return new RedirectResponse();
+        var_dump("expression");die;
+        return $this->redirect('http://stackoverflow.com');
+        return new RedirectResponse("https://multiml.xyz/iniciarConML?cuenta_id=".$id.'&empresa='+$empresa);
     }
 }
