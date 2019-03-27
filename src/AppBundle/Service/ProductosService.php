@@ -76,15 +76,67 @@ class ProductosService
         $this->cargaProductosDesdeMLGeneral(PublicacionML::class);
     }
 
-
     public function cargaProductosDesdeEbay() {
-        $this->cargaProductosDesdeMLGeneral(PublicacionML::class);
-    }
+        
+        $publicacionesEbay = $this->em->getRepository(PublicacionEbay::class)->findByProducto(null);
+        
+        foreach ($publicacionesEbay as $publi) {
 
-    public function relacionProductoPublicacionEbay() {
-        /* Por cada producto encuentro que publicación de ebay compatibiliza y lo relaciono */
-    }
+            /* Revisar si existe el producto */
+            $upc = $publi->getUpc();
+            $mpn = $publi->getMpn();
+            $ean = $publi->getEan();
 
+            $brand = $this->comprimirTexto($publi->getBrand());
+            $model = $this->comprimirTexto($publi->getModel());
+            
+            $productos = $this->em->getRepository(Producto::class)->dameProductos(null, null, $upc, $mpn, $ean);
+
+            /* Comparo productos */
+            if (count($productos) == 0) {    
+                $producto = new Producto();
+                $producto->setNombre('CARGAR NOMBRE');
+                $producto->setCantidad(0);
+                $producto->setUpc($upc);
+                $producto->setMpn($mpn);
+                $producto->setEan($ean);
+                $producto->setMarca($brand);
+                $producto->setModelo($model);
+                $publi->setProducto($producto);
+                
+                $this->em->persist($producto);
+            } else if (count($productos) == 1) {
+                $producto = $productos[0];
+                if ($producto->getUpc() == null)
+                    $producto->setUpc($upc);
+                if ($producto->getMpn() == null)
+                    $producto->setMpn($mpn);
+                if ($producto->getEan() == null)
+                    $producto->setEan($ean);
+                if ($producto->getMarca() == null)
+                    $producto->setMarca($brand);
+                if ($producto->getModelo() == null)
+                    $producto->setModelo($model);
+                
+                $publi->setProducto($producto);
+
+                $this->em->persist($producto);   
+            }
+            else {
+                try {
+                    $producto = $this->fusionarProductos($productos);
+                    $publi->setProducto($producto);
+                } catch(\Exception $e) {
+                    foreach ($productos as $prod) {
+                        var_dump($prod->getId()." Producto duplicado");
+                    }
+                    $producto = $productos[0];
+                }                    
+            }
+
+            $this->em->flush(); 
+        }
+    }
 
     private function dameProducto($publiML) {
 
@@ -110,6 +162,10 @@ class ProductosService
             $producto->setEan($ean);
             $producto->setMarca($brand);
             $producto->setModelo($model);
+            $imagenes = $ebay->getImagenes();
+            $publicacion->setImagenes($imagenes);
+        
+
             $this->em->persist($producto);
         }
         else if (count($productos) == 1) {
@@ -124,6 +180,10 @@ class ProductosService
                 $producto->setMarca($brand);
             if ($producto->getModelo() == null)
                 $producto->setModelo($model);
+
+            $imagenes = $ebay->getImagenes();
+            var_dump($imagenes);
+            $publicacion->setImagenes($imagenes);
 
             $this->em->persist($producto);   
         }

@@ -792,28 +792,4 @@ public function getImagenPrincipal() {
         }
         return $min;
     }
-
-    /**
-     * Set imagenes
-     *
-     * @param string $imagenes
-     *
-     * @return Producto
-     */
-    public function setImagenes($imagenes)
-    {
-        $this->imagenes = $imagenes;
-
-        return $this;
-    }
-
-    /**
-     * Get imagenes
-     *
-     * @return string
-     */
-    public function getImagenes()
-    {
-        return $this->imagenes;
-    }
 }
