@@ -314,7 +314,7 @@ class MeliService
     }
 
     public function actualizarPublicacion($publicacionPropia) {
-        var_dump($publicacionPropia->getId());
+        
         $ebay = $publicacionPropia->getPublicacionEbay();
         $precio = $this->calcularPrecio($ebay->getCategoriaEbay(), $ebay->getPrecioCompra());
         
@@ -322,8 +322,8 @@ class MeliService
         $publicacionPropia->setDescripcion($this->generarDescripcion($ebay));
         $publicacionPropia->setPrecioCompra($precio);
 
-        foreach ($ebay->getEspecificaciones() as $key => $especificacion) {
-            /** Buscamos un attributo con nombre y valor igual al de la especificacion */
+        /*foreach ($ebay->getEspecificaciones() as $key => $especificacion) {
+            // Buscamos un attributo con nombre y valor igual al de la especificacion 
             $nombreEspecificacion = $especificacion->getName();
             $atributo = $this->em->getRepository(AtributoML::class)
             ->findOneBy(["ebayName" => $nombreEspecificacion, "valueName" => $especificacion->getValue()]);
@@ -363,7 +363,7 @@ class MeliService
 
 
         }
-
+*/
         $this->em->persist($publicacionPropia);
         $this->em->flush();
     }
