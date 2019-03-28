@@ -37,6 +37,6 @@ class CRUDController extends Controller
         /** Sincronizar con ML **/
         $id = $cuenta->getId();
 
-        return new RedirectResponse("https://multiml.xyz/iniciarConML?cuenta_id=".$id.'&empresa='.$empresa);
+        return new RedirectResponse("https://notiml.com/iniciarConML?cuenta_id=".$id.'&empresa='.$empresa);
     }
 }
