@@ -554,7 +554,7 @@ class MeliService
         $client = new Client();
         $id = $cuenta->getId();
         //$id = 30;
-        $res = $client->request('GET', 'https://multiml.xyz/token?cuenta_id='.$id);
+        $res = $client->request('GET', 'https://notiml.com/token?cuenta_id='.$id);
         
 
         $dato = json_decode($res->getBody()->getContents());
