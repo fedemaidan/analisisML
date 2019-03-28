@@ -21,7 +21,7 @@ use GuzzleHttp\Client;
 
 class MeliService
 {
-    const DOLAR = 46;
+    const DOLAR = 45;
     const MATCH_ARRAY = [
                             "titulo"        => "title",
                             "categoriaML"   => "category_id",
@@ -554,7 +554,7 @@ class MeliService
         $client = new Client();
         $id = $cuenta->getId();
         //$id = 30;
-        $res = $client->request('GET', 'https://multiml.xyz/token?cuenta_id='.$id.'&empresa=youtec');
+        $res = $client->request('GET', 'https://multiml.xyz/token?cuenta_id='.$id);
         
 
         $dato = json_decode($res->getBody()->getContents());
