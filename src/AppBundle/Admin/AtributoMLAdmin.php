@@ -7,9 +7,15 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 class AtributoMLAdmin extends AbstractAdmin
 {
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $collection->add('clone', $this->getRouterIdParameter().'/clone');
+    }
+
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
@@ -37,9 +43,10 @@ class AtributoMLAdmin extends AbstractAdmin
             ->add('ebayName')
             ->add('_action', null, [
                 'actions' => [
-                    'show' => [],
                     'edit' => [],
-                    'delete' => [],
+                    'clone' => array(
+                        'template' => 'AppBundle:CRUD:list__action_clone.html.twig'
+                    )
                 ],
             ])
         ;

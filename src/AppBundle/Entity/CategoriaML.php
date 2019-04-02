@@ -42,6 +42,12 @@ class CategoriaML
      */
     private $categoriaPadre;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="atributos", type="blob")
+     */
+    private $atributos;    
 
     /**
      * Get id
@@ -132,4 +138,28 @@ class CategoriaML
             $padre = $this->getCategoriaPadre()." - ";
         return $padre.$this->nombre;
     }    
+
+    /**
+     * Set atributos
+     *
+     * @param string $atributos
+     *
+     * @return CategoriaML
+     */
+    public function setAtributos($atributos)
+    {
+        $this->atributos = $atributos;
+
+        return $this;
+    }
+
+    /**
+     * Get atributos
+     *
+     * @return string
+     */
+    public function getAtributos()
+    {
+        return $this->atributos;
+    }
 }

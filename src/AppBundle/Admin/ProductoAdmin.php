@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\AdminBundle\Form\Type\AdminType;
 
 class ProductoAdmin extends AbstractAdmin
 {
@@ -93,11 +94,10 @@ class ProductoAdmin extends AbstractAdmin
                     ->add('competencia')
                 ->end()
                 ->with('Atributos')
-                    //->add('atributos')
                     ->add('atributos', 'sonata_type_model_autocomplete', array(
                     'property' => 'valueName',
                     'minimum_input_length' => 2,
-                    'multiple' => true
+                    'multiple' => true  
                 ))
                 ->end()
             ->end()

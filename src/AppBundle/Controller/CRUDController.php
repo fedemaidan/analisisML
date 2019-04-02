@@ -1,5 +1,4 @@
 <?php
-// src/AppBundle/Controller/CRUDController.php
 
 namespace AppBundle\Controller;
 
@@ -38,5 +37,24 @@ class CRUDController extends Controller
         $id = $cuenta->getId();
 
         return new RedirectResponse("https://notiml.com/iniciarConML?cuenta_id=".$id.'&empresa='.$empresa);
+    }
+
+    public function cloneAction()
+    {
+        $object = $this->admin->getSubject();
+
+        if (!$object) {
+            throw new NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
+        }
+
+        $clonedObject = clone $object;  // Careful, you may need to overload the __clone method of your object
+                                        // to set its id to null
+        $clonedObject->setName($object->getName()." (Clone)");
+
+        $this->admin->create($clonedObject);
+
+        $this->addFlash('sonata_flash_success', 'Cloned successfully');
+
+        return new RedirectResponse($this->admin->generateUrl('list'));
     }
 }

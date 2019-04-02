@@ -5,6 +5,14 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: MercadoLibre, label: Publicaciones }
         public: true
+
+    app.admin.atributo_ml:
+        class: AppBundle\Admin\AtributoMLAdmin
+        arguments: [~, AppBundle\Entity\AtributoML, AppBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: AtributoML }
+        public: true
+
         
     app.admin.busqueda_ebay:
         class: AppBundle\Admin\BusquedaEbayAdmin
@@ -93,9 +101,9 @@ services:
             - { name: sonata.admin, manager_type: orm, group: Gestión, label: Producto }
         public: true
 
-    app.admin.atributo_ml:
-        class: AppBundle\Admin\AtributoMLAdmin
-        arguments: [~, AppBundle\Entity\AtributoML, Sonata\AdminBundle\Controller\CRUDController]
+    app.admin.reserva:
+        class: AppBundle\Admin\ReservaAdmin
+        arguments: [~, AppBundle\Entity\Reserva, SonataAdminBundle:CRUD]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: AtributoML }
+            - { name: sonata.admin, manager_type: orm, group: Gestión, label: Reserva }
         public: true

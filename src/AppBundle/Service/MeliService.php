@@ -322,7 +322,7 @@ class MeliService
         $publicacionPropia->setDescripcion($this->generarDescripcion($ebay));
         $publicacionPropia->setPrecioCompra($precio);
 
-        /*foreach ($ebay->getEspecificaciones() as $key => $especificacion) {
+        foreach ($ebay->getEspecificaciones() as $key => $especificacion) {
             // Buscamos un attributo con nombre y valor igual al de la especificacion 
             $nombreEspecificacion = $especificacion->getName();
             $atributo = $this->em->getRepository(AtributoML::class)
@@ -363,7 +363,7 @@ class MeliService
 
 
         }
-*/
+
         $this->em->persist($publicacionPropia);
         $this->em->flush();
     }
@@ -392,7 +392,7 @@ class MeliService
                 }
             }
         }
-/*
+
         $atributos = [];
         foreach ($publicacionPropia->getAtributos() as $key => $attr) {
             $atributos[] = ["id" => $attr->getIdMl(), "value_name" => $attr->getValueName() ];
@@ -400,7 +400,7 @@ class MeliService
         }
 
         if (count($atributos) > 0)
-            $body["attributes"] = $atributos; */
+            $body["attributes"] = $atributos; 
         if (count($body) > 0) {
             $datos = $meli->put("items/".$publicacionPropia->getIdMl(), $body, [ "access_token" => $token ]);
         

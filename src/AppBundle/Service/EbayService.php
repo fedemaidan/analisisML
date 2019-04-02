@@ -101,6 +101,7 @@ class EbayService
             $request = $this->generarRequestBusqueda($busqueda, 1, $limit);
             $response = $serviceFinding->findItemsAdvanced($request);
         }
+
         /* Intentar hasta que conecte */
         $intentos = 10;
         while ($this->validarError($response) && $intentos > 0) {

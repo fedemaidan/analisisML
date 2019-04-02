@@ -132,7 +132,6 @@ class Producto
 
     /**
      * @ORM\ManyToMany(targetEntity="AtributoML", inversedBy="producto")
-     * @ORM\JoinTable(name="productos_atributos_ml")
      */
     private $atributos;
 
