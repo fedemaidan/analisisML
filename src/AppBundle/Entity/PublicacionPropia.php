@@ -240,7 +240,11 @@ class PublicacionPropia
 
 
     public function getLinkEbayHTML() {
-        return "<a class='btn btn-primary' href='".$this->getPublicacionEbay()->getLinkPublicacion()."' target='_blank'>Link EBAY</a>";
+        $publiEbay = $this->getPublicacionEbay();
+        if ($publiEbay)
+            return "<a class='btn btn-primary' href='".$publiEbay->getLinkPublicacion()."' target='_blank'>Link EBAY</a>";
+        else
+            return "Publi sin proveedor";
     }
 
         
