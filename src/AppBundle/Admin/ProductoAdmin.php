@@ -114,7 +114,7 @@ class ProductoAdmin extends AbstractAdmin
                     ->add('proveedores', 'sonata_type_model_autocomplete', array(
                             'minimum_input_length' => 2,
                             'multiple' => true  
-                        )))
+                        ))
                 ->end()
             ->end();
     }
