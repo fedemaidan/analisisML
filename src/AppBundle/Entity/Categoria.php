@@ -64,6 +64,6 @@ class Categoria
     }
 
     public function __toString() {
-        return $this->nombre;
+        return $this->nombre."";
     }
 }
