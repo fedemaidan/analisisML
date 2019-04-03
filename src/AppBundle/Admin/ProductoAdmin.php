@@ -111,7 +111,10 @@ class ProductoAdmin extends AbstractAdmin
             ->tab("Ebay")
                 ->with('Datos')
                     ->add('categoriaEbay')
-                    ->add('proveedores')
+                    ->add('proveedores', 'sonata_type_model_autocomplete', array(
+                            'minimum_input_length' => 2,
+                            'multiple' => true  
+                        )))
                 ->end()
             ->end();
     }
