@@ -42,7 +42,7 @@ class Producto
     /**
      * @var string
      *
-     * @ORM\Column(name="descripcion", type="string", length=255, nullable=true)
+     * @ORM\Column(name="descripcion", type="blob", nullable=true)
      */
     private $descripcion;
 

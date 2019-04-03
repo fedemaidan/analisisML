@@ -76,7 +76,7 @@ class ProductoAdmin extends AbstractAdmin
                     ->add('marca')
                     ->add('modelo')
                     ->add('nombre')
-                    ->add('descripcion')
+                    ->add('descripcion', 'textarea')
                     ->add('precioReferencia')
                     ->add('cantidad')
                 ->end()
