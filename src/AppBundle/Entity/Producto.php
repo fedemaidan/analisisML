@@ -38,6 +38,12 @@ class Producto
      */
     private $nombre;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="youtube", type="string", length=255)
+     */
+    private $youtube;
 
     /**
      * @var string
@@ -853,5 +859,29 @@ public function getImagenPrincipal() {
     public function getCategorias()
     {
         return $this->categorias;
+    }
+
+    /**
+     * Set youtube
+     *
+     * @param string $youtube
+     *
+     * @return Producto
+     */
+    public function setYoutube($youtube)
+    {
+        $this->youtube = $youtube;
+
+        return $this;
+    }
+
+    /**
+     * Get youtube
+     *
+     * @return string
+     */
+    public function getYoutube()
+    {
+        return $this->youtube;
     }
 }

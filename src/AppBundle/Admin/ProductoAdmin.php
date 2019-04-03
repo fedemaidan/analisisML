@@ -95,6 +95,7 @@ class ProductoAdmin extends AbstractAdmin
                     ->add('imagenes')
                     ->add('categoriaMl')
                     ->add('competencia')
+                    ->add('youtube')
                 ->end()
                 ->with('Atributos')
                     ->add('atributos', 'sonata_type_model_autocomplete', array(
@@ -139,6 +140,7 @@ class ProductoAdmin extends AbstractAdmin
                     ->add('modelo5')
                 ->end()
                 ->with('Imagenes')
+                    ->add('imagenes')
                     ->add('imagenesFoto','html')
                 ->end()
             ->end()
@@ -146,6 +148,7 @@ class ProductoAdmin extends AbstractAdmin
                 ->with('Datos')
                     ->add('categoriaMl')
                     ->add('competencia')
+                    ->add('youtube')
                 ->end()
                 ->with('Atributos')
                     ->add('atributos')
