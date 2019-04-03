@@ -95,6 +95,7 @@ class ProductoAdmin extends AbstractAdmin
                     ->add('imagenes')
                     ->add('categoriaMl')
                     ->add('competencia', 'sonata_type_model_autocomplete', array(
+                            'property' => 'titulo',
                             'minimum_input_length' => 2,
                             'multiple' => true  
                         ))
@@ -112,6 +113,7 @@ class ProductoAdmin extends AbstractAdmin
                 ->with('Datos')
                     ->add('categoriaEbay')
                     ->add('proveedores', 'sonata_type_model_autocomplete', array(
+                            'property' => 'titulo',
                             'minimum_input_length' => 2,
                             'multiple' => true  
                         ))
