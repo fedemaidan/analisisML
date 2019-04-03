@@ -94,7 +94,10 @@ class ProductoAdmin extends AbstractAdmin
                 ->with('Datos')
                     ->add('imagenes')
                     ->add('categoriaMl')
-                    ->add('competencia')
+                    ->add('competencia', 'sonata_type_model_autocomplete', array(
+                            'minimum_input_length' => 2,
+                            'multiple' => true  
+                        ))
                     ->add('youtube')
                 ->end()
                 ->with('Atributos')
