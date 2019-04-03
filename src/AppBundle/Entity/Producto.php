@@ -41,7 +41,7 @@ class Producto
     /**
      * @var string
      *
-     * @ORM\Column(name="youtube", type="string", length=255)
+     * @ORM\Column(name="youtube", type="string", length=255, nullable=true)
      */
     private $youtube;
 
