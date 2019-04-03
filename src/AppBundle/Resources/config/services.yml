@@ -107,3 +107,10 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Gestión, label: Reserva }
         public: true
+
+    app.admin.categoria:
+        class: AppBundle\Admin\CategoriaAdmin
+        arguments: [~, AppBundle\Entity\Categoria, Sonata\AdminBundle\Controller\CRUDController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Categoria }
+        public: true

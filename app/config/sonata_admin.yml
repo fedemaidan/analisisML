@@ -41,4 +41,5 @@ sonata_admin:
                     - app.admin.cuenta
                     - app.admin.producto
                     - app.admin.reserva
+                    - app.admin.categoria
 

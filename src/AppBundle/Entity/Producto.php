@@ -136,6 +136,11 @@ class Producto
     private $atributos;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Categoria", inversedBy="producto")
+     */
+    private $categorias;
+
+    /**
      * @ORM\OneToMany(targetEntity="PublicacionML", mappedBy="producto")
      */
     private $competencia;
@@ -814,5 +819,39 @@ public function getImagenPrincipal() {
     public function getImagenes()
     {
         return $this->imagenes;
+    }
+
+    /**
+     * Add categoria
+     *
+     * @param \AppBundle\Entity\Categoria $categoria
+     *
+     * @return Producto
+     */
+    public function addCategoria(\AppBundle\Entity\Categoria $categoria)
+    {
+        $this->categorias[] = $categoria;
+
+        return $this;
+    }
+
+    /**
+     * Remove categoria
+     *
+     * @param \AppBundle\Entity\Categoria $categoria
+     */
+    public function removeCategoria(\AppBundle\Entity\Categoria $categoria)
+    {
+        $this->categorias->removeElement($categoria);
+    }
+
+    /**
+     * Get categorias
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategorias()
+    {
+        return $this->categorias;
     }
 }
