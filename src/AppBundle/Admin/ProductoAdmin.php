@@ -92,6 +92,7 @@ class ProductoAdmin extends AbstractAdmin
             ->end()
             ->tab("MercadoLibre")
                 ->with('Datos')
+                    ->add('imagenes')
                     ->add('categoriaMl')
                     ->add('competencia')
                 ->end()

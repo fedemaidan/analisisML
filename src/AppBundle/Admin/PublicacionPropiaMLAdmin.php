@@ -52,6 +52,7 @@ class PublicacionPropiaMLAdmin extends AbstractAdmin
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
+                    'edit' => array()
                 ),
             ))
         ;
