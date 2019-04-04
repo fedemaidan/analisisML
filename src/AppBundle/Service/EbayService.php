@@ -129,7 +129,7 @@ class EbayService
             $maxIdEsp = $this->em->getRepository(EspecificacionesProductoEbay::ORM_ENTITY)->selectMaxId();
 			
             $this->imprimo("Comienzo página ". $pageNum);
-
+            var_dump($request->paginationInput);
 		    $request->paginationInput->pageNumber = $pageNum;
 		    $response = $serviceFinding->findItemsAdvanced($request);
             
