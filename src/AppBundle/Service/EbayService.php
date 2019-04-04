@@ -503,8 +503,6 @@ class EbayService
             $length = strpos($str, '|') - $pos;
         
             $upc = trim(substr($str,$pos,$length));
-            var_dump($str);
-            var_dump($upc);
             $especificaciones['UPC'] = $upc;
         }
 
