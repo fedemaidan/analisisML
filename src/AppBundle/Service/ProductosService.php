@@ -138,6 +138,43 @@ class ProductosService
         }
     }
 
+    public function crearProducto($publiML) {
+
+        $upc = $publiML->getUpc() != 'Does not apply' ? $publiML->getUpc() : null ;;
+        $mpn = $publiML->getMpn() != 'Does not apply' ? $publiML->getMpn() : null ;;
+        $brand = $this->comprimirTexto($publiML->getBrand());
+        $model = $this->comprimirTexto($publiML->getModel());
+        $ean = $publiML->getEan() != 'Does not apply' ? $publiML->getEan() : null ;
+
+        $producto = new Producto();
+        $producto->setNombre($brand." ".$model);
+        $producto->setCantidad(0);
+        $producto->setUpc($upc);
+        $producto->setMpn($mpn);
+        $producto->setEan($ean);
+        $producto->setMarca($brand);
+        $producto->setModelo($model);
+        $producto->setPrecioReferencia(intdiv($publiML->getPrecioCompra() * 0.95, 100) * 100 - 1);
+
+        foreach ($publiML->getAtributos() as $key => $attr) {
+            $producto->addAtributo($attr);
+        }
+
+        if ($publiML->esPropia()) {
+            $ebay = $publiML->getPublicacionEbay();
+            $imagenes = $ebay->getImagenes();
+            $publiML->setImagenes($imagenes);
+        }
+        $publiML->cancelSinc();
+        $publiML->setProducto($producto);
+
+        $this->em->persist($producto);
+        $this->em->persist($publiML);
+        $this->em->flush();
+        
+        return $producto;
+    }
+
     private function dameProducto($publiML) {
 
         $upc = $publiML->getUpc();

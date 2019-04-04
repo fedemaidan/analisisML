@@ -1,7 +1,7 @@
 services:
     app.admin.publicacion_ml:
         class: AppBundle\Admin\PublicacionMLAdmin
-        arguments: [~, AppBundle\Entity\PublicacionML, SonataAdminBundle:CRUD]
+        arguments: [~, AppBundle\Entity\PublicacionML, AppBundle:CRUD]
         tags:
             - { name: sonata.admin, manager_type: orm, group: MercadoLibre, label: Publicaciones }
         public: true
@@ -78,7 +78,7 @@ services:
 
     app.admin.publicacion_propia_ml:
          class: AppBundle\Admin\PublicacionPropiaMLAdmin
-         arguments: [~, AppBundle\Entity\PublicacionPropia, SonataAdminBundle:CRUD]
+         arguments: [~, AppBundle\Entity\PublicacionPropia, AppBundle:CRUD]
          tags:
              - { name: sonata.admin, manager_type: orm, group: MercadoLibre, label: Publicaciones propias }
          public: true

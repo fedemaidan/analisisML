@@ -269,4 +269,8 @@ class PublicacionPropia
 
         return null;
     }
+
+    public function esPropia() {
+        return true;
+    }
 }

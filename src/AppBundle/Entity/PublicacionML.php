@@ -111,4 +111,8 @@ class PublicacionML
         return $this->ean;
     }
 
+    public function esPropia() {
+        return false;
+    }
+
 }

@@ -9,8 +9,10 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\Type\AdminType;
 
+
 class ProductoAdmin extends AbstractAdmin
 {
+
     /**
      * @param DatagridMapper $datagridMapper
      */

@@ -39,6 +39,16 @@ class CRUDController extends Controller
         return new RedirectResponse("https://notiml.com/iniciarConML?cuenta_id=".$id.'&empresa='.$empresa);
     }
 
+    public function crearProductoAction()
+    {
+        $publicacionML = $this->admin->getSubject();
+        
+        $producto = $this->container->get('productos_service')->crearProducto($publicacionML);
+
+        return new RedirectResponse($this->container->get('router')->generate('admin_app_producto_edit', ["id"=>$producto->getId()]));
+
+    }
+
     public function cloneAction()
     {
         $object = $this->admin->getSubject();

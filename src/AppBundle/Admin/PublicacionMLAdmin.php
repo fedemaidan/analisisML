@@ -7,9 +7,15 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 class PublicacionMLAdmin extends AbstractAdmin
 {
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $collection->add('crearProducto', $this->getRouterIdParameter().'/crearProducto');
+    }
+
     /**
      * @param DatagridMapper $datagridMapper
      */
@@ -55,6 +61,9 @@ class PublicacionMLAdmin extends AbstractAdmin
                     'show' => array(),
                     'edit' => array(),
                     'delete' => array(),
+                    'crearProducto' => array(
+                        'template' => 'AppBundle:CRUD:crearProducto.html.twig'
+                    )
                 ),
             ))
         ;
