@@ -92,7 +92,8 @@ class EbayService
         $pag = intval($paginas / 2);
         $serviceFinding = $this->getFindingService();
         $request = $this->generarRequestBusqueda($busqueda, $pag, 2);
-        var_dump("expression");
+
+        var_dump("Pagina ".$pag);
         $response = $serviceFinding->findItemsAdvanced($request);
         var_dump($response);
         $price = $response->searchResult->item[0]->sellingStatus->currentPrice->value;
