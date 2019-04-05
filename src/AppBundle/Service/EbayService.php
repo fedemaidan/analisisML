@@ -89,13 +89,11 @@ class EbayService
 
 
     public function dividirBusqueda($busqueda, $paginas) {
-        $pag = intval($paginas / 2);
+        $division = ($paginas / 100) + 1;
+        $pag = intval($paginas / $division);
         $serviceFinding = $this->getFindingService();
         $request = $this->generarRequestBusqueda($busqueda, $pag, 2);
-
-        var_dump("Pagina ".$pag);
         $response = $serviceFinding->findItemsAdvanced($request);
-        var_dump($response);
         $price = $response->searchResult->item[0]->sellingStatus->currentPrice->value;
         $maximoAux = $busqueda->getPrecioMaximo();
         $busqueda->setPrecioMaximo($price);
