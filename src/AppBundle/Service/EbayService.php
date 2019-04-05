@@ -89,18 +89,27 @@ class EbayService
 
 
     public function dividirBusqueda($busqueda, $paginas) {
+        /* Dividir la buqueda en menos de 100 paginas x busqueda*/
+
         $division = intval($paginas / 100) + 1;
-        $pag = intval($paginas / $division);
-        $serviceFinding = $this->getFindingService();
-        $request = $this->generarRequestBusqueda($busqueda, $pag, 2);
-        $response = $serviceFinding->findItemsAdvanced($request);
-        $price = $response->searchResult->item[0]->sellingStatus->currentPrice->value;
-        $maximoAux = $busqueda->getPrecioMaximo();
-        $busqueda->setPrecioMaximo($price);
-        $this->actualizarPublicaciones($busqueda);
-        $busqueda->setPrecioMaximo($maximoAux);
-        $busqueda->setPrecioMinimo($price);
-        $this->actualizarPublicaciones($busqueda);
+        $pag = 0;
+        $min = $busqueda->getPrecioMinimo();
+        $minPrecioIntervalo = $min;
+        $max = $busqueda->getPrecioMaximo();
+        $intervalo = intval($paginas / $div) + 1;
+
+        while  ($division != 0) {
+            $paginaMaxima = $pag + $intervalo;
+            $serviceFinding = $this->getFindingService();
+            $request = $this->generarRequestBusqueda($busqueda, $pag, 2);
+            $response = $serviceFinding->findItemsAdvanced($request);
+            $maximoPrecioIntervalo = $response->searchResult->item[0]->sellingStatus->currentPrice->value;       
+            $busqueda->setPrecioMinimo($minPrecioIntervalo);
+            $busqueda->setPrecioMinimo($maximoPrecioIntervalo);
+            $this->actualizarPublicaciones($busqueda);
+            $minPrecioIntervalo = $maximoPrecioIntervalo;
+            $division--;
+        }
     }
 
     public function actualizarPublicaciones(BusquedaEbay $busqueda)
