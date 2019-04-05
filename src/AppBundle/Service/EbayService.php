@@ -127,6 +127,7 @@ class EbayService
 
     public function actualizarPublicaciones(BusquedaEbay $busqueda)
     {
+         var_dump("comiienzo");
         $this->cambiarEstadoBusqueda($busqueda, "Comienza actualización ..");
 
     	/* Creo servicios ebay */

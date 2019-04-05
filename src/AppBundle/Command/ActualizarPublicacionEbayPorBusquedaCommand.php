@@ -26,7 +26,7 @@ class ActualizarPublicacionEbayPorBusquedaCommand extends ContainerAwareCommand
     {
         $busqueda_id = $input->getOption('busqueda_id');
         $busqueda = $this->getContainer()->get('doctrine')->getManager()->getRepository(BusquedaEbay::ORM_ENTITY)->findOneById($busqueda_id);
-        
+        var_dump("1");
         $this->getContainer()->get('ebay_service')->actualizarPublicaciones($busqueda);
 
     }
