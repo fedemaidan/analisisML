@@ -105,8 +105,9 @@ class EbayService
         var_dump("1. Desde ".$minPrecioIntervalo." hasta ".$maximoPrecioIntervalo);
         $this->actualizarPublicaciones($busqueda);
         var_dump("1. Busque desde ".$minPrecioIntervalo." hasta ".$maximoPrecioIntervalo);
+        
         $minPrecioIntervalo = $maximoPrecioIntervalo;
-        $minPrecioIntervalo = $max;
+        $maximoPrecioIntervalo = $max;
 
         $busqueda->setPrecioMinimo($minPrecioIntervalo."");
         $busqueda->setPrecioMaximo($maximoPrecioIntervalo."");
