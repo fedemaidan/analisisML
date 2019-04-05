@@ -18,6 +18,8 @@ class CategoriaEbayAdmin extends AbstractAdmin
         $datagridMapper
             ->add('idEbay')
             ->add('name')
+            ->add('ratio')
+            ->add('shipping')
         ;
     }
 
@@ -49,6 +51,8 @@ class CategoriaEbayAdmin extends AbstractAdmin
         $formMapper
             ->add('idEbay')
             ->add('name')
+            ->add('ratio')
+            ->add('shipping')
         ;
     }
 
@@ -60,6 +64,8 @@ class CategoriaEbayAdmin extends AbstractAdmin
         $showMapper
             ->add('idEbay')
             ->add('name')
+            ->add('ratio')
+            ->add('shipping')
         ;
     }
 }

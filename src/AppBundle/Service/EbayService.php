@@ -129,37 +129,36 @@ class EbayService
             $maxIdEsp = $this->em->getRepository(EspecificacionesProductoEbay::ORM_ENTITY)->selectMaxId();
 			
             $this->imprimo("Comienzo página ". $pageNum);
-            var_dump($request->paginationInput);
 		    $request->paginationInput->pageNumber = $pageNum;
-		    $response = $serviceFinding->findItemsAdvanced($request);
-            
+            $response = $serviceFinding->findItemsAdvanced($request);
             $this->validarError($response);
 
 		    if ($response->ack !== 'Failure') {
 		    	//Si la busqueda no falla
-
 		        foreach ($response->searchResult->item as $item) {
 		        	/* Por cada item de la página */
-                    
             
                     $publicacion = $this->em->getRepository(PublicacionEbay::ORM_ENTITY)->findOneByIdEbay($item->itemId);
-            
+                    
                     $requestSingle = new GetSingleItemRequestType();
                     $requestSingle->IncludeSelector = 'ItemSpecifics,Variations,Compatibility,Details,ShippingCosts,Description';
                     $requestSingle->ItemID = $item->itemId;
             
- 
                     $datosItem = $serviceShopping->getSingleItem($requestSingle);
+
                     $categoria = $this->cargarCategoria($item->primaryCategory);
+
                     $imagenes = $this->cargoImagenes($item, $datosItem);
+
                     $especificaciones = $this->cargoEspecificaciones($datosItem);
+
                     $brand = $this->cargoEspecificacionEspecial($especificaciones, "Brand");
+
                     $mpn = $this->cargoEspecificacionEspecial($especificaciones, "MPN");
                     $upc = $this->cargoEspecificacionEspecial($especificaciones, "UPC");
                     $upc = is_numeric($upc) ? $upc : null;
                     $model = $this->cargoEspecificacionEspecial($especificaciones, "Model");
 
-                    
                     
                     if ($publicacion) {
                         /* Update si es necesario */
@@ -323,9 +322,8 @@ class EbayService
     }
 
     private function cargoImagenes($item, $datosItem) {
-
+        
     	$imagenes = $item->galleryURL;
-
         foreach ($datosItem->Item->PictureURL as $key => $value) {
             $imagenes .= ",".$value;
         }
