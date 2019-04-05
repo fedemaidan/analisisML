@@ -92,37 +92,32 @@ class EbayService
 
     public function dividirBusqueda($busqueda, $paginas) {
         /* Dividir la buqueda en menos de 100 paginas x busqueda*/
-        $division = intval($paginas / 100) + 1;
-        var_dump("Divido busquedas en ".$division);
-        $pag = 0;
         $min = $busqueda->getPrecioMinimo();
         $minPrecioIntervalo = $min;
         $max = $busqueda->getPrecioMaximo();
-        $intervalo = intval($paginas / $division);
+        
+        /* Busco precio maximo del intervalo*/
+        $maximoPrecioIntervalo = $max / 2;
 
-        while  ($division != 0) {
-            $pag = $pag + $intervalo;
-            var_dump("nuevo intervalo hasta pagina ".$pag);
-            
-            /* Busco precio maximo del intervalo*/
-            $serviceFinding = $this->getFindingService();
-            $request = $this->generarRequestBusqueda($busqueda, $intervalo, 2);
-            $response = $serviceFinding->findItemsAdvanced($request);
-            $maximoPrecioIntervalo = $response->searchResult->item[0]->sellingStatus->currentPrice->value;       
+        /* Cargo busqueda hasta precio maximo */
+        $busqueda->setPrecioMinimo($minPrecioIntervalo."");
+        $busqueda->setPrecioMaximo($maximoPrecioIntervalo."");
+        var_dump("1. Desde ".$minPrecioIntervalo." hasta ".$maximoPrecioIntervalo);
+        $this->actualizarPublicaciones($busqueda);
+        var_dump("1. Busque desde ".$minPrecioIntervalo." hasta ".$maximoPrecioIntervalo);
+        $minPrecioIntervalo = $maximoPrecioIntervalo;
+        $minPrecioIntervalo = $max;
 
-            /* Cargo busqueda hasta precio maximo */
-            $busqueda->setPrecioMinimo($minPrecioIntervalo."");
-            $busqueda->setPrecioMaximo($maximoPrecioIntervalo."");
-            var_dump("Desde ".$minPrecioIntervalo." hasta ".$maximoPrecioIntervalo);
+        $busqueda->setPrecioMinimo($minPrecioIntervalo."");
+        $busqueda->setPrecioMaximo($maximoPrecioIntervalo."");
+        var_dump("2. Desde ".$minPrecioIntervalo." hasta ".$maximoPrecioIntervalo);
+        $this->actualizarPublicaciones($busqueda);
+        var_dump("2. Busque desde ".$minPrecioIntervalo." hasta ".$maximoPrecioIntervalo);
 
-            /* Busco */
-            $this->actualizarPublicaciones($busqueda);
-            var_dump("Busqueda desde ".$minPrecioIntervalo." hasta ".$maximoPrecioIntervalo);
-
-            /* preparo proximo intervalo*/
-            $minPrecioIntervalo = $maximoPrecioIntervalo;
-            $division--;
-        }
+        /* preparo proximo intervalo*/
+        $minPrecioIntervalo = $maximoPrecioIntervalo;
+        
+        
 
         var_dump("Termine");
     }
@@ -172,15 +167,16 @@ class EbayService
             $maxIdEsp = $this->em->getRepository(EspecificacionesProductoEbay::ORM_ENTITY)->selectMaxId();
 			
             $this->imprimo("Comienzo página ". $pageNum);
+            var_dump("expression 1");
 		    $request->paginationInput->pageNumber = $pageNum;
             $response = $serviceFinding->findItemsAdvanced($request);
             $this->validarError($response);
-
+            var_dump("expression 2");
 		    if ($response->ack !== 'Failure') {
 		    	//Si la busqueda no falla
 		        foreach ($response->searchResult->item as $item) {
 		        	/* Por cada item de la página */
-            
+                    var_dump("expression 3");
                     $publicacion = $this->em->getRepository(PublicacionEbay::ORM_ENTITY)->findOneByIdEbay($item->itemId);
                     
                     $requestSingle = new GetSingleItemRequestType();
@@ -204,24 +200,27 @@ class EbayService
                             
                     }
                     else {
-
+                        var_dump("expression 4");
                         $datosItem = $serviceShopping->getSingleItem($requestSingle);
-
+                        var_dump("expression 40");
                         $imagenes = $this->cargoImagenes($item, $datosItem);
-
+                        var_dump("expression 41"); 
                         $especificaciones = $this->cargoEspecificaciones($datosItem);
-
+                        var_dump("expression 42");
                         $brand = $this->cargoEspecificacionEspecial($especificaciones, "Brand");
-
+                        var_dump("expression 43");
                         $mpn = $this->cargoEspecificacionEspecial($especificaciones, "MPN");
+                        var_dump("expression 44");
                         $upc = $this->cargoEspecificacionEspecial($especificaciones, "UPC");
+                        var_dump("expression 45");
                         $upc = is_numeric($upc) ? $upc : null;
+                        var_dump("expression 46");
                         $model = $this->cargoEspecificacionEspecial($especificaciones, "Model");
-
+                        var_dump("expression 47");
 
 		                /* Inserto */
                         $maxId++;
-                    
+                        var_dump("expression 5");
                         
                         $publicacion = new PublicacionEbay();
                         $publicacion->setIdEbay($item->itemId);
@@ -239,7 +238,7 @@ class EbayService
                         $publicacion->setMpn($this->stringLimpia($mpn));
                         $publicacion->setUpc($upc);
                         $this->em->persist($publicacion);
-
+                        var_dump("expression 10");
 
 		                //$this->imprimo("Inserto publicación " . $item->itemId);
                         //$sqlExec .= $sql;
@@ -544,7 +543,7 @@ class EbayService
     }
 
     private function cambiarEstadoBusqueda($busqueda, $texto) {
-        $busqueda = $this->em->getRepository(BusquedaEbay::ORM_ENTITY)->findOneById($busqueda->getId());
+        //$busqueda = $this->em->getRepository(BusquedaEbay::ORM_ENTITY)->findOneById($busqueda->getId());
         $busqueda->setEstadoActual(date('Y-m-d H:i:s')." - ".$texto);
         $this->em->persist($busqueda);
         $this->em->flush();
