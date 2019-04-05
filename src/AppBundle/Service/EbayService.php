@@ -89,7 +89,7 @@ class EbayService
 
 
     public function dividirBusqueda($busqueda, $paginas) {
-        $division = ($paginas / 100) + 1;
+        $division = intval($paginas / 100) + 1;
         $pag = intval($paginas / $division);
         $serviceFinding = $this->getFindingService();
         $request = $this->generarRequestBusqueda($busqueda, $pag, 2);
