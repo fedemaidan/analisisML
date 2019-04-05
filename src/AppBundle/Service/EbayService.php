@@ -100,6 +100,8 @@ class EbayService
 
         while  ($division != 0) {
             $pag = $pag + $intervalo;
+            var_dump("nuevo intervalo desde pagina ".$pag);
+            
             $serviceFinding = $this->getFindingService();
             $request = $this->generarRequestBusqueda($busqueda, $pag, 2);
             $response = $serviceFinding->findItemsAdvanced($request);
