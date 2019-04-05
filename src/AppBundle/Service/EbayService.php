@@ -137,12 +137,6 @@ class EbayService
     	/* Genero busqueda para calcular páginas*/
         $request = $this->generarRequestBusqueda($busqueda, 1, 10);
         $response = $serviceFinding->findItemsAdvanced($request);
-        $limit = $response->paginationOutput->totalPages;
-        var_dump($limit);
-        if ($limit > 100) {
-            return $this->dividirBusqueda($busqueda,$limit);
-            var_dump("expression");
-        }
 
         /* Intentar hasta que conecte */
         $intentos = 10;
@@ -158,6 +152,13 @@ class EbayService
         }
         //////////////////////////////
 
+        var_dump($response);
+        $limit = $response->paginationOutput->totalPages;
+        var_dump($limit);
+        if ($limit > 100) {
+            return $this->dividirBusqueda($busqueda,$limit);
+            var_dump("expression");
+        }
 
 		$countInserts = 0;
 		$countUpdates = 0;
@@ -538,10 +539,10 @@ class EbayService
     }
 
     private function cambiarEstadoBusqueda($busqueda, $texto) {
-        //$busqueda = $this->em->getRepository(BusquedaEbay::ORM_ENTITY)->findOneById($busqueda->getId());
-        //$busqueda->setEstadoActual(date('Y-m-d H:i:s')." - ".$texto);
-        // $this->em->persist($busqueda);
-        // $this->em->flush();
+        $busqueda = $this->em->getRepository(BusquedaEbay::ORM_ENTITY)->findOneById($busqueda->getId());
+        $busqueda->setEstadoActual(date('Y-m-d H:i:s')." - ".$texto);
+        $this->em->persist($busqueda);
+        $this->em->flush();
     }
 
     private function unset2($obj) {
