@@ -383,8 +383,8 @@ class EbayService
     }
 
     private function getFindingService() {
-        if ($this->findingService == null){
-           $findingService =  new \DTS\eBaySDK\Finding\Services\FindingService([
+        if (!$this->findingService == null){
+           $this->findingService =  new \DTS\eBaySDK\Finding\Services\FindingService([
             //'apiVersion'  => '1.13.0',
             'globalId'    => Constants\GlobalIds::US,
             'credentials' => [
