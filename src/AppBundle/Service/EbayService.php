@@ -98,7 +98,7 @@ class EbayService
         $min = $busqueda->getPrecioMinimo();
         $minPrecioIntervalo = $min;
         $max = $busqueda->getPrecioMaximo();
-        $intervalo = intval($paginas / $division) + 2;
+        $intervalo = intval($paginas / $division);
 
         while  ($division != 0) {
             $pag = $pag + $intervalo;
