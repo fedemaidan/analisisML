@@ -99,10 +99,12 @@ class EbayService
         $intervalo = intval($paginas / $division) + 1;
 
         while  ($division != 0) {
-            $paginaMaxima = $pag + $intervalo;
+            $pag = $pag + $intervalo;
             $serviceFinding = $this->getFindingService();
             $request = $this->generarRequestBusqueda($busqueda, $pag, 2);
             $response = $serviceFinding->findItemsAdvanced($request);
+            var_dump($division);
+            var_dump($pag);
             $maximoPrecioIntervalo = $response->searchResult->item[0]->sellingStatus->currentPrice->value;       
             $busqueda->setPrecioMinimo($minPrecioIntervalo);
             $busqueda->setPrecioMinimo($maximoPrecioIntervalo);
