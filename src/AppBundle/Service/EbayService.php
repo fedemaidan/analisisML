@@ -129,6 +129,7 @@ class EbayService
         $limit = $response->paginationOutput->totalPages;
 
         if ($limit > 100) {
+            var_dump("expression2");
             return $this->dividirBusqueda($busqueda,$limit);
             $request = $this->generarRequestBusqueda($busqueda, 1, $limit);
             $response = $serviceFinding->findItemsAdvanced($request);
@@ -151,10 +152,10 @@ class EbayService
 
 		$countInserts = 0;
 		$countUpdates = 0;
-
+        var_dump("expression3");
 		/* Recorro las páginas y actualizo publicaciones */
 		for ($pageNum = 1; $pageNum <= $limit; $pageNum++) {
-			
+			var_dump("expression4");
             $sqlExec = "";
             $sqlEspecificaciones = "";
             $maxId = $this->em->getRepository(PublicacionEbay::ORM_ENTITY)->selectMaxId();
