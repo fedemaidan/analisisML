@@ -90,8 +90,8 @@ class EbayService
 
     public function dividirBusqueda($busqueda, $paginas) {
         /* Dividir la buqueda en menos de 100 paginas x busqueda*/
-
         $division = intval($paginas / 100) + 1;
+        var_dump("Divido busquedas en ".$division);
         $pag = 0;
         $min = $busqueda->getPrecioMinimo();
         $minPrecioIntervalo = $min;
@@ -103,21 +103,18 @@ class EbayService
             $serviceFinding = $this->getFindingService();
             $request = $this->generarRequestBusqueda($busqueda, $pag, 2);
             $response = $serviceFinding->findItemsAdvanced($request);
-            var_dump($division);
-            var_dump($pag);
             $maximoPrecioIntervalo = $response->searchResult->item[0]->sellingStatus->currentPrice->value;       
             $busqueda->setPrecioMinimo($minPrecioIntervalo."");
             $busqueda->setPrecioMaximo($maximoPrecioIntervalo."");
+            var_dump("Desde ".$minPrecioIntervalo." hasta ".$maximoPrecioIntervalo);
             $this->actualizarPublicaciones($busqueda);
             $minPrecioIntervalo = $maximoPrecioIntervalo;
             $division--;
-            var_dump("expression");
         }
     }
 
     public function actualizarPublicaciones(BusquedaEbay $busqueda)
     {
-        var_dump("expression5");
         $this->cambiarEstadoBusqueda($busqueda, "Comienza actualización ..");
 
     	/* Creo servicios ebay */
@@ -130,7 +127,6 @@ class EbayService
         $limit = $response->paginationOutput->totalPages;
 
         if ($limit > 100) {
-            var_dump("expression2");
             return $this->dividirBusqueda($busqueda,$limit);
             $request = $this->generarRequestBusqueda($busqueda, 1, $limit);
             $response = $serviceFinding->findItemsAdvanced($request);
@@ -153,10 +149,9 @@ class EbayService
 
 		$countInserts = 0;
 		$countUpdates = 0;
-        var_dump("expression3");
 		/* Recorro las páginas y actualizo publicaciones */
 		for ($pageNum = 1; $pageNum <= $limit; $pageNum++) {
-			var_dump("expression4");
+
             $sqlExec = "";
             $sqlEspecificaciones = "";
             $maxId = $this->em->getRepository(PublicacionEbay::ORM_ENTITY)->selectMaxId();
