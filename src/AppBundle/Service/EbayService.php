@@ -87,6 +87,20 @@ class EbayService
         $this->imprimo("Fin limpieza");
     }
 
+
+    public function dividirBusqueda($busqueda, $paginas) {
+        $pag = intval($paginas / 2);
+        $request = $this->generarRequestBusqueda($busqueda, $pag, 2);
+        $response = $serviceFinding->findItemsAdvanced($request);
+        $price = $response->searchResult->item[0]->sellingStatus->currentPrice->value;
+        $maximoAux = $busqueda->getPrecioMaximo();
+        $busqueda->setPrecioMaximo($price);
+        $this->actualizarPublicaciones($busqueda);
+        $busqueda->setPrecioMaximo($maximoAux);
+        $busqueda->setPrecioMinimo($price);
+        $this->actualizarPublicaciones($busqueda);
+    }
+
     public function actualizarPublicaciones(BusquedaEbay $busqueda)
     {
         $this->cambiarEstadoBusqueda($busqueda, "Comienza actualización ..");
@@ -101,6 +115,7 @@ class EbayService
         $limit = $response->paginationOutput->totalPages;
 
         if ($limit > 100) {
+            return $this->dividirBusqueda($busqueda,$limit);
             $request = $this->generarRequestBusqueda($busqueda, 1, $limit);
             $response = $serviceFinding->findItemsAdvanced($request);
         }
@@ -151,24 +166,10 @@ class EbayService
 
                     if (!$categoria->getInteresante())
                         continue;
-
-                    $datosItem = $serviceShopping->getSingleItem($requestSingle);
-
-                    $imagenes = $this->cargoImagenes($item, $datosItem);
-
-                    $especificaciones = $this->cargoEspecificaciones($datosItem);
-
-                    $brand = $this->cargoEspecificacionEspecial($especificaciones, "Brand");
-
-                    $mpn = $this->cargoEspecificacionEspecial($especificaciones, "MPN");
-                    $upc = $this->cargoEspecificacionEspecial($especificaciones, "UPC");
-                    $upc = is_numeric($upc) ? $upc : null;
-                    $model = $this->cargoEspecificacionEspecial($especificaciones, "Model");
-
                     
                     if ($publicacion) {
                         /* Update si es necesario */
-                        	$sqlUpdate = $this->update($publicacion, $item, $datosItem, $imagenes, $categoria, $brand, $model, $mpn, $upc );
+                        	$sqlUpdate = $this->update($publicacion, $item);
 
                             if ($sqlUpdate) {
                                        $sqlExec .= $sqlUpdate;
@@ -178,6 +179,21 @@ class EbayService
                             
                     }
                     else {
+
+                        $datosItem = $serviceShopping->getSingleItem($requestSingle);
+
+                        $imagenes = $this->cargoImagenes($item, $datosItem);
+
+                        $especificaciones = $this->cargoEspecificaciones($datosItem);
+
+                        $brand = $this->cargoEspecificacionEspecial($especificaciones, "Brand");
+
+                        $mpn = $this->cargoEspecificacionEspecial($especificaciones, "MPN");
+                        $upc = $this->cargoEspecificacionEspecial($especificaciones, "UPC");
+                        $upc = is_numeric($upc) ? $upc : null;
+                        $model = $this->cargoEspecificacionEspecial($especificaciones, "Model");
+
+
 		                /* Inserto */
                         $maxId++;
                     
@@ -359,7 +375,7 @@ class EbayService
 		        ]);
     }
 
-    private function update($publicacion, $item, $datosItem, $imagenes , $categoria, $brand, $model, $mpn, $upc) {
+    private function update($publicacion, $item) {
     	$updateSql = array();
 
         if ($this->stringLimpia($publicacion->getTitulo()) != $this->stringLimpia($item->title) )
@@ -375,64 +391,7 @@ class EbayService
             $publicacion->setPrecioCompra($this->stringLimpia($item->sellingStatus->currentPrice->value));
             $this->em->persist($publicacion);
         }
-        if ($this->stringLimpia($publicacion->getLinkPublicacion()) != $this->stringLimpia($item->viewItemURL))
-        {
-        	//$updateSql[] = " link_publicacion = '".$this->stringLimpia($item->viewItemURL)."'";
-            $publicacion->setLinkPublicacion($this->stringLimpia($item->viewItemURL));
-            $this->em->persist($publicacion);
-            
-        }
-        if ($publicacion->getImagenes() != $this->stringLimpia($imagenes,1500)) {
-        	//$updateSql[] = " imagenes = '".$this->stringLimpia($imagenes,1500)."'";
-            $publicacion->setImagenes($this->stringLimpia($imagenes,1500));
-            $this->em->persist($publicacion);
-        } 
-        if ($publicacion->getCantidadVendidosEbay() != $datosItem->Item->QuantitySold)
-        {
-			//$updateSql[] = " cantidad_vendidos_ebay = '".$datosItem->Item->QuantitySold."'";                  	
-            $publicacion->setCantidadVendidosEbay($datosItem->Item->QuantitySold);
-            $this->em->persist($publicacion);
-        } 
-        if ($publicacion->getEstadoEbay() != $item->sellingStatus->sellingState)
-        {
-			//$updateSql[] = " estado_ebay = '".$item->sellingStatus->sellingState."'";
-            $publicacion->setEstadoEbay($item->sellingStatus->sellingState);
-            $this->em->persist($publicacion);
-        }
-        if ($publicacion->getCategoriaEbay()->getId() != $categoria->getId())
-        {
-            //$updateSql[] = " categoria_ebay_id = '".$categoria->getId()."'";
-            $publicacion->setCategoriaEbay($categoria);
-            $this->em->persist($publicacion);
-        }
-
-        if ($publicacion->getBrand() != $brand)
-        {
-            //$updateSql[] = " brand = '".$brand."'";
-            $publicacion->setBrand($brand);
-            $this->em->persist($publicacion);
-        }
-
-        if ($publicacion->getModel() != $model)
-        {
-            //$updateSql[] = " model = '".$model."'";
-            $publicacion->setModel($model);
-            $this->em->persist($publicacion);
-        }
-
-        if ($publicacion->getMpn() != $mpn)
-        {
-            //$updateSql[] = " mpn = '".$mpn."'";
-            $publicacion->setMpn($mpn);
-            $this->em->persist($publicacion);
-        }
         
-        if ($publicacion->getUpc() != $upc)
-        {
-            //$updateSql[] = " upc = '".$upc."'";
-            $publicacion->setUpc($upc);
-            $this->em->persist($publicacion);
-        }
 
 
         /*
