@@ -500,13 +500,16 @@ class EbayService
 
             var_dump("expression6");
             $element = $document->getElementById('subinfo');
-            $str = $element->nodeValue;
-            $pos = strpos($str, 'UPC:') + 4;
-            $length = strpos($str, '|') - $pos;
+            if ($element) {
+                $str = $element->nodeValue;
+                $pos = strpos($str, 'UPC:') + 4;
+                $length = strpos($str, '|') - $pos;
+                
+                var_dump("expression7");
+                $upc = trim(substr($str,$pos,$length));
+                $especificaciones['UPC'] = $upc;    
+            }
             
-            var_dump("expression7");
-            $upc = trim(substr($str,$pos,$length));
-            $especificaciones['UPC'] = $upc;
         }
 
         var_dump("expression");
