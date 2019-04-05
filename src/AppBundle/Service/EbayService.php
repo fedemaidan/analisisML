@@ -140,8 +140,7 @@ class EbayService
 
         if ($limit > 100) {
             return $this->dividirBusqueda($busqueda,$limit);
-            $request = $this->generarRequestBusqueda($busqueda, 1, $limit);
-            $response = $serviceFinding->findItemsAdvanced($request);
+            var_dump("expression");
         }
 
         /* Intentar hasta que conecte */
