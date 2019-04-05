@@ -100,19 +100,29 @@ class EbayService
 
         while  ($division != 0) {
             $pag = $pag + $intervalo;
-            var_dump("nuevo intervalo desde pagina ".$pag);
+            var_dump("nuevo intervalo hasta pagina ".$pag);
             
+            /* Busco precio maximo del intervalo*/
             $serviceFinding = $this->getFindingService();
             $request = $this->generarRequestBusqueda($busqueda, $intervalo, 2);
             $response = $serviceFinding->findItemsAdvanced($request);
             $maximoPrecioIntervalo = $response->searchResult->item[0]->sellingStatus->currentPrice->value;       
+
+            /* Cargo busqueda hasta precio maximo */
             $busqueda->setPrecioMinimo($minPrecioIntervalo."");
             $busqueda->setPrecioMaximo($maximoPrecioIntervalo."");
             var_dump("Desde ".$minPrecioIntervalo." hasta ".$maximoPrecioIntervalo);
+
+            /* Busco */
             $this->actualizarPublicaciones($busqueda);
+            var_dump("Busqueda desde ".$minPrecioIntervalo." hasta ".$maximoPrecioIntervalo);
+
+            /* preparo proximo intervalo*/
             $minPrecioIntervalo = $maximoPrecioIntervalo;
             $division--;
         }
+
+        var_dump("Termine");
     }
 
     public function actualizarPublicaciones(BusquedaEbay $busqueda)
