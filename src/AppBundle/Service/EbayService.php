@@ -338,7 +338,9 @@ class EbayService
             ]);
         }
 
-		$request->paginationInput = new Types\PaginationInput();
+        $request->sortOrder = 'CurrentPriceHighest';
+        
+        $request->paginationInput = new Types\PaginationInput();
 		$request->paginationInput->entriesPerPage = $entriesPerPage;
 		$request->paginationInput->pageNumber = $pageNumber;
 
