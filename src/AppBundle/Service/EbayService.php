@@ -106,8 +106,8 @@ class EbayService
             var_dump($division);
             var_dump($pag);
             $maximoPrecioIntervalo = $response->searchResult->item[0]->sellingStatus->currentPrice->value;       
-            $busqueda->setPrecioMinimo(intval($minPrecioIntervalo));
-            $busqueda->setPrecioMaximo(intval($maximoPrecioIntervalo));
+            $busqueda->setPrecioMinimo($minPrecioIntervalo."");
+            $busqueda->setPrecioMaximo($maximoPrecioIntervalo."");
             $this->actualizarPublicaciones($busqueda);
             $minPrecioIntervalo = $maximoPrecioIntervalo;
             $division--;
