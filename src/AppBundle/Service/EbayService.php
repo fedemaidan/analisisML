@@ -75,7 +75,10 @@ class EbayService
         $contadorBorrados = 0;
         foreach ($borrar as $itemId) {
             $publicacion = $this->em->getRepository(PublicacionEbay::ORM_ENTITY)->findOneByIdEbay($itemId);
-            $this->em->remove($publicacion);
+            
+            /* Cambiar estado a inactivo para que quede información de la publicación en la nuestra */
+            
+            //$this->em->remove($publicacion);
             $contadorBorrados++;
         }
         
@@ -143,10 +146,13 @@ class EbayService
                     $requestSingle = new GetSingleItemRequestType();
                     $requestSingle->IncludeSelector = 'ItemSpecifics,Variations,Compatibility,Details,ShippingCosts,Description';
                     $requestSingle->ItemID = $item->itemId;
-            
-                    $datosItem = $serviceShopping->getSingleItem($requestSingle);
-
+                    
                     $categoria = $this->cargarCategoria($item->primaryCategory);
+
+                    if (!$categoria->getInteresante())
+                        continue;
+
+                    $datosItem = $serviceShopping->getSingleItem($requestSingle);
 
                     $imagenes = $this->cargoImagenes($item, $datosItem);
 
