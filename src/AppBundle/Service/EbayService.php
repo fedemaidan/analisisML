@@ -90,6 +90,7 @@ class EbayService
 
     public function dividirBusqueda($busqueda, $paginas) {
         $pag = intval($paginas / 2);
+        $serviceFinding = $this->getFindingService();
         $request = $this->generarRequestBusqueda($busqueda, $pag, 2);
         $response = $serviceFinding->findItemsAdvanced($request);
         $price = $response->searchResult->item[0]->sellingStatus->currentPrice->value;
