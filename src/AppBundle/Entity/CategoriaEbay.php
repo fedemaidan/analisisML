@@ -55,6 +55,13 @@ class CategoriaEbay
     private $shipping;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="interesante", type="boolean", nullable=true)
+    */
+    private $interesante;
+
+    /**
      * Get id
      *
      * @return int
@@ -163,5 +170,29 @@ class CategoriaEbay
     public function getShipping()
     {
         return $this->shipping;
+    }
+
+    /**
+     * Set interesante
+     *
+     * @param boolean $interesante
+     *
+     * @return CategoriaEbay
+     */
+    public function setInteresante($interesante)
+    {
+        $this->interesante = $interesante;
+
+        return $this;
+    }
+
+    /**
+     * Get interesante
+     *
+     * @return boolean
+     */
+    public function getInteresante()
+    {
+        return $this->interesante;
     }
 }

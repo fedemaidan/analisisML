@@ -478,7 +478,6 @@ class EbayService
         $especificaciones = [];
         $hasUpc = false;
 
-        var_dump("expression2");
         if (isset($datosItem->Item->ItemSpecifics)) 
         {
             foreach ($datosItem->Item->ItemSpecifics->NameValueList as $key => $value) {
@@ -487,32 +486,27 @@ class EbayService
                     $hasUpc = true;
             }
         }
-        var_dump("expression3");
+
         if (!$hasUpc) {
-            var_dump("expression4");
             $descripcion = $datosItem->Item->Description;
             $document = new \DOMDocument('1.0', 'UTF-8');
             
-            var_dump("expression5");
             $internalErrors = libxml_use_internal_errors(true);
             $document->loadHTML($descripcion);
             libxml_use_internal_errors($internalErrors);
 
-            var_dump("expression6");
             $element = $document->getElementById('subinfo');
             if ($element) {
                 $str = $element->nodeValue;
                 $pos = strpos($str, 'UPC:') + 4;
                 $length = strpos($str, '|') - $pos;
                 
-                var_dump("expression7");
                 $upc = trim(substr($str,$pos,$length));
                 $especificaciones['UPC'] = $upc;    
             }
             
         }
 
-        var_dump("expression");
         return $especificaciones;
     }
 
