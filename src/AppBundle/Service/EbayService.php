@@ -219,12 +219,14 @@ class EbayService
 		                //$this->imprimo("Inserto publicación " . $item->itemId);
                         //$sqlExec .= $sql;
                         $countInserts++;
+                        $sqlEspecificaciones .= $this->insertoEspecificaciones($especificaciones,$publicacion);
+
+                        $this->unset2($datosItem);
+                    
                     }
 
                     $idPublicacion = $publicacion ? $publicacion->getId() : $maxId;
-                    $sqlEspecificaciones .= $this->insertoEspecificaciones($especificaciones,$publicacion);
                     
-                    $this->unset2($datosItem);
                     $brand = null;
                     
                     $especificaciones = null;
