@@ -477,7 +477,8 @@ class EbayService
     private function cargoEspecificaciones($datosItem) {
         $especificaciones = [];
         $hasUpc = false;
-        var_dump($datosItem->Item);
+
+        var_dump("expression2");
         if (isset($datosItem->Item->ItemSpecifics)) 
         {
             foreach ($datosItem->Item->ItemSpecifics->NameValueList as $key => $value) {
@@ -504,7 +505,7 @@ class EbayService
             $especificaciones['UPC'] = $upc;
         }
 
-        
+        var_dump("expression");
         return $especificaciones;
     }
 
