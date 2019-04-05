@@ -138,7 +138,7 @@ class EbayService
         $request = $this->generarRequestBusqueda($busqueda, 1, 10);
         $response = $serviceFinding->findItemsAdvanced($request);
         $limit = $response->paginationOutput->totalPages;
-
+        var_dump($limit);
         if ($limit > 100) {
             return $this->dividirBusqueda($busqueda,$limit);
             var_dump("expression");
