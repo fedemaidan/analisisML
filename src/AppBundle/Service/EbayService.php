@@ -31,6 +31,8 @@ class EbayService
     */
     private $em;
 
+    private $findingService;
+
 
     public function __construct( Container $container, EntityManager $entityManager )
     {
@@ -152,7 +154,6 @@ class EbayService
         }
         //////////////////////////////
 
-        var_dump($response);
         $limit = $response->paginationOutput->totalPages;
         var_dump($limit);
         if ($limit > 100) {
@@ -382,14 +383,18 @@ class EbayService
     }
 
     private function getFindingService() {
-    	return new \DTS\eBaySDK\Finding\Services\FindingService([
-		    //'apiVersion'  => '1.13.0',
-		    'globalId'    => Constants\GlobalIds::US,
-		    'credentials' => [
-		        'appId'  => $this->container->getParameter('ebay.app_id'),
-		        'certId' => $this->container->getParameter('ebay.certId'),
-		        'devId'  => $this->container->getParameter('ebay.devId')]
-		        ]);
+        if ($this->findingService == null){
+           $findingService =  new \DTS\eBaySDK\Finding\Services\FindingService([
+            //'apiVersion'  => '1.13.0',
+            'globalId'    => Constants\GlobalIds::US,
+            'credentials' => [
+                'appId'  => $this->container->getParameter('ebay.app_id'),
+                'certId' => $this->container->getParameter('ebay.certId'),
+                'devId'  => $this->container->getParameter('ebay.devId')]
+                ]);
+       }
+
+       return $this->findingService;
     }
 
     private function getShoppingService() {
