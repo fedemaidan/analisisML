@@ -93,6 +93,7 @@ class EbayService
         $serviceFinding = $this->getFindingService();
         $request = $this->generarRequestBusqueda($busqueda, $pag, 2);
         $response = $serviceFinding->findItemsAdvanced($request);
+        var_dump($response->searchResult->item);
         $price = $response->searchResult->item[0]->sellingStatus->currentPrice->value;
         $maximoAux = $busqueda->getPrecioMaximo();
         $busqueda->setPrecioMaximo($price);
