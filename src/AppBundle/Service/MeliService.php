@@ -546,7 +546,7 @@ EL PRODUCTO EN TUS MANOS:
 
 •RETIRO
 +Nos encontramos en Flores, CABA. 
-+Nuestro Horario de Atención es de XX a XX. Los RETIROS son con Horario coordinado previamente.
++Nuestro Horario de Atención es de 8 a 20. Los RETIROS son con Horario coordinado previamente.
 
 •ENVÍOS 
 +Realizamos Envíos a TODO el PAÍS con la empresa que te quede más cómodo.
