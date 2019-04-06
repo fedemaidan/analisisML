@@ -324,14 +324,14 @@ class MeliService
         $precio = $this->calcularPrecio($ebay->getCategoriaEbay(), $ebay->getPrecioCompra());
 
         if ($publicacionExistente != null) {
-                    $brand = $ebay->getBrand();
-        $model = $ebay->getModel();
+            $brand = $ebay->getBrand();
+            $model = $ebay->getModel();
 
-        if ($model && $model != "")
-            $titulo = $brand." ".$model;
-        else
-            $titulo = $ebay->getTitulo();
-
+            if ($model && $model != "")
+                $titulo = $brand." ".$model;
+            else
+                $titulo = $ebay->getTitulo();
+        }
         
         $publicacionPropia->setTitulo($this->armarTitulo($titulo));
         $publicacionPropia->setDescripcion($this->generarDescripcion($ebay));
