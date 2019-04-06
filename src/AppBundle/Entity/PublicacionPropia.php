@@ -290,7 +290,7 @@ class PublicacionPropia
         $nombreCategoria = $ebay->getCategoriaEbay()->getName();  
 
         if (strpos($nombreCategoria, 'Watch') !== false) {
-            $texto = "SmartWatch".$texto;
+            $texto = "SmartWatch ".$texto;
         }
 
         $sufijo = " - 25 días";
