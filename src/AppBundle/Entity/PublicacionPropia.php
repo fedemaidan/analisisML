@@ -321,7 +321,7 @@ Características Técnicas y Especificaciones del Producto:
         $this->setDescripcion($descripcion);
     }
 
-    protected function cargarPrecio() {
+    public function cargarPrecio() {
         /*
         $precioCompra = $precioCompra * 21;
         return $precioCompra * $rentabilidad;
