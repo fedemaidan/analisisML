@@ -484,7 +484,7 @@ class EbayService
                     $hasUpc = true;
             }
         }
-
+/*
         if (!$hasUpc) {
             $descripcion = $datosItem->Item->Description;
             $document = new \DOMDocument('1.0', 'UTF-8');
@@ -504,7 +504,7 @@ class EbayService
             }
             
         }
-
+*/
         return $especificaciones;
     }
 
