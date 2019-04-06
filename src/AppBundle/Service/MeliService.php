@@ -553,7 +553,7 @@ EL PRODUCTO EN TUS MANOS:
 •GARANTÍA
 +Todos nuestros Productos tienen GARANTÍA DE SEIS MESES ante cualquier Falla de Fábrica
 ------------------------------------------
-"
+";
             return $descripcion;
     }
 
