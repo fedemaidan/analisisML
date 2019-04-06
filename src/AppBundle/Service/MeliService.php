@@ -336,7 +336,7 @@ class MeliService
         $publicacionPropia->setTitulo($this->armarTitulo($titulo));
         $publicacionPropia->setDescripcion($this->generarDescripcion($ebay));
         $publicacionPropia->setPrecioCompra($precio);
-
+/*
         foreach ($ebay->getEspecificaciones() as $key => $especificacion) {
             // Buscamos un attributo con nombre y valor igual al de la especificacion 
             $nombreEspecificacion = $especificacion->getName();
@@ -377,7 +377,7 @@ class MeliService
             }
 
 
-        }
+        }*/
 
         $this->em->persist($publicacionPropia);
         $this->em->flush();
