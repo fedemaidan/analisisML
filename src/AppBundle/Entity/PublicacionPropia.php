@@ -298,4 +298,65 @@ class PublicacionPropia
         
         $this->setTitulo($texto.$sufijo);
     }
+
+    public function armarDescripcion() {
+
+        $descripcion =  "Producto Traído BAJO PEDIDO.
+El producto arriba al País dentro de los 25 (veinticinco) días a partir de la confirmación de la Reserva.
+
+•¡Adquirí tu producto con mayor facilidad! No es necesario tener Clave Fiscal ni realizar Trámites de Importación.
+
+•No es necesario abones la totalidad del producto para comenzar con la Operación. Consultanos para abonar un Anticipo en concepto de Reserva.
+
+•Una vez llegado tu Producto al País, podrás abonar el monto restante de acuerdo al Medio de Pago que desees.
+
+•Al realizar la compra, recibirás el VOUCHER de RESERVA correspondiente para poder realizar un SEGUIMIENTO PERSONALIZADO y seguro de tu producto.
+
+
+Nuestro compromiso es total para asegurarte una experiencia de compra positiva ¡Cualquier duda que tengas, consultanos!
+
+------------------------------------------
+
+•Medios de Pago:
++Aceptamos Todos los medio de pago de Mercado Pago
++Efectivo y Transferencia Bancaria (¡Consultá por Bonificaciones!)
+------------------------------------------
+
+EL PRODUCTO EN TUS MANOS:
+
+•RETIRO
++Nos encontramos en Flores, CABA. 
++Nuestro Horario de Atención es de 8 a 20. Los RETIROS son con Horario coordinado previamente.
+
+•ENVÍOS 
++Realizamos Envíos a TODO el PAÍS con la empresa que te quede más cómodo.
+
+------------------------------------------
+
+•GARANTÍA
++Todos nuestros Productos tienen GARANTÍA DE SEIS MESES ante cualquier Falla de Fábrica
+------------------------------------------
+";
+        $this->setDescripcion($descripcion);
+    }
+
+    private function cargarPrecio() {
+        /*
+        $precioCompra = $precioCompra * 21;
+        return $precioCompra * $rentabilidad;
+        
+        $porcentajeImpuestoPorCategoria = 20;
+        $impuesto = $precioCompra * ($porcentajeImpuestoPorCategoria / 100);
+        $costoEnvio = 100;
+        $comisionML = $precioCompra * 0.12;
+
+        $precio = ($precioCompra + $impuesto + $costoEnvio + $comisionML) * ($rentabilidad + 1);
+        */
+        $categoria = $this->getPublicacionEbay()->getCategoriaEbay();
+        $precioCompra = $this->getPublicacionEbay()->getPrecioCompra();
+        $ratio = $categoria->getRatio();
+        $shipping = $categoria->getShipping();
+        $precio = (($precioCompra * $ratio) + $shipping) * self::DOLAR;
+        $this->setPrecioCompra(intdiv($precio, 100) * 100 - 1);
+    }
 }

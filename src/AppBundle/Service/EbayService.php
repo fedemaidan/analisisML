@@ -313,12 +313,12 @@ class EbayService
 		$itemFilter->name = 'ListingType';
 		$itemFilter->value[] = 'StoreInventory';
 		//$request->itemFilter[] = $itemFilter;
-
+/*
 		$itemFilter = new Types\ItemFilter();
 		$itemFilter->name = 'Seller';
 		$itemFilter->value[] = $busqueda->getVendedorEbayId();
 		$request->itemFilter[] = $itemFilter;
-
+*/
         if ($busqueda->getFiltrarNew()) {
             $itemFilter = new Types\ItemFilter();
             $itemFilter->name = 'Condition';

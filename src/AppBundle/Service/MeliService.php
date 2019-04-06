@@ -321,11 +321,10 @@ class MeliService
     public function actualizarPublicacion($publicacionPropia) {
         
         $ebay = $publicacionPropia->getPublicacionEbay();
-        $precio = $this->calcularPrecio($ebay->getCategoriaEbay(), $ebay->getPrecioCompra());
         
         $publicacionPropia->armarTitulo();
-        $publicacionPropia->setDescripcion($this->generarDescripcion($ebay));
-        $publicacionPropia->setPrecioCompra($precio);
+        $publicacionPropia->armarDescripcion();
+        $publicacionPropia->cargarPrecio();
 /*
         foreach ($ebay->getEspecificaciones() as $key => $especificacion) {
             // Buscamos un attributo con nombre y valor igual al de la especificacion 
@@ -429,11 +428,11 @@ class MeliService
         
         $publicacion = new PublicacionPropia();
         $publicacion->setPublicacionEbay($ebay);
-        $precio = $this->calcularPrecio($ebay->getCategoriaEbay(), $ebay->getPrecioCompra());
         
+
         $publicacion->armarTitulo();
-        $publicacion->setDescripcion($this->generarDescripcion($ebay));
-        $publicacion->setPrecioCompra($precio);
+        $publicacion->armarDescripcion();
+        $publicacion->cargarPrecio();
         $publicacion->setCuenta($cuentaML);
         $imagenes = $ebay->getImagenes();
         $imagnesArray = explode(",", $imagenes);
@@ -466,13 +465,6 @@ class MeliService
         return $publicacion;
     }
 
-    private function armarTitulo($texto) {
-        $sufijo = " - 25 días";
-        $texto = substr($texto, 0, 60 - strlen($sufijo));
-        
-        return $texto.$sufijo;
-    }
-
     private function predecirCategoria($publicacion) {
         $nombreCategoria = $publicacion->getPublicacionEbay()->getCategoriaEbay()->getName();  
         if (strpos($nombreCategoria, 'Watch') !== false) {
@@ -499,67 +491,6 @@ class MeliService
         }
         
         
-    }
-
-    private function generarDescripcion($ebay) {
-
-        $descripcion =  "Producto Traído BAJO PEDIDO.
-El producto arriba al País dentro de los 25 (veinticinco) días a partir de la confirmación de la Reserva.
-
-•¡Adquirí tu producto con mayor facilidad! No es necesario tener Clave Fiscal ni realizar Trámites de Importación.
-
-•No es necesario abones la totalidad del producto para comenzar con la Operación. Consultanos para abonar un Anticipo en concepto de Reserva.
-
-•Una vez llegado tu Producto al País, podrás abonar el monto restante de acuerdo al Medio de Pago que desees.
-
-•Al realizar la compra, recibirás el VOUCHER de RESERVA correspondiente para poder realizar un SEGUIMIENTO PERSONALIZADO y seguro de tu producto.
-
-
-Nuestro compromiso es total para asegurarte una experiencia de compra positiva ¡Cualquier duda que tengas, consultanos!
-
-------------------------------------------
-
-•Medios de Pago:
-+Aceptamos Todos los medio de pago de Mercado Pago
-+Efectivo y Transferencia Bancaria (¡Consultá por Bonificaciones!)
-------------------------------------------
-
-EL PRODUCTO EN TUS MANOS:
-
-•RETIRO
-+Nos encontramos en Flores, CABA. 
-+Nuestro Horario de Atención es de 8 a 20. Los RETIROS son con Horario coordinado previamente.
-
-•ENVÍOS 
-+Realizamos Envíos a TODO el PAÍS con la empresa que te quede más cómodo.
-
-------------------------------------------
-
-•GARANTÍA
-+Todos nuestros Productos tienen GARANTÍA DE SEIS MESES ante cualquier Falla de Fábrica
-------------------------------------------
-";
-            return $descripcion;
-    }
-
-    private function calcularPrecio($categoria, $precioCompra) {
-        /*
-        $precioCompra = $precioCompra * 21;
-        return $precioCompra * $rentabilidad;
-        
-        $porcentajeImpuestoPorCategoria = 20;
-        $impuesto = $precioCompra * ($porcentajeImpuestoPorCategoria / 100);
-        $costoEnvio = 100;
-        $comisionML = $precioCompra * 0.12;
-
-        $precio = ($precioCompra + $impuesto + $costoEnvio + $comisionML) * ($rentabilidad + 1);
-        */
-
-        $ratio = $categoria->getRatio();
-        $shipping = $categoria->getShipping();
-        $precio = (($precioCompra * $ratio) + $shipping) * self::DOLAR;
-        
-        return intdiv($precio, 100) * 100 - 1;
     }
 
     private function imprimo($texto) {
