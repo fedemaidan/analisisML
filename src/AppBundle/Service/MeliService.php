@@ -502,6 +502,7 @@ class MeliService
         $meli = new Meli("","");
         $titulo = str_replace("&", " ", $publicacion->getTitulo());
         $titulo = str_replace("\"", " ", $titulo);
+        $titulo = str_replace(" ", "%20", $titulo);
         
         $url = "sites/MLA/category_predictor/predict?&title='".$titulo."'&seller_id=".$publicacion->getCuenta()->getIdMl()."&price=".$publicacion->getPrecioCompra()."&category_from=".$category_from;
         var_dump($url);
