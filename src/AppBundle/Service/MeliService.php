@@ -260,9 +260,14 @@ class MeliService
 
     public function replicarPublicacionEbayEnMl($ebay, $cuentaML) {
 
+        if (strpos($ebay->getTitulo(), 'Garmin') !== false && strpos($ebay->getCategoriaEbay()->getName(), 'Watch') !== false) {
+            return;
+        }
+
         $publicacionExistente = $this->em->getRepository(PublicacionPropia::class)->findOneBy([ "publicacion_ebay" => $ebay]);
 
         if ($publicacionExistente != null) {
+            $this->actualizarPublicacion($publicacionExistente);
             var_dump("Ya esta cargada ".$ebay->getId());
             return;
         }
@@ -317,8 +322,18 @@ class MeliService
         
         $ebay = $publicacionPropia->getPublicacionEbay();
         $precio = $this->calcularPrecio($ebay->getCategoriaEbay(), $ebay->getPrecioCompra());
+
+        if ($publicacionExistente != null) {
+                    $brand = $ebay->getBrand();
+        $model = $ebay->getModel();
+
+        if ($model && $model != "")
+            $titulo = $brand." ".$model;
+        else
+            $titulo = $ebay->getTitulo();
+
         
-        $publicacionPropia->setTitulo($this->armarTitulo($ebay->getTitulo()));
+        $publicacionPropia->setTitulo($this->armarTitulo($titulo));
         $publicacionPropia->setDescripcion($this->generarDescripcion($ebay));
         $publicacionPropia->setPrecioCompra($precio);
 
@@ -410,11 +425,7 @@ class MeliService
 
             return $datos;
         }
-        
-
-    }
-
-    
+    }    
 
     public function sincronizarPublicacionesPropiasConMercadoLibre($cuenta) {
         
@@ -429,7 +440,16 @@ class MeliService
         $publicacion = new PublicacionPropia();
         $publicacion->setPublicacionEbay($ebay);
         $precio = $this->calcularPrecio($ebay->getCategoriaEbay(), $ebay->getPrecioCompra());
-        $publicacion->setTitulo($this->armarTitulo($ebay->getTitulo()));
+
+        $brand = $ebay->getBrand();
+        $model = $ebay->getModel();
+
+        if ($model && $model != "")
+            $titulo = $brand." ".$model;
+        else
+            $titulo = $ebay->getTitulo();
+
+        $publicacion->setTitulo($this->armarTitulo($titulo));
         $publicacion->setDescripcion($this->generarDescripcion($ebay));
         $publicacion->setPrecioCompra($precio);
         $publicacion->setCuenta($cuentaML);
@@ -465,19 +485,25 @@ class MeliService
     }
 
     private function armarTitulo($texto) {
-        $sufijo = "**CONSULTAR STOCK";
+        $sufijo = " - 25 días";
         $texto = substr($texto, 0, 60 - strlen($sufijo));
         
         return $texto.$sufijo;
     }
 
     private function predecirCategoria($publicacion) {
-        return "MLA399230";
+        $nombreCategoria = $publicacion->getPublicacionEbay()->getCategoriaEbay()->getName();  
+        if (strpos($nombreCategoria, 'Watch') !== false) {
+            return "MLA399230";
+        }
+
+        $category_from = "MLA1276";
+
         $meli = new Meli("","");
         $titulo = str_replace("&", " ", $publicacion->getTitulo());
         $titulo = str_replace("\"", " ", $titulo);
         
-        $url = "sites/MLA/category_predictor/predict?title=".$titulo."&seller_id=".$publicacion->getCuenta()->getIdMl()."&price=".$publicacion->getPrecioCompra();
+        $url = "sites/MLA/category_predictor/predict?title=".$titulo."&seller_id=".$publicacion->getCuenta()->getIdMl()."&price=".$publicacion->getPrecioCompra()."category_from=".$category_from;
         $url = str_replace(" ", "%", $url);
 
         $datos = $meli->get($url);
@@ -492,37 +518,42 @@ class MeliService
 
     private function generarDescripcion($ebay) {
 
-        $descripcion =  "----- YOUTEC ----- CONSULTAR STOCK ------- PRODUCTOS ORIGINALES IMPORTADOS
+        $descripcion =  "Producto Traído BAJO PEDIDO.
+El producto arriba al País dentro de los 25 (veinticinco) días a partir de la confirmación de la Reserva.
 
-            En YouTec nosotros estamos convencidos de que la tecnología para la salud debe estar al alcance de todos.
+•¡Adquirí tu producto con mayor facilidad! No es necesario tener Clave Fiscal ni realizar Trámites de Importación.
 
-            Una vez ofertado el producto nos comunicamos contigo y te damos un número de reserva para que puedas consultar por el estado de tu pedido en todo momento.
-            Tendrás asignado un vendedor para comunicarte con el directamente. Sin intermediarios.
+•No es necesario abones la totalidad del producto para comenzar con la Operación. Consultanos para abonar un Anticipo en concepto de Reserva.
 
-            Luego de esperar entre 2 y 4 semanas estará llegando el producto a tu casa. 
+•Una vez llegado tu Producto al País, podrás abonar el monto restante de acuerdo al Medio de Pago que desees.
 
-            Se puede pagar al contado o con una seña y completar el pago una vez recibido el producto.
-            
-            PRODUCTO: ".$ebay->getTitulo();
+•Al realizar la compra, recibirás el VOUCHER de RESERVA correspondiente para poder realizar un SEGUIMIENTO PERSONALIZADO y seguro de tu producto.
 
-            
-            $descripcion .= "
-            
-            ESPECIFICACIONES DEL PRODUCTO
-            
-            ";
 
-            foreach ($ebay->getEspecificaciones() as $espe) {
-                $descripcion .= $espe->getName().": ".$espe->getValue()."
-                ";
-            }
+Nuestro compromiso es total para asegurarte una experiencia de compra positiva ¡Cualquier duda que tengas, consultanos!
 
-            $descripcion .= "También podes consultar por otros productos que no encuentres dentro de MercadoLibre.
-            
-            Podes retirar tu producto cerca de la estación de Flores. También hacemos envíos a todo el país.
+------------------------------------------
 
-            Consulta por ofertas especiales. Si lo encontrás a menor precio, comunicate con nosotros que mejoramos nuestra oferta.";    
+•Medios de Pago:
++Aceptamos Todos los medio de pago de Mercado Pago
++Efectivo y Transferencia Bancaria (¡Consultá por Bonificaciones!)
+------------------------------------------
 
+EL PRODUCTO EN TUS MANOS:
+
+•RETIRO
++Nos encontramos en Flores, CABA. 
++Nuestro Horario de Atención es de XX a XX. Los RETIROS son con Horario coordinado previamente.
+
+•ENVÍOS 
++Realizamos Envíos a TODO el PAÍS con la empresa que te quede más cómodo.
+
+------------------------------------------
+
+•GARANTÍA
++Todos nuestros Productos tienen GARANTÍA DE SEIS MESES ante cualquier Falla de Fábrica
+------------------------------------------
+"
             return $descripcion;
     }
 
@@ -560,7 +591,6 @@ class MeliService
         $dato = json_decode($res->getBody()->getContents());
         
         return $dato->token;
-        
     }
 
     private function cambiarEstadoBusqueda($busqueda, $texto) {
