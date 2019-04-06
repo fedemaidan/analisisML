@@ -322,18 +322,8 @@ class MeliService
         
         $ebay = $publicacionPropia->getPublicacionEbay();
         $precio = $this->calcularPrecio($ebay->getCategoriaEbay(), $ebay->getPrecioCompra());
-
-        if ($ebay != null) {
-            $brand = $ebay->getBrand();
-            $model = $ebay->getModel();
-
-            if ($model && $model != "")
-                $titulo = $brand." ".$model;
-            else
-                $titulo = $ebay->getTitulo();
-        }
         
-        $publicacionPropia->setTitulo($this->armarTitulo($titulo));
+        $publicacionPropia->armarTitulo();
         $publicacionPropia->setDescripcion($this->generarDescripcion($ebay));
         $publicacionPropia->setPrecioCompra($precio);
 /*
@@ -440,16 +430,8 @@ class MeliService
         $publicacion = new PublicacionPropia();
         $publicacion->setPublicacionEbay($ebay);
         $precio = $this->calcularPrecio($ebay->getCategoriaEbay(), $ebay->getPrecioCompra());
-
-        $brand = $ebay->getBrand();
-        $model = $ebay->getModel();
-
-        if ($model && $model != "")
-            $titulo = $brand." ".$model;
-        else
-            $titulo = $ebay->getTitulo();
-
-        $publicacion->setTitulo($this->armarTitulo($titulo));
+        
+        $publicacion->armarTitulo();
         $publicacion->setDescripcion($this->generarDescripcion($ebay));
         $publicacion->setPrecioCompra($precio);
         $publicacion->setCuenta($cuentaML);

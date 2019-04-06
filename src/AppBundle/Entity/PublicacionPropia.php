@@ -273,4 +273,29 @@ class PublicacionPropia
     public function esPropia() {
         return true;
     }
+
+    public function armarTitulo() {
+        $ebay = $this->getPublicacionEbay();
+
+        if ($ebay != null) {
+            $brand = $ebay->getBrand();
+            $model = $ebay->getModel();
+
+            if ($model && $model != "")
+                $texto = $brand." ".$model;
+            else
+                $texto = $ebay->getTitulo();
+        }
+
+        $nombreCategoria = $ebay->getCategoriaEbay()->getName();  
+
+        if (strpos($nombreCategoria, 'Watch') !== false) {
+            $texto = "SmartWatch".$texto;
+        }
+
+        $sufijo = " - 25 días";
+        $texto = substr($texto, 0, 60 - strlen($sufijo));
+        
+        $this->setTitulo($texto.$sufijo);
+    }
 }
