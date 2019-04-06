@@ -329,6 +329,11 @@ class EbayService
             ]);
         }
 
+        $request->itemFilter[] = new Types\ItemFilter([
+                'name' => 'LocatedIn',
+                'value' => ['US']
+            ]); 
+
         $request->sortOrder = 'CurrentPriceHighest';
         
         $request->paginationInput = new Types\PaginationInput();
