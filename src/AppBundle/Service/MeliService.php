@@ -323,7 +323,7 @@ class MeliService
         $ebay = $publicacionPropia->getPublicacionEbay();
         $precio = $this->calcularPrecio($ebay->getCategoriaEbay(), $ebay->getPrecioCompra());
 
-        if ($publicacionExistente != null) {
+        if ($ebay != null) {
             $brand = $ebay->getBrand();
             $model = $ebay->getModel();
 
