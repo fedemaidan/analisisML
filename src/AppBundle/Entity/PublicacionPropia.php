@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class PublicacionPropia 
 {
-
+    const DOLAR = 45;
     use Traits\PublicacionMLTrait;
 
 	/**
