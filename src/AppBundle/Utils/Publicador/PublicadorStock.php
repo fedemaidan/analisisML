@@ -2,7 +2,7 @@
 
 namespace AppBundle\Utils\Publicador;
 
-class PublicadorStock extends PublicadorAbstract{	
+class PublicadorStock extends PublicadorAbstract {	
 
 	const TIPO_DE_VENTA = "STOCK";
 

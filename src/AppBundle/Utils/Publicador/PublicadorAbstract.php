@@ -15,7 +15,7 @@ class PublicadorAbstract {
         $this->comoYouTec = $comoYouTec;
     }
 
-    
+
     public function crearPublicacion() {
         
         $titulo = $this->getTitulo();
@@ -146,7 +146,10 @@ class PublicadorAbstract {
     }
 
     public function getImagenes() {
-
+        if ($this->producto)
+            return $producto->getImagenes();
+        else
+            return $ebay->getImagenes();
     }
 
     public function getCategoriaML($publicacion) {
