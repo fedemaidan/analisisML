@@ -1,12 +1,13 @@
 <?php
 
 namespace AppBundle\Utils\Publicador;
+use AppBundle\Entity\PublicacionPropia;
 
 class PublicadorAbstract {	
 
-    private $producto;
-    private $ebay;
-    private $comoYouTec;
+    protected $producto;
+    protected $ebay;
+    protected $comoYouTec;
 
     public function __construct( $comoYouTec, $producto, $ebay = null)
     {
@@ -25,7 +26,7 @@ class PublicadorAbstract {
         $publicacion = new PublicacionPropia();
         $publicacion->setTitulo($titulo);
         $publicacion->setDescripcion($descripcion);
-        $publicacion->setPrecio($precio);
+        $publicacion->setPrecioCompra($precio);
         $publicacion->setImagenes($imagenes);
 
         $categoriaML = $this->getCategoriaML($publicacion);
@@ -81,7 +82,7 @@ class PublicadorAbstract {
         $youtecTexto = "";
 
         if ($this->comoYouTec) {
-            $youtecTexto = "-Somos YOUTEC, el Futuro está en tus manos-"
+            $youtecTexto = "-Somos YOUTEC, el Futuro está en tus manos-";
         }
 
         $tipoPrincipioTexto = $this->getTipoPrincipioTexto();
@@ -106,7 +107,7 @@ class PublicadorAbstract {
 ".$youtecTexto;
     }
 
-    protected function getProductoText() {
+    protected function getProductoTexto() {
         $productoTexto = "";
         if ($this->producto) {
             $productoTexto = "Características Técnicas y Especificaciones del Producto:";
@@ -123,7 +124,7 @@ class PublicadorAbstract {
     public function getPrecio() {
         if ($this->producto){
             $ajuste = $this->getAjuste();
-            $precio = $this->getPrecioReferencia() * $ajuste;
+            $precio = $this->producto->getPrecioReferencia() * $ajuste;
             return $this->precioComercial($precio);
         }
         else
@@ -142,14 +143,14 @@ class PublicadorAbstract {
     }
 
     public function precioComercial($precio) {
-        return intdiv($precio, 100) * 100 - 1
+        return intdiv($precio, 100) * 100 - 1;
     }
 
     public function getImagenes() {
         if ($this->producto)
-            return $producto->getImagenes();
+            return $this->producto->getImagenes();
         else
-            return $ebay->getImagenes();
+            return $this->ebay->getImagenes();
     }
 
     public function getCategoriaML($publicacion) {

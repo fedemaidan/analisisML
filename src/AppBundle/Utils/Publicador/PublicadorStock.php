@@ -5,7 +5,7 @@ namespace AppBundle\Utils\Publicador;
 class PublicadorStock extends PublicadorAbstract {	
 
 	const TIPO_DE_VENTA = "STOCK";
-
+	
     protected function getSufijo() {
     	if ($this->comoYouTec)
     		return " YouTec";

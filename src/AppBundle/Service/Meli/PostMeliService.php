@@ -17,8 +17,7 @@ use GuzzleHttp\Client;
 use AppBundle\Service\MeliService;
 
 
-class PostMeliService extends MeliService
-{
+class PostMeliService extends MeliService {
     const DOLAR = 45;
     const MATCH_ARRAY = [
                             "titulo"        => "title",
@@ -46,8 +45,8 @@ class PostMeliService extends MeliService
     public function replicarProductoEnMl($producto, $tipoVenta, $comoYouTec, $cuentaML) {
 
         if ($tipoVenta == PublicadorStock::TIPO_DE_VENTA){
-            $publicador = new PublicadorStock();
-            $publicacion = $publicador->crearPublicacion( $comoYouTec, $producto);
+            $publicador = new PublicadorStock( $comoYouTec, $producto);
+            $publicacion = $publicador->crearPublicacion();
         }
         
         $publicacion->setCuenta($cuentaML);
