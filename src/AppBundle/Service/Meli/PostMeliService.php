@@ -60,8 +60,14 @@ class PostMeliService extends MeliService {
             return;
         }
 
-        $publicacion = $this->ebayToMlObj($ebay, $cuentaML);
-        $datos = $this->publicar($publicacion);
+        if ($tipoVenta == PublicadorStock::TIPO_DE_VENTA){
+            $publicador = new PublicadorStock( $comoYouTec, null,$ebay);
+            $publicacion = $publicador->crearPublicacion();
+        }
+        
+        $publicacion->setCuenta($cuentaML);
+        $this->publicar($publicacion);
+        return $publicacion;
     }
 
 
