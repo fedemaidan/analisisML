@@ -137,7 +137,7 @@ class PostMeliService extends MeliService {
         }
 
         $atributos = [];
-        var_dump("expression2");
+        var_dump($publicacion->getAtributos());
         foreach ($publicacion->getAtributos() as $key => $attr) {
             $atributos[] = ["id" => $attr->getIdMl(), "value_name" => $attr->getValueName() ];
         }
