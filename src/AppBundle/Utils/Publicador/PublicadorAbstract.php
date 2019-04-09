@@ -61,6 +61,7 @@ class PublicadorAbstract {
 
     protected function getTituloProducto() {
         $texto = $this->producto->getNombre();
+        $texto = $this->producto->getCategoriaMl()->getNombre()." ".$texto;
         $sufijo  = $this->getSufijo();
 
         if ($this->comoYouTec)
