@@ -46,7 +46,7 @@ class PostMeliService extends MeliService {
 
         if ($tipoVenta == PublicadorStock::TIPO_DE_VENTA){
             $publicador = new PublicadorStock( $comoYouTec, $producto);
-            $publicacion = $publicador->crearPublicacion();
+            $publicacion = $publicador->crearPublicacion($cuentaML);
         }
         
         $publicacion->setCuenta($cuentaML);
@@ -62,7 +62,7 @@ class PostMeliService extends MeliService {
 
         if ($tipoVenta == PublicadorStock::TIPO_DE_VENTA){
             $publicador = new PublicadorStock( $comoYouTec, null,$ebay);
-            $publicacion = $publicador->crearPublicacion();
+            $publicacion = $publicador->crearPublicacion($cuentaML);
         }
         
         $publicacion->setCuenta($cuentaML);

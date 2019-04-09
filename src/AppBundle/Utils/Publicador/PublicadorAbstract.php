@@ -20,7 +20,7 @@ class PublicadorAbstract {
     }
 
 
-    public function crearPublicacion() {
+    public function crearPublicacion($cuentaMl) {
         
         $titulo = $this->getTitulo();
         $descripcion = $this->getDescripcion();
@@ -38,6 +38,7 @@ class PublicadorAbstract {
         $publicacion->setVideo($video);
         if ($this->ebay)
             $publicacion->setPublicacionEbay($this->ebay);
+        $publicacion->setCuenta($cuentaMl);
 
         $categoriaML = $this->getCategoriaML($publicacion);
         $publicacion->setCategoriaML($categoriaML);
