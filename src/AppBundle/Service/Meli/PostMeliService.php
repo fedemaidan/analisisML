@@ -131,17 +131,17 @@ class PostMeliService extends MeliService {
         $token = $this->dameToken($publicacion->getCuenta());
         $arrayimagenes = explode(',', $publicacion->getImagenes());
         $imagenes = [];
-        var_dump($arrayimagenes);die;
+        var_dump("expression1");
         foreach ($arrayimagenes as $key => $img) {
             $imagenes[] = ["source" => $img];
         }
 
         $atributos = [];
-    
+        var_dump("expression2");
         foreach ($publicacion->getAtributos() as $key => $attr) {
             $atributos[] = ["id" => $attr->getIdMl(), "value_name" => $attr->getValueName() ];
         }
-
+        var_dump("expression3");
         $body = [
                 "title" =>$publicacion->getTitulo(),
                 "category_id"=>$publicacion->getCategoriaML(),
@@ -161,9 +161,9 @@ class PostMeliService extends MeliService {
             ];
 
         $meli = new Meli("","");
-      
+        var_dump("expression5");
         $datos = $meli->post("items", $body, [ "access_token" => $token ]);
-
+        var_dump($datos);
          if (isset($datos["body"]->id)) {
             $publicacion->setIdMl($datos["body"]->id);
             $publicacion->setLink($datos["body"]->permalink);
