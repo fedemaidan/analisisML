@@ -22,7 +22,7 @@ class PublicarEbayEnMlCommand extends ContainerAwareCommand
 	}
 
 	/*
-		php app/console ml:publicar:ebay --id_ebay=10455 --id_cuenta=1
+		php app/console ml:publicar:ebay --id_ebay=891 --id_cuenta=1
 	*/
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -35,7 +35,7 @@ class PublicarEbayEnMlCommand extends ContainerAwareCommand
     	$rentabilidad = 2;
     	$shipping = 10;
 
-    	$this->getContainer()->get('meli_service')->replicarPublicacionEbayEnMl($publi_ebay, $cuenta, $token, $rentabilidad, $shipping);
+    	$this->getContainer()->get('post_meli_service')->replicarPublicacionEbayEnMl($publi_ebay, $cuenta);
     }
 }
 
