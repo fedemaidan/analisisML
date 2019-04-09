@@ -147,8 +147,8 @@ class PostMeliService extends MeliService {
             ];
             
         $meli = new Meli("","");
-        var_dump($body);die;
-        //$datos = $meli->post("items", $body, [ "access_token" => $token ]);
+        
+        $datos = $meli->post("items", $body, [ "access_token" => $token ]);
          if (isset($datos["body"]->id)) {
             $publicacion->setIdMl($datos["body"]->id);
             $publicacion->setLink($datos["body"]->permalink);
@@ -238,12 +238,8 @@ class PostMeliService extends MeliService {
     public function dameToken($cuenta) {
         $client = new Client();
         $id = $cuenta->getId();
-        //$id = 30;
         $res = $client->request('GET', 'https://notiml.com/token?cuenta_id='.$id);
-        
-
-        $dato = json_decode($res->getBody()->getContents());
-        
+        $dato = json_decode($res->getBody()->getContents());       
         return $dato->token;
     }
 
