@@ -33,6 +33,7 @@ class PublicacionMasivaEbayMLCommand extends ContainerAwareCommand
 		php app/console ml:publicar:masiva:ebay --id_cuenta=1 --archivo=/server/export.1.csv
 	*/
 
+
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $archivo = $input->getOption('archivo');
@@ -59,7 +60,9 @@ class PublicacionMasivaEbayMLCommand extends ContainerAwareCommand
     }
 
     protected function cargarPublicacion($data, $id_cuenta) {
-
+        $tipoVenta = "STOCK";
+        $comoYouTec = false;
+        
     	    	
     	$cuenta = $this->getContainer()->get('doctrine')->getManager()->getRepository(Cuenta::class)->findOneById($id_cuenta);
 
@@ -73,7 +76,7 @@ class PublicacionMasivaEbayMLCommand extends ContainerAwareCommand
             return;
         }
 
-    	$this->getContainer()->get('meli_service')->replicarPublicacionEbayEnMl($publi_ebay, $cuenta);
+    	$this->getContainer()->get('post_meli_service')->replicarPublicacionEbayEnMl($publi_ebay, $cuenta,$tipoVenta, $comoYouTec);
     	
     }
 
