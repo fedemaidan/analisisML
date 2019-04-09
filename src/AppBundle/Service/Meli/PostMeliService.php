@@ -147,7 +147,7 @@ class PostMeliService extends MeliService {
             ];
             
         $meli = new Meli("","");
-        var_dump($datos);die;
+        var_dump($body);die;
         //$datos = $meli->post("items", $body, [ "access_token" => $token ]);
          if (isset($datos["body"]->id)) {
             $publicacion->setIdMl($datos["body"]->id);
