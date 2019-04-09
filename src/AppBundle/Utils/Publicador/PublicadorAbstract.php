@@ -4,8 +4,9 @@ namespace AppBundle\Utils\Publicador;
 
 use AppBundle\Entity\PublicacionPropia;
 
-class PublicadorAbstract {	
-
+class PublicadorAbstract {
+	
+    const DOLAR = 45;
     protected $producto;
     protected $ebay;
     protected $comoYouTec;
