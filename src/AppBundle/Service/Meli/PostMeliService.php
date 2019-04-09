@@ -156,8 +156,8 @@ class PostMeliService extends MeliService {
             ];
 
         $meli = new Meli("","");
-      var_dump($body);die;
-    //    $datos = $meli->post("items", $body, [ "access_token" => $token ]);
+      
+        $datos = $meli->post("items", $body, [ "access_token" => $token ]);
 
          if (isset($datos["body"]->id)) {
             $publicacion->setIdMl($datos["body"]->id);
@@ -167,7 +167,8 @@ class PostMeliService extends MeliService {
             $this->em->flush();
         }
         else {
-            var_dump("Error cargando publicacion ".$ebay->getId());
+            var_dump("Error cargando publicacion ");
+            var_dump($body);
             var_dump($datos);
         }
         
