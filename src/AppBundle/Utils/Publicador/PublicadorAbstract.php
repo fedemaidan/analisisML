@@ -62,7 +62,7 @@ class PublicadorAbstract {
         $sufijo  = $this->getSufijo();
         $texto = substr($texto, 0, 60 - strlen($sufijo));
         
-        $this->setTitulo($texto.$sufijo);
+        return $texto.$sufijo;
     }
 
     protected function getTituloProducto() {
