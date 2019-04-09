@@ -160,7 +160,6 @@ class PostMeliService extends MeliService {
             var_dump("Error cargando publicacion ".$ebay->getId());
             var_dump($datos);
         }
-
         
         return $datos;
     }

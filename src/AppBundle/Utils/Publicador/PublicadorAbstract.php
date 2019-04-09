@@ -65,9 +65,9 @@ class PublicadorAbstract {
 
         if ($this->comoYouTec)
             $sufijo .= " YouTec";
-
+        
         $texto = substr($texto, 0, 60 - strlen($sufijo));
-        return $texto;
+        return $texto.$sufijo;
     }
 
     protected function getPrecioEbay() {
