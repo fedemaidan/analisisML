@@ -23,19 +23,24 @@ class PublicarMLCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('ml:publicar:stock')
+            ->setName('ml:publicar')
             ->setDescription('Publicacion masiva de productos en ml')
-            ->addOption('id_cuenta', null,         InputOption::VALUE_OPTIONAL,    'Cuenta id');
+            ->addOption('id_cuenta', null,         InputOption::VALUE_OPTIONAL,    'Cuenta id')
+            ->addOption('youtec', null,         InputOption::VALUE_OPTIONAL,    'Publica Youtec')
+            ->addOption('tipo_venta', null,         InputOption::VALUE_OPTIONAL,    'Tipo de venta');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $cuenta_id = $input->getOption('id_cuenta');
+        $tipo_venta = $input->getOption('tipo_venta');
+        $youtec = $input->getOption('youtec');
 
         $cuenta = $this->getContainer()->get('doctrine')->getManager()->getRepository(Cuenta::class)->findOneById($cuenta_id);
+        
         $producto = $this->getContainer()->get('doctrine')->getManager()->getRepository(Producto::class)->findOneById(1);
         
-        $this->getContainer()->get('post_meli_service')->replicarProductoEnMl($producto, 'STOCK' ,FALSE, $cuenta);
+        $this->getContainer()->get('post_meli_service')->replicarProductoEnMl($producto, $tipo_venta ,$youtec, $cuenta);
     }
 
 

@@ -106,6 +106,12 @@ trait PublicacionMLTrait
      */
     private $model;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="video", type="string", length=255, nullable=true)
+     */
+    private $video;
 
     /**
      * Set brand
@@ -130,6 +136,31 @@ trait PublicacionMLTrait
     {
         return $this->brand;
     }
+
+    /**
+     * Set video
+     *
+     * @param string $video
+     *
+     * @return PublicacionML
+     */
+    public function setVideo($video)
+    {
+        $this->video = $video;
+
+        return $this;
+    }
+
+    /**
+     * Get video
+     *
+     * @return string
+     */
+    public function getVideo()
+    {
+        return $this->video;
+    }
+    
 
     /**
      * Set model
