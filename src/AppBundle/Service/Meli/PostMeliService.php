@@ -132,7 +132,8 @@ class PostMeliService extends MeliService {
         $arrayimagenes = explode(',', $publicacion->getImagenes());
         $imagenes = [];
         foreach ($arrayimagenes as $key => $img) {
-            $imagenes[] = ["source" => $img];
+            if ($key < 11)
+                $imagenes[] = ["source" => $img];
         }
 
         $atributos = [];
