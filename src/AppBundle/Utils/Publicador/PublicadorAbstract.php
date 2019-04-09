@@ -5,7 +5,7 @@ namespace AppBundle\Utils\Publicador;
 use AppBundle\Entity\PublicacionPropia;
 
 class PublicadorAbstract {
-	
+
     const DOLAR = 45;
     protected $producto;
     protected $ebay;
@@ -16,6 +16,7 @@ class PublicadorAbstract {
         $this->producto = $producto;
         $this->ebay = $ebay;
         $this->comoYouTec = $comoYouTec;
+        var_dump($this->ebay);die;
     }
 
 
@@ -45,13 +46,7 @@ class PublicadorAbstract {
         $ebay = $this->ebay;
 
         if ($ebay != null) {
-            $brand = $ebay->getBrand();
-            $model = $ebay->getModel();
-
-            if ($model && $model != "")
-                $texto = $brand." ".$model;
-            else
-                $texto = $ebay->getTitulo();
+            $texto = $ebay->getTitulo();
         }
 
         $nombreCategoria = $ebay->getCategoriaEbay()->getName();  

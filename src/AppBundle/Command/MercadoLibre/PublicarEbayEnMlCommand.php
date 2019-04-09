@@ -16,7 +16,7 @@ class PublicarEbayEnMlCommand extends ContainerAwareCommand
 	    $this
 	        ->setName('ml:publicar:ebay')
 	        ->setDescription('Replica producto publicado en ebay en ml')
-	        ->addOption('id_ebay', null,         InputOption::VALUE_REQUIRED,    'Id de la categoria de MercadoLibre')
+	        ->addOption('id_ebay', null,         InputOption::VALUE_REQUIRED,    'Id de la publicacion ebay')
 	        ->addOption('id_cuenta', null,         InputOption::VALUE_REQUIRED,    'Id de la cuenta');
 	    ;
 	}
