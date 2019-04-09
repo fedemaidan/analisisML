@@ -54,7 +54,7 @@ class PostMeliService extends MeliService {
         return $publicacion;
     }
 
-    public function replicarPublicacionEbayEnMl($ebay, $cuentaML, $tipoVenta, $comoYouTec,) {
+    public function replicarPublicacionEbayEnMl($ebay, $cuentaML, $tipoVenta, $comoYouTec) {
 
         if (strpos($ebay->getTitulo(), 'Garmin') !== false && strpos($ebay->getCategoriaEbay()->getName(), 'Watch') !== false) {
             return;
