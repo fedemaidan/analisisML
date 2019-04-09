@@ -34,10 +34,10 @@ class PublicarMLCommand extends ContainerAwareCommand
     {
         $cuenta_id = $input->getOption('id_cuenta');
         $tipo_venta = $input->getOption('tipo_venta');
-        $youtec = $input->getOption('youtec');
+        $youtec = $input->getOption('youtec') == "true" ? true : false ;
 
         $cuenta = $this->getContainer()->get('doctrine')->getManager()->getRepository(Cuenta::class)->findOneById($cuenta_id);
-        
+
         $producto = $this->getContainer()->get('doctrine')->getManager()->getRepository(Producto::class)->findOneById(1);
         
         $this->getContainer()->get('post_meli_service')->replicarProductoEnMl($producto, $tipo_venta ,$youtec, $cuenta);
