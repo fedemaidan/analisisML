@@ -16,7 +16,6 @@ class PublicadorAbstract {
         $this->producto = $producto;
         $this->ebay = $ebay;
         $this->comoYouTec = $comoYouTec;
-        var_dump($this->ebay);die;
     }
 
 
