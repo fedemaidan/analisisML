@@ -12,9 +12,10 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\Container;
 use AppBundle\Utils\Meli\Meli;
 use GuzzleHttp\Client;
+use AppBundle\Service\MeliService;
 
 
-class PostMeliService
+class PostMeliService extends MeliService
 {
     const DOLAR = 45;
     const MATCH_ARRAY = [
@@ -40,32 +41,86 @@ class PostMeliService
         $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
     }
 
+    public function replicarProductoEnMl($producto, $tipoVenta, $comoYouTec, $cuentaML) {
+
+        if ($tipoVenta == PublicadorStock::TIPO_DE_VENTA){
+            $publicador = new PublicadorStock();
+            $publicacion = $publicador->crearPublicacion( $comoYouTec, $producto);
+        }
+        
+        $publicacion->setCuenta($cuentaML);
+        $this->publicar($publicacion);
+       
+        return $publicacion;
+    }
 
     public function replicarPublicacionEbayEnMl($ebay, $cuentaML) {
 
-        $publicacionExistente = $this->em->getRepository(PublicacionPropia::class)->findOneBy([ "publicacion_ebay" => $ebay]);
-
-        if ($publicacionExistente != null) {
-            var_dump("Ya esta cargada ".$ebay->getId());
+        if (strpos($ebay->getTitulo(), 'Garmin') !== false && strpos($ebay->getCategoriaEbay()->getName(), 'Watch') !== false) {
             return;
         }
 
         $publicacion = $this->ebayToMlObj($ebay, $cuentaML);
         $datos = $this->publicar($publicacion);
-        if (isset($datos["body"]->id)) {
-            $publicacion->setIdMl($datos["body"]->id);
-            $publicacion->setLink($datos["body"]->permalink);
-            $publicacion->setVendedor($datos["body"]->seller_id);
-            $this->em->persist($publicacion);
-            $this->em->flush();
-        }
-        else {
-            var_dump("Error cargando publicacion ".$ebay->getId());
-            var_dump($datos);
-        }
     }
 
-    public function publicar($publicacion) {
+
+    public function actualizarPublicacion($publicacionPropia) {
+        $ebay = $publicacionPropia->getPublicacionEbay();
+        $publicacionPropia->armarTitulo();
+        $publicacionPropia->armarDescripcion();
+        $publicacionPropia->cargarPrecio();
+        $this->em->persist($publicacionPropia);
+        $this->em->flush();
+    }
+
+
+    public function editarCamposPublicacionMercadolibre($publicacionPropia, $campos = [] ) {
+        
+        $token = $this->dameToken($publicacionPropia->getCuenta());
+        $meli = new Meli("","");
+        $body = [ ];
+        $desc = [ ];
+
+        foreach ($campos as $key => $campo) {
+            if (array_key_exists($key ,self::MATCH_ARRAY)){
+                if ($key != "descripcion")
+                    $body[self::MATCH_ARRAY[$key]] = $campo[1];
+                else {
+                    $desc["plain_text"] = $campo[1];
+                    $desc["text_plain"] = $campo[1];
+                    $desc["text"] = $campo[1];
+                    $datos = $meli->put("items/".$publicacionPropia->getIdMl()."/description", $desc, [ "access_token" => $token ]);
+            
+                    if ($datos["httpCode"] != 200 ) {
+                        throw new \Exception($datos["body"]->message, 1);
+                    }
+            
+                }
+            }
+        }
+
+        $atributos = [];
+        foreach ($publicacionPropia->getAtributos() as $key => $attr) {
+            $atributos[] = ["id" => $attr->getIdMl(), "value_name" => $attr->getValueName() ];
+        }
+
+        if (count($atributos) > 0)
+            $body["attributes"] = $atributos; 
+        
+        if (count($body) > 0) {
+            $datos = $meli->put("items/".$publicacionPropia->getIdMl(), $body, [ "access_token" => $token ]);
+        
+            if ($datos["httpCode"] != 200 ) {
+                throw new \Exception($datos["body"]->message, 1);
+            }
+
+            return $datos;
+        }
+    }    
+
+
+    private function publicar($publicacion) {
         $token = $this->dameToken($publicacion->getCuenta());
 
         $arrayimagenes = explode(',', $publicacion->getImagenes());
@@ -91,65 +146,24 @@ class PostMeliService
             ];
             
         $meli = new Meli("","");
-        $datos = $meli->post("items", $body, [ "access_token" => $token ]);
+        var_dump($datos);die;
+        //$datos = $meli->post("items", $body, [ "access_token" => $token ]);
+         if (isset($datos["body"]->id)) {
+            $publicacion->setIdMl($datos["body"]->id);
+            $publicacion->setLink($datos["body"]->permalink);
+            $publicacion->setVendedor($datos["body"]->seller_id);
+            $this->em->persist($publicacion);
+            $this->em->flush();
+        }
+        else {
+            var_dump("Error cargando publicacion ".$ebay->getId());
+            var_dump($datos);
+        }
+
         
         return $datos;
     }
 
-    public function actualizarPublicacion($publicacionPropia) {
-        
-        $ebay = $publicacionPropia->getPublicacionEbay();
-        $precio = $this->calcularPrecio($ebay->getCategoriaEbay(), $ebay->getPrecioCompra());
-        
-        $publicacionPropia->setTitulo($this->armarTitulo($ebay->getTitulo()));
-        $publicacionPropia->setDescripcion($this->generarDescripcion($ebay));
-        $publicacionPropia->setPrecioCompra($precio);
-
-        foreach ($ebay->getEspecificaciones() as $key => $especificacion) {
-            // Buscamos un attributo con nombre y valor igual al de la especificacion 
-            $nombreEspecificacion = $especificacion->getName();
-            $atributo = $this->em->getRepository(AtributoML::class)
-            ->findOneBy(["ebayName" => $nombreEspecificacion, "valueName" => $especificacion->getValue()]);
-
-
-            if (!$atributo && ($nombreEspecificacion == "MPN" || $nombreEspecificacion == "UPC" || $nombreEspecificacion == "EAN")) {
-                $atributo = new AtributoML();
-                $atributo->setIdMl($nombreEspecificacion);
-                $atributo->setName($nombreEspecificacion);
-                $atributo->setValueName($especificacion->getValue());
-                $atributo->setAttributeGroupId("OTHERS");
-                $atributo->setAttributeGroupName("Otros");
-                $atributo->setEbayName($nombreEspecificacion);
-                $this->em->persist($atributo);
-                $publicacionPropia->addAtributo($atributo);
-            }
-            
-            if (!$atributo && ($nombreEspecificacion == "Compatible Operating System" || $nombreEspecificacion == "Compatibility")) {
-                if ($especificacion->getValue() == "ios") {
-                    $atributo = $this->em->getRepository(AtributoML::class)->findOneBy(["ebayName" => $nombreEspecificacion, "valueName" => "iOS"]);
-                }
-                if ($especificacion->getValue() == "Android" || strpos($ebay->getTitulo(), 'pple') === false) {
-                    $atributo = $this->em->getRepository(AtributoML::class)->findOneBy(["ebayName" => $nombreEspecificacion, "valueName" => "Android"]);
-                }
-
-                $publicacionPropia->addAtributo($atributo);
-            }
-
-
-            if (!$atributo && ($nombreEspecificacion == "Waterproof")) {
-
-                $atributo1 = $this->em->getRepository(AtributoML::class)->findOneBy([ "idMl" =>  "IS_WATER_RESISTANT", "valueName" => "Sí"]);
-                $atributo2 = $this->em->getRepository(AtributoML::class)->findOneBy([ "idMl" =>  "IS_WATERPROOF", "valueName" => "Sí"]);
-                $publicacionPropia->addAtributo($atributo1);
-                $publicacionPropia->addAtributo($atributo2);
-            }
-
-
-        }
-
-        $this->em->persist($publicacionPropia);
-        $this->em->flush();
-    }
 
     public function editarCamposPublicacionMercadolibre($publicacionPropia, $campos = [] ) {
         
@@ -194,5 +208,89 @@ class PostMeliService
             return $datos;
         }
     }    
+
+     private function ebayToMlObj($ebay, $cuentaML) {
+        
+        $publicacion = new PublicacionPropia();
+        $publicacion->setPublicacionEbay($ebay);
+        $publicacion->armarTitulo();
+        $publicacion->armarDescripcion();
+        $publicacion->cargarPrecio();
+        
+        $publicacion->setCuenta($cuentaML);
+        $imagenes = $ebay->getImagenes();
+        $imagnesArray = explode(",", $imagenes);
+        
+        if (count($imagnesArray) > 12) {
+            $imagnesArray2 = [];
+            foreach ($imagnesArray as $key => $value) {
+                if ($key == 12) continue;
+                $imagnesArray2[] = $value;
+            }
+
+            $imagenes = implode(',', $imagnesArray2);
+        }
+
+        $publicacion->setImagenes($imagenes);
+        $publicacion->setCategoriaML($this->predecirCategoria($publicacion));
+        
+        foreach ($ebay->getEspecificaciones() as $key => $especificacion) {
+            // Buscamos un attributo con nombre y valor igual al de la especificacion 
+            $nombreEspecificacion = $especificacion->getName();
+            $atributo = $this->em->getRepository(AtributoML::class)
+            ->findOneBy(["ebayName" => $nombreEspecificacion, "valueName" => $especificacion->getValue()]);
+
+
+            if (!$atributo && ($nombreEspecificacion == "MPN" || $nombreEspecificacion == "UPC" || $nombreEspecificacion == "EAN")) {
+                $atributo = new AtributoML();
+                $atributo->setIdMl($nombreEspecificacion);
+                $atributo->setName($nombreEspecificacion);
+                $atributo->setValueName($especificacion->getValue());
+                $atributo->setAttributeGroupId("OTHERS");
+                $atributo->setAttributeGroupName("Otros");
+                $atributo->setEbayName($nombreEspecificacion);
+                $this->em->persist($atributo);
+                $publicacionPropia->addAtributo($atributo);
+            }
+            
+            if (!$atributo && ($nombreEspecificacion == "Compatible Operating System" || $nombreEspecificacion == "Compatibility")) {
+                if ($especificacion->getValue() == "ios") {
+                    $atributo = $this->em->getRepository(AtributoML::class)->findOneBy(["ebayName" => $nombreEspecificacion, "valueName" => "iOS"]);
+                }
+                if ($especificacion->getValue() == "Android" || strpos($ebay->getTitulo(), 'pple') === false) {
+                    $atributo = $this->em->getRepository(AtributoML::class)->findOneBy(["ebayName" => $nombreEspecificacion, "valueName" => "Android"]);
+                }
+
+                $publicacionPropia->addAtributo($atributo);
+            }
+
+
+            if (!$atributo && ($nombreEspecificacion == "Waterproof")) {
+
+                $atributo1 = $this->em->getRepository(AtributoML::class)->findOneBy([ "idMl" =>  "IS_WATER_RESISTANT", "valueName" => "Sí"]);
+                $atributo2 = $this->em->getRepository(AtributoML::class)->findOneBy([ "idMl" =>  "IS_WATERPROOF", "valueName" => "Sí"]);
+                $publicacionPropia->addAtributo($atributo1);
+                $publicacionPropia->addAtributo($atributo2);
+            }
+
+
+        }
+
+        return $publicacion;
+    }
+
+
+    public function dameToken($cuenta) {
+        $client = new Client();
+        $id = $cuenta->getId();
+        //$id = 30;
+        $res = $client->request('GET', 'https://notiml.com/token?cuenta_id='.$id);
+        
+
+        $dato = json_decode($res->getBody()->getContents());
+        
+        return $dato->token;
+    }
+
 
 }

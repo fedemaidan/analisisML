@@ -30,6 +30,12 @@ services:
         arguments:
             { container: @service_container, entityManager: "@doctrine.orm.entity_manager" }
 
+    post_meli_service:
+        class:     AppBundle\Service\Meli\PostMeliService
+        arguments:
+            { container: @service_container, entityManager: "@doctrine.orm.entity_manager" }
+
+
     app.admin.categoria_ebay:
         class: AppBundle\Admin\CategoriaEbayAdmin
         arguments: [~, AppBundle\Entity\CategoriaEbay, SonataAdminBundle:CRUD]
