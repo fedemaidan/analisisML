@@ -136,7 +136,6 @@ class PostMeliService extends MeliService {
             $atributos[] = ["id" => $attr->getIdMl(), "value_name" => $attr->getValueName() ];
         }
         
-        var_dump($atributos);die;
         $body = [
                 "title" =>$publicacion->getTitulo(),
                 "category_id"=>$publicacion->getCategoriaML(),
