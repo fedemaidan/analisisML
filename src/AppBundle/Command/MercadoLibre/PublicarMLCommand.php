@@ -25,7 +25,7 @@ class PublicarMLCommand extends ContainerAwareCommand
         $this
             ->setName('ml:publicar')
             ->setDescription('Publicacion masiva de productos en ml')
-            ->addOption('id_cuenta', null,         InputOption::VALUE_REQUIRED,    'Cuenta id')
+            ->addOption('id_cuenta', null,         InputOption::VALUE_REQUIRED,    'Cuenta id');
     }
     
     /*
@@ -42,7 +42,5 @@ class PublicarMLCommand extends ContainerAwareCommand
         $this->getContainer()->get('post_meli_service')->replicarProductoEnMl($producto, 'STOCK' ,FALSE, $cuenta);
     }
 
-
-    
 
 }
