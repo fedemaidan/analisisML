@@ -26,14 +26,14 @@ class PublicadorAbstract {
         $imagenes = $this->getImagenes();
         $atributos = $this->getAtributos();
         $video = $this->producto ? $this->producto->getYoutube() : "";
-        
+
         $publicacion = new PublicacionPropia();
         $publicacion->setTitulo($titulo);
         $publicacion->setDescripcion($descripcion);
         $publicacion->setPrecioCompra($precio);
         $publicacion->setImagenes($imagenes);
         $publicacion->setAtributos($atributos);
-        $publicacion->setYoutube($video);
+        $publicacion->setVideo($video);
 
         $categoriaML = $this->getCategoriaML($publicacion);
         $publicacion->setCategoriaML($categoriaML);

@@ -135,7 +135,7 @@ class PostMeliService extends MeliService {
         foreach ($publicacion->getAtributos() as $key => $attr) {
             $atributos[] = ["id" => $attr->getIdMl(), "value_name" => $attr->getValueName() ];
         }
-        
+
         $body = [
                 "title" =>$publicacion->getTitulo(),
                 "category_id"=>$publicacion->getCategoriaML(),
@@ -145,6 +145,7 @@ class PostMeliService extends MeliService {
                 "buying_mode"=>"buy_it_now",
                 "attributes"=>$atributos,
                 "condition" => "new",
+                "video" => $publicacion->getVideo(),
                 "listing_type_id"=>"gold_special",
                 "description"=> [ "plain_text" => $publicacion->getDescripcion()],
                 "sale_terms"=>[
