@@ -78,8 +78,8 @@ class PublicadorAbstract {
     }
 
     protected function getPrecioEbay() {
-        $categoria = $this->getPublicacionEbay()->getCategoriaEbay();
-        $precioCompra = $this->getPublicacionEbay()->getPrecioCompra();
+        $categoria = $this->ebay->getCategoriaEbay();
+        $precioCompra = $this->ebay->getPrecioCompra();
         $ratio = $categoria->getRatio();
         $shipping = $categoria->getShipping();
         $precio = (($precioCompra * $ratio) + $shipping) * self::DOLAR;
