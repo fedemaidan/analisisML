@@ -129,13 +129,13 @@ class PostMeliService extends MeliService {
         foreach ($arrayimagenes as $key => $img) {
             $imagenes[] = ["source" => $img];
         }
-        
+
         $atributos = [];
     
         foreach ($publicacion->getAtributos() as $key => $attr) {
             $atributos[] = ["id" => $attr->getIdMl(), "value_name" => $attr->getValueName() ];
         }
-
+        var_dump($atributos);die;
         $body = [
                 "title" =>$publicacion->getTitulo(),
                 "category_id"=>$publicacion->getCategoriaML(),
@@ -152,7 +152,7 @@ class PostMeliService extends MeliService {
                 ],
                 "pictures"=> $imagenes
             ];
-            
+
         $meli = new Meli("","");
         
         $datos = $meli->post("items", $body, [ "access_token" => $token ]);
