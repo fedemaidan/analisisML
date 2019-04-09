@@ -154,7 +154,7 @@ class PostMeliService extends MeliService {
             $publicacion->setLink($datos["body"]->permalink);
             $publicacion->setVendedor($datos["body"]->seller_id);
             $atributos = [];
-            foreach ($publicacionPropia->getAtributos() as $key => $attr) {
+            foreach ($publicacion->getAtributos() as $key => $attr) {
                 $atributos[] = ["id" => $attr->getIdMl(), "value_name" => $attr->getValueName() ];
             }
 
@@ -162,7 +162,7 @@ class PostMeliService extends MeliService {
                 $body["attributes"] = $atributos; 
             
             if (count($body) > 0) {
-                $datos = $meli->put("items/".$publicacionPropia->getIdMl(), $body, [ "access_token" => $token ]);
+                $datos = $meli->put("items/".$publicacion->getIdMl(), $body, [ "access_token" => $token ]);
             
                 if ($datos["httpCode"] != 200 ) {
                     throw new \Exception($datos["body"]->message, 1);
