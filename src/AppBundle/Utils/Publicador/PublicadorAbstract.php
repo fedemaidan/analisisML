@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Utils\Publicador;
+
 use AppBundle\Entity\PublicacionPropia;
 
 class PublicadorAbstract {	
@@ -23,6 +24,7 @@ class PublicadorAbstract {
         $descripcion = $this->getDescripcion();
         $precio = $this->getPrecio();
         $imagenes = $this->getImagenes();
+        $atributos = $this->getAtributos();
         $publicacion = new PublicacionPropia();
         $publicacion->setTitulo($titulo);
         $publicacion->setDescripcion($descripcion);
@@ -189,6 +191,10 @@ class PublicadorAbstract {
         } else {
             return null;
         }       
+    }
+
+    public function getAtributos() {
+        return $this->producto ? $this->producto->getAtributos() : null;
     }
 
 } 
