@@ -23,7 +23,7 @@ class PublicarMLCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('ml:publicar')
+            ->setName('ml:publicar:stock')
             ->setDescription('Publicacion masiva de productos en ml')
             ->addOption('id_cuenta', null,         InputOption::VALUE_REQUIRED,    'Cuenta id');
     }
