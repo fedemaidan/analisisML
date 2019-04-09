@@ -30,6 +30,7 @@ class PublicadorAbstract {
         $publicacion->setDescripcion($descripcion);
         $publicacion->setPrecioCompra($precio);
         $publicacion->setImagenes($imagenes);
+        $publicacion->setAtributos($atributos);
 
         $categoriaML = $this->getCategoriaML($publicacion);
         $publicacion->setCategoriaML($categoriaML);
