@@ -41,7 +41,7 @@ class PublicadorAbstract {
     }
 
     protected function getTituloEbay() {
-        $ebay = $this->getPublicacionEbay();
+        $ebay = $this->ebay->getPublicacionEbay();
 
         if ($ebay != null) {
             $brand = $ebay->getBrand();
