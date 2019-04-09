@@ -146,7 +146,7 @@ class PostMeliService extends MeliService {
                 "buying_mode"=>"buy_it_now",
                 "attributes"=>$atributos,
                 "condition" => "new",
-                "video" => $publicacion->getVideo(),
+                "video_id" => $publicacion->getVideo(),
                 "listing_type_id"=>"gold_special",
                 "description"=> [ "plain_text" => $publicacion->getDescripcion()],
                 "sale_terms"=>[
