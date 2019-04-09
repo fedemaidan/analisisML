@@ -19,14 +19,15 @@ class PublicadorAbstract {
 
 
     public function crearPublicacion() {
-        
+        var_dump("la creo");
         $titulo = $this->getTitulo();
         $descripcion = $this->getDescripcion();
         $precio = $this->getPrecio();
         $imagenes = $this->getImagenes();
+        var_dump($imagenes);
         $atributos = $this->getAtributos();
         $video = $this->producto ? $this->producto->getYoutube() : "";
-
+        var_dump($video);
         $publicacion = new PublicacionPropia();
         $publicacion->setTitulo($titulo);
         $publicacion->setDescripcion($descripcion);

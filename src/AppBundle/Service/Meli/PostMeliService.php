@@ -45,6 +45,7 @@ class PostMeliService extends MeliService {
     public function replicarProductoEnMl($producto, $tipoVenta, $comoYouTec, $cuentaML) {
 
         if ($tipoVenta == PublicadorStock::TIPO_DE_VENTA){
+            var_dump("expression");
             $publicador = new PublicadorStock( $comoYouTec, $producto);
             $publicacion = $publicador->crearPublicacion();
         }
