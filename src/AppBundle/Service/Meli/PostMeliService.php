@@ -129,6 +129,12 @@ class PostMeliService extends MeliService {
         foreach ($arrayimagenes as $key => $img) {
             $imagenes[] = ["source" => $img];
         }
+        
+        $atributos = [];
+    
+        foreach ($publicacion->getAtributos() as $key => $attr) {
+            $atributos[] = ["id" => $attr->getIdMl(), "value_name" => $attr->getValueName() ];
+        }
 
         $body = [
                 "title" =>$publicacion->getTitulo(),
@@ -137,6 +143,7 @@ class PostMeliService extends MeliService {
                 "currency_id"=>"ARS",
                 "available_quantity"=>99,
                 "buying_mode"=>"buy_it_now",
+                "attributes"=>$atributos,
                 "condition" => "new",
                 "listing_type_id"=>"gold_special",
                 "description"=> [ "plain_text" => $publicacion->getDescripcion()],
@@ -149,27 +156,11 @@ class PostMeliService extends MeliService {
         $meli = new Meli("","");
         
         $datos = $meli->post("items", $body, [ "access_token" => $token ]);
+
          if (isset($datos["body"]->id)) {
             $publicacion->setIdMl($datos["body"]->id);
             $publicacion->setLink($datos["body"]->permalink);
             $publicacion->setVendedor($datos["body"]->seller_id);
-            $atributos = [];
-            foreach ($publicacion->getAtributos() as $key => $attr) {
-                $atributos[] = ["id" => $attr->getIdMl(), "value_name" => $attr->getValueName() ];
-            }
-
-            if (count($atributos) > 0)
-                $body["attributes"] = $atributos; 
-            
-            if (count($body) > 0) {
-                $datos = $meli->put("items/".$publicacion->getIdMl(), $body, [ "access_token" => $token ]);
-            
-                if ($datos["httpCode"] != 200 ) {
-                    throw new \Exception($datos["body"]->message, 1);
-                }
-
-                return $datos;
-            }
             $this->em->persist($publicacion);
             $this->em->flush();
         }
