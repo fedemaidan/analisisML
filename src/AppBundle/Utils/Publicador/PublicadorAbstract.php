@@ -35,7 +35,9 @@ class PublicadorAbstract {
         $publicacion->setImagenes($imagenes);
         $publicacion->setAtributos($atributos);
         $publicacion->setVideo($video);
-
+        if ($this->ebay)
+            $publicacion->setPublicacionEbay($this->ebay);
+        
         $categoriaML = $this->getCategoriaML($publicacion);
         $publicacion->setCategoriaML($categoriaML);
         return $publicacion;
