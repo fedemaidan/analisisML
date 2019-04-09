@@ -98,7 +98,7 @@ class MeliService
     }
 
 
-   /* public function cargarPublicacion($publicacionDatos, $clase) {
+    public function cargarPublicacion($publicacionDatos, $clase) {
             $meli = new Meli("","");
             
     		$publicacion = $this->em->getRepository("AppBundle:".$clase)->findOneByIdMl($publicacionDatos->id);
@@ -183,12 +183,12 @@ class MeliService
 
             $publicacion->cancelSinc();
             
-            //Cargar datos 
+            /* Cargar datos */
             $this->em->persist($publicacion);	
 
             return $publicacion;
-    }*/
-
+    }
+    
     
     public function buscarPublicacionesPorCategoria($busquedaId) {
         $busqueda = $this->em->getRepository(BusquedaML::class)->findOneById($busquedaId);;

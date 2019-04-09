@@ -35,7 +35,7 @@ class PublicarMLCommand extends ContainerAwareCommand
         $cuenta = $this->getContainer()->get('doctrine')->getManager()->getRepository(Cuenta::class)->findOneById($cuenta_id);
         $producto = $this->getContainer()->get('doctrine')->getManager()->getRepository(Producto::class)->findOneById(1);
         
-        $this->getContainer()->get('post_meli_service')->replicarProductoEnMl($producto, 'STOCK' ,FALSE, $cuenta);
+     //   $this->getContainer()->get('post_meli_service')->replicarProductoEnMl($producto, 'STOCK' ,FALSE, $cuenta);
     }
 
 
