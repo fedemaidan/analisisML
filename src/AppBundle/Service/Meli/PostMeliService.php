@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Service;
+namespace AppBundle\Service\Meli;
 
 use AppBundle\Entity\PublicacionML;
 use AppBundle\Entity\PublicacionPropia;
