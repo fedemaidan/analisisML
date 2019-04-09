@@ -3,6 +3,7 @@
 namespace AppBundle\Utils\Publicador;
 
 use AppBundle\Entity\PublicacionPropia;
+use AppBundle\Utils\Meli\Meli;
 
 class PublicadorAbstract {
 
@@ -37,7 +38,7 @@ class PublicadorAbstract {
         $publicacion->setVideo($video);
         if ($this->ebay)
             $publicacion->setPublicacionEbay($this->ebay);
-        
+
         $categoriaML = $this->getCategoriaML($publicacion);
         $publicacion->setCategoriaML($categoriaML);
         return $publicacion;
