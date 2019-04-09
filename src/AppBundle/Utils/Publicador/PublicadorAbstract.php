@@ -62,6 +62,10 @@ class PublicadorAbstract {
     protected function getTituloProducto() {
         $texto = $this->producto->getNombre();
         $sufijo  = $this->getSufijo();
+
+        if ($this->comoYouTec)
+            $sufijo .= " YouTec";
+
         $texto = substr($texto, 0, 60 - strlen($sufijo));
         return $texto;
     }

@@ -5,11 +5,17 @@ namespace AppBundle\Utils\Publicador;
 class PublicadorStock extends PublicadorAbstract {	
 
 	const TIPO_DE_VENTA = "STOCK";
-	
+
     protected function getSufijo() {
-    	if ($this->comoYouTec)
-    		return " YouTec";
-    	return '';
+    	$sufijo = "";
+    	
+ 		if ($this->producto) {
+ 			foreach ($this->producto->getCategorias() as $key => $cate) {
+ 				$sufijo .= " ".$cate->getNombre();
+ 			}
+ 		}
+
+    	return $sufijo;
     }
 
     protected function getTipoPrincipioTexto() {
