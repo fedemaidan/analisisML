@@ -36,6 +36,8 @@ class PublicarMLCommand extends ContainerAwareCommand
         $tipo_venta = $input->getOption('tipo_venta');
         $youtec = $input->getOption('youtec') == "true" ? true : false ;
 
+        var_dump($tipo_venta);
+        var_dump($youtec);
         $cuenta = $this->getContainer()->get('doctrine')->getManager()->getRepository(Cuenta::class)->findOneById($cuenta_id);
 
         $producto = $this->getContainer()->get('doctrine')->getManager()->getRepository(Producto::class)->findOneById(1);
