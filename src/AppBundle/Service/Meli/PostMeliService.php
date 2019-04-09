@@ -50,9 +50,7 @@ class PostMeliService extends MeliService {
         }
         
         $publicacion->setCuenta($cuentaML);
-        var_dump("expression2");
         $this->publicar($publicacion);
-       var_dump("expression");
         return $publicacion;
     }
 
@@ -124,7 +122,6 @@ class PostMeliService extends MeliService {
 
     private function publicar($publicacion) {
         $token = $this->dameToken($publicacion->getCuenta());
-        var_dump($token);
         $arrayimagenes = explode(',', $publicacion->getImagenes());
         $imagenes = [];
         foreach ($arrayimagenes as $key => $img) {
