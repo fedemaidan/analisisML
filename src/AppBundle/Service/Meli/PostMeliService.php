@@ -45,14 +45,14 @@ class PostMeliService extends MeliService {
     public function replicarProductoEnMl($producto, $tipoVenta, $comoYouTec, $cuentaML) {
 
         if ($tipoVenta == PublicadorStock::TIPO_DE_VENTA){
-            var_dump("expression");
             $publicador = new PublicadorStock( $comoYouTec, $producto);
             $publicacion = $publicador->crearPublicacion();
         }
         
         $publicacion->setCuenta($cuentaML);
+        var_dump("expression2");
         $this->publicar($publicacion);
-       
+       var_dump("expression");
         return $publicacion;
     }
 
@@ -124,7 +124,7 @@ class PostMeliService extends MeliService {
 
     private function publicar($publicacion) {
         $token = $this->dameToken($publicacion->getCuenta());
-
+        var_dump($token);
         $arrayimagenes = explode(',', $publicacion->getImagenes());
         $imagenes = [];
         foreach ($arrayimagenes as $key => $img) {
@@ -156,8 +156,8 @@ class PostMeliService extends MeliService {
             ];
 
         $meli = new Meli("","");
-        
-        $datos = $meli->post("items", $body, [ "access_token" => $token ]);
+      var_dump($body);die;
+    //    $datos = $meli->post("items", $body, [ "access_token" => $token ]);
 
          if (isset($datos["body"]->id)) {
             $publicacion->setIdMl($datos["body"]->id);
