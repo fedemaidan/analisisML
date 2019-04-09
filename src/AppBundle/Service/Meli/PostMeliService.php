@@ -11,6 +11,8 @@ use AppBundle\Entity\BusquedaML;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\Container;
 use AppBundle\Utils\Meli\Meli;
+use AppBundle\Utils\Publicador\PublicadorStock;
+
 use GuzzleHttp\Client;
 use AppBundle\Service\MeliService;
 
