@@ -127,10 +127,11 @@ class PostMeliService extends MeliService {
 
 
     private function publicar($publicacion) {
-        var_dump("expression");die;
+
         $token = $this->dameToken($publicacion->getCuenta());
         $arrayimagenes = explode(',', $publicacion->getImagenes());
         $imagenes = [];
+        var_dump($arrayimagenes);die;
         foreach ($arrayimagenes as $key => $img) {
             $imagenes[] = ["source" => $img];
         }
