@@ -32,7 +32,7 @@ class PublicarEbayEnMlCommand extends ContainerAwareCommand
 		$tipoVenta = "STOCK";
 		$comoYouTec = false;
 
-    	$this->getContainer()->get('post_meli_service')->replicarPublicacionEbayEnMl($publi_ebay, $cuenta);
+    	$this->getContainer()->get('post_meli_service')->replicarPublicacionEbayEnMl($publi_ebay, $cuenta,$tipoVenta, $comoYouTec);
     }
 }
 
