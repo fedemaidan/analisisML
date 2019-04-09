@@ -237,7 +237,7 @@ class Producto
     /**
      * Set precioReferencia
      *
-     * @param string $precioReferencia
+     * @param float $precioReferencia
      *
      * @return Producto
      */
@@ -251,7 +251,7 @@ class Producto
     /**
      * Get precioReferencia
      *
-     * @return string
+     * @return float
      */
     public function getPrecioReferencia()
     {

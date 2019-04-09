@@ -127,6 +127,12 @@ class PublicadorAbstract {
                 $productoTexto .=  "
                 - ".$attr;
             }
+
+            $productoTexto = "--------------------------------------------
+            Descripción del producto:
+
+            ".$this->producto->getDescripcion()."
+            ";
         }
         
         return $productoTexto;       

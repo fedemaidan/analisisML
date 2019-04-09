@@ -24,7 +24,6 @@ class PublicadorStock extends PublicadorAbstract {
 ";
     }
 
-
     public function getAjuste() {
         return 1.1;
     }

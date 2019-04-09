@@ -51,10 +51,10 @@ class ProductoAdmin extends AbstractAdmin
             ->add('nombre')
             ->add('marca')
             ->add('modelo')
+            ->add('precioReferencia',"number", ["editable" => true])
             ->add('destacado',null, ["editable" => true])
             ->add('cantidadCompetidores')
             ->add('ventasCompetidores')
-            ->add('precioProveedores')
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
@@ -79,7 +79,7 @@ class ProductoAdmin extends AbstractAdmin
                     ->add('modelo')
                     ->add('nombre')
                     ->add('descripcion', 'textarea')
-                    ->add('precioReferencia')
+                    ->add('precioReferencia',"number")
                     ->add('cantidad')
                 ->end()
                 ->with('Codigos')
