@@ -173,4 +173,17 @@ class ProductoAdmin extends AbstractAdmin
             ->end();
         ;
     }
+
+        /**
+     * Overriden from (AbstractAdmin)
+     */
+    public function configureActionButtons($action, $object = null)
+    {
+        $list = parent::configureActionButtons($action, $object);
+        $list['custom_action'] = array(
+            'template' =>  'AppBundle:Productos:woocommerce_csv.html.twig',
+    );
+        return $list;
+    }
+
 }

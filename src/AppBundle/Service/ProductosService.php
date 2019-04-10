@@ -239,11 +239,6 @@ class ProductosService
         }
 
         return $rows;
-        $content = implode("\n", $rows);
-        $response = new Response($content);
-        $response->headers->set('Content-Type', 'text/csv');
-    
-        return $response;
     }
 
     private function dameProducto($publiML) {
