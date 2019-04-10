@@ -182,7 +182,7 @@ class ProductosService
         $productos = $this->em->getRepository(Producto::class)->findAll();
 
         $rows = array();
-        $rows[] = "id,type,sku,name,status,featured,catalog_visibility,short_description,description,date_on_sale_from,date_on_sale_to,tax_status,tax_class,stock_status,backorders,sold_individually,weight,height,reviews_allowed,purchase_note,price,regular_price,manage_stock,stock_quantitiy,category_ids,tag_ids,shipping_class_id,attributes,attributes,default_attributes,attributes,image_id/gallery_image_ids,attributes,downloads,downloads,download_limit,download_expiry,parent_id,upsell_ids,cross_sell_ids";
+        $rows[] = "id,type,sku,name,status,featured,catalog_visibility,short_description,description,date_on_sale_from,date_on_sale_to,tax_status,tax_class,stock_status,backorders,sold_individually,weight,height,reviews_allowed,purchase_note,price,regular_price,manage_stock,inventario,category_ids,tag_ids,shipping_class_id,attributes,attributes,default_attributes,attributes,image_id/gallery_image_ids,attributes,downloads,downloads,download_limit,download_expiry,parent_id,upsell_ids,cross_sell_ids";
 //        $rows[] = ['id','type','sku','name','status','featured','catalog_visibility','short_description','description','date_on_sale_from','date_on_sale_to','tax_status','tax_class','stock_status','backorders','sold_individually','weight','height','reviews_allowed','purchase_note','price','regular_price','manage_stock/stock_quantitiy','category_ids','tag_ids','shipping_class_id','attributes','attributes','default_attributes','attributes','image_id/gallery_image_ids','attributes','downloads','downloads','download_limit','download_expiry','parent_id','upsell_ids','cross_sell_ids'];
 
         foreach ($productos as $producto) {
