@@ -201,7 +201,7 @@ class ProductosService
                 $producto->getDestacado() ? 1 : 0, //featured
                 'visible', //catalog_visibility
                 '', //short_description
-                $producto->getDescripcion(), //description
+                '"'.$producto->getDescripcion().'"', //description
                 '',//date_on_sale_from
                 '',//date_on_sale_to
                 '',//tax_status
