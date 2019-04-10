@@ -16,7 +16,7 @@ use AppBundle\Entity\PublicacionPropia;
 class PublicacionesPropiasController extends Controller
 {
     /**
-     * @Route("/publicaciones_propias/woocommerce/csv", name="woocommerce_csv")
+     * @Route("/publicaciones_propias/woocommerce/csv", name="woocommerce_csv_old")
      */
     public function csvToWoocommerceAction(Request $request)
     {

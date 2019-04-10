@@ -176,7 +176,7 @@ class ProductosService
     }
 
 
-    public function productosToCSVWoocommerce(Request $request)
+    public function productosToCSVWoocommerce()
     {
 
         $productos = $this->em->getRepository(Producto::class)->findAll();
@@ -238,6 +238,7 @@ class ProductosService
             $rows[] = implode(',', $data);
         }
 
+        return $rows;
         $content = implode("\n", $rows);
         $response = new Response($content);
         $response->headers->set('Content-Type', 'text/csv');

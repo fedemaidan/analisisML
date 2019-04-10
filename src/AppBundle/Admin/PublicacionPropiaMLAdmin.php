@@ -115,7 +115,7 @@ class PublicacionPropiaMLAdmin extends AbstractAdmin
     {
         $list = parent::configureActionButtons($action, $object);
         $list['custom_action'] = array(
-            'template' =>  'AppBundle:PublicacionesPropias:woocommerce_csv.html.twig',
+            'template' =>  'AppBundle:Productos:woocommerce_csv.html.twig',
     );
         return $list;
     }
