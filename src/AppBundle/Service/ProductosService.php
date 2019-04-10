@@ -224,7 +224,7 @@ class ProductosService
                 '',//attributes
                 '',//default_attributes
                 '',//attributes
-                str_replace(',','/',$publi->getImagenes()),//image_id/gallery_image_ids
+                str_replace(',','/',$producto->getImagenes()),//image_id/gallery_image_ids
                 '',//attributes
                 '',//downloads
                 '',//downloads
