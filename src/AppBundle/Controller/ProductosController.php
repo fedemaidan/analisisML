@@ -23,8 +23,10 @@ class ProductosController extends Controller
         $rows = $this->container->get('productos_service')->productosToCSVWoocommerce();
         $content = implode("\n", $rows);
         $response = new Response($content);
+        $filename = date('ymd').".csv";
         $response->headers->set('Content-Type', 'text/csv');
-    
+        $response->headers->set('Content-Disposition', 'attachment;filename="'.$filename.'"');
+        $response->headers->set('Cache-Control','max-age=0');
         return $response;
     }
 
