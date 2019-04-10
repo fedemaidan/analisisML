@@ -891,4 +891,28 @@ public function getImagenPrincipal() {
     {
         return $this->youtube;
     }
+
+    /**
+     * Set woocommerceId
+     *
+     * @param string $woocommerceId
+     *
+     * @return PublicacionPropia
+     */
+    public function setWoocommerceId($woocommerceId)
+    {
+        $this->woocommerceId = $woocommerceId;
+
+        return $this;
+    }
+
+    /**
+     * Get woocommerceId
+     *
+     * @return string
+     */
+    public function getWoocommerceId()
+    {
+        return $this->woocommerceId;
+    }
 }
