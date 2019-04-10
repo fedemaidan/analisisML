@@ -175,6 +175,76 @@ class ProductosService
         return $producto;
     }
 
+
+    public function productosToCSVWoocommerce(Request $request)
+    {
+
+        $productos = $this->em->getRepository(Producto::class)->findAll();
+
+        $rows = array();
+        $rows[] = "id,type,sku,name,status,featured,catalog_visibility,short_description,description,date_on_sale_from,date_on_sale_to,tax_status,tax_class,stock_status,backorders,sold_individually,weight,height,reviews_allowed,purchase_note,price,regular_price,manage_stock/stock_quantitiy,category_ids,tag_ids,shipping_class_id,attributes,attributes,default_attributes,attributes,image_id/gallery_image_ids,attributes,downloads,downloads,download_limit,download_expiry,parent_id,upsell_ids,cross_sell_ids";
+//        $rows[] = ['id','type','sku','name','status','featured','catalog_visibility','short_description','description','date_on_sale_from','date_on_sale_to','tax_status','tax_class','stock_status','backorders','sold_individually','weight','height','reviews_allowed','purchase_note','price','regular_price','manage_stock/stock_quantitiy','category_ids','tag_ids','shipping_class_id','attributes','attributes','default_attributes','attributes','image_id/gallery_image_ids','attributes','downloads','downloads','download_limit','download_expiry','parent_id','upsell_ids','cross_sell_ids'];
+
+        foreach ($productos as $producto) {
+            $categorias = "";
+            
+            foreach ($productos as $key => $producto) {
+                $categorias .= ", ".$producto->getCategorias()->getNombre();
+            }
+            
+            $data = [
+                $producto->getWoocommerceId(), //id
+                'simple', // type
+                $producto->getId(), //sku
+                $producto->getNombre(), //name
+                1, //status
+                $producto->getDestacado() ? 1 : 0, //featured
+                'visible', //catalog_visibility
+                '', //short_description
+                $producto->getDescripcion(), //description
+                '',//date_on_sale_from
+                '',//date_on_sale_to
+                '',//tax_status
+                '',//tax_class
+                1,//stock_status
+                1,//backorders
+                1,//sold_individually
+                '',//weight
+                '',//height
+                1,//reviews_allowed
+                'Muchas gracias por confiar en nosotros',//purchase_note
+                $producto->getPrecioReferencia(),//price
+                $producto->getPrecioReferencia(),//regular_price
+                99,//manage_stock
+                99,//stock_quantitiy
+                $producto->getMarca().$categorias,//category_ids
+                '',//tag_ids
+                '',//shipping_class_id
+                '',//attributes
+                '',//attributes
+                '',//default_attributes
+                '',//attributes
+                str_replace(',','/',$publi->getImagenes()),//image_id/gallery_image_ids
+                '',//attributes
+                '',//downloads
+                '',//downloads
+                '',//download_limit
+                '',//download_expiry
+                '',//parent_id
+                '',//upsell_ids
+                '',//cross_sell_ids
+            ];
+
+            $rows[] = implode(',', $data);
+        }
+
+        $content = implode("\n", $rows);
+        $response = new Response($content);
+        $response->headers->set('Content-Type', 'text/csv');
+    
+        return $response;
+    }
+
     private function dameProducto($publiML) {
 
         $upc = $publiML->getUpc();

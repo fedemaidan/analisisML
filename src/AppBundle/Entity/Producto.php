@@ -177,6 +177,13 @@ class Producto
     private $categoriaEbay;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="woocommerce_id", type="string", length=255, nullable=true)
+     */
+    private $woocommerceId;
+
+    /**
      * Get id
      *
      * @return integer

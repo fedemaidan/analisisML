@@ -131,12 +131,14 @@ class PostMeliService extends MeliService {
         $token = $this->dameToken($publicacion->getCuenta());
         $arrayimagenes = explode(',', $publicacion->getImagenes());
         $imagenes = [];
+        
         foreach ($arrayimagenes as $key => $img) {
             if ($key < 11)
                 $imagenes[] = ["source" => $img];
         }
 
         $atributos = [];
+        
         if ($publicacion->getAtributos() !=  null) {
             foreach ($publicacion->getAtributos() as $key => $attr) {
                 $atributos[] = ["id" => $attr->getIdMl(), "value_name" => $attr->getValueName() ];
