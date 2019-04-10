@@ -189,7 +189,7 @@ class ProductosService
             $categorias = "";
             
             foreach ($producto->getCategorias() as $key => $cate) {
-                $categorias .= ", ".$cate->getNombre();
+                $categorias .= "|".$cate->getNombre();
             }
             
             $data = [
@@ -217,7 +217,7 @@ class ProductosService
                 $producto->getPrecioReferencia(),//regular_price
                 99,//manage_stock
                 99,//stock_quantitiy
-                $producto->getMarca().$categorias,//category_ids
+                '"'.$producto->getMarca().$categorias.'"',//category_ids
                 '',//tag_ids
                 '',//shipping_class_id
                 '',//attributes
