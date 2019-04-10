@@ -188,8 +188,8 @@ class ProductosService
         foreach ($productos as $producto) {
             $categorias = "";
             
-            foreach ($productos as $key => $producto) {
-                $categorias .= ", ".$producto->getCategorias()->getNombre();
+            foreach ($producto->getCategorias() as $key => $cate) {
+                $categorias .= ", ".$cate->getNombre();
             }
             
             $data = [
