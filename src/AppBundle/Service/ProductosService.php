@@ -189,7 +189,7 @@ class ProductosService
             $categorias = "";
             $description = str_replace('"', "'", $producto->getDescripcion());
             foreach ($producto->getCategorias() as $key => $cate) {
-                $categorias .= " | ".$cate->getNombre();
+                $categorias .= ", ".$cate->getNombre();
             }
             
             $data = [
