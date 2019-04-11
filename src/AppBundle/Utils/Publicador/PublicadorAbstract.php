@@ -21,7 +21,12 @@ class PublicadorAbstract {
     }
 
     public function actualizarPublicacion($publicacion) {
-        return $this->getPublicacion($publicacion->getCuenta(),$publicacion);
+        try{
+            return $this->getPublicacion($publicacion->getCuenta(),$publicacion);
+        }
+        catch (\Exception $e) {
+            var_dump("Error en ".$pubcacion->getId()." ".$e->getMessage());
+        }
     }
 
     public function getPublicacion($cuentaMl, $publicacion = null) {

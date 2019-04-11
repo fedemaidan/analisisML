@@ -74,7 +74,6 @@ class PostMeliService extends MeliService {
     public function actualizarPublicacion($publicacionPropia) {
 
         // if ($publicacionPropia->getTipoDeVenta() ==  PublicadorStock::TIPO_DE_VENTA) {
-            var_dump($publicacionPropia->getId());
             $ebay = $publicacionPropia->getPublicacionEbay();
             $producto = $publicacionPropia->getProducto();
             $publicador = new PublicadorStock( false, $producto,$ebay);
