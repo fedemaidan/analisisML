@@ -34,7 +34,7 @@ class ActualizarPublicacionPropiaCommand extends ContainerAwareCommand
             $publicaciones = $this->getContainer()->get('doctrine')->getEntityManager()->getRepository(PublicacionPropia::class)->findAll();
             foreach ($publicaciones as $key => $publicacion) {
                 if (!(strpos($publicacion->getTitulo(), 'Garmin') !== false))
-                $this->getContainer()->get('meli_service')->actualizarPublicacion($publicacion);
+                $this->getContainer()->get('post_meli_service')->actualizarPublicacion($publicacion);
             }
         }
     }
