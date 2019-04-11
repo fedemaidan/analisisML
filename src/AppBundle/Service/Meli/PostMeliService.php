@@ -77,7 +77,7 @@ class PostMeliService extends MeliService {
             $ebay = $publicacionPropia->getPublicacionEbay();
             $producto = $publicacionPropia->getProducto();
             if (!$ebay && !$producto)
-                return
+                return;
             $publicador = new PublicadorStock( false, $producto,$ebay);
             $publicacion = $publicador->actualizarPublicacion($publicacionPropia);
         // }
