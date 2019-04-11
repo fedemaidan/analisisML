@@ -46,7 +46,7 @@ class PostMeliService extends MeliService {
 
         if ($tipoVenta == PublicadorStock::TIPO_DE_VENTA){
             $publicador = new PublicadorStock( $comoYouTec, $producto);
-            $publicacion = $publicador->crearPublicacion($cuentaML);
+            $publicacion = $publicador->getPublicacion($cuentaML);
         }
         
         $publicacion->setCuenta($cuentaML);
@@ -62,7 +62,7 @@ class PostMeliService extends MeliService {
 
         if ($tipoVenta == PublicadorStock::TIPO_DE_VENTA){
             $publicador = new PublicadorStock( $comoYouTec, null,$ebay);
-            $publicacion = $publicador->crearPublicacion($cuentaML);
+            $publicacion = $publicador->getPublicacion($cuentaML);
         }
         
         $publicacion->setCuenta($cuentaML);
@@ -72,10 +72,12 @@ class PostMeliService extends MeliService {
 
 
     public function actualizarPublicacion($publicacionPropia) {
-        $ebay = $publicacionPropia->getPublicacionEbay();
-        $publicacionPropia->armarTitulo();
-        $publicacionPropia->armarDescripcion();
-        $publicacionPropia->cargarPrecio();
+
+        //if ($publicacionPropia->getTipoDeVenta() ==  PublicadorStock::TIPO_DE_VENTA) {
+            $publicador = new PublicadorStock( $comoYouTec, null,$ebay);
+            $publicacion = $publicador->actualizarPublicacion($publicacionPropia);
+        //}
+
         $this->em->persist($publicacionPropia);
         $this->em->flush();
     }

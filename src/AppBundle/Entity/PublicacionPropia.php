@@ -69,6 +69,22 @@ class PublicacionPropia
      */
     private $destacado;
 
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="como_youtec", type="boolean", nullable=true)
+     */
+    protected $comoYoutec;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tipo_de_venta", type="string", length=255, nullable=true)
+     * @Assert\Choice({"STOCK", "PREVENTA", "PEDIDO"})
+     */
+    protected $tipoDeVenta;
+
 
     /**
      * Set descripcion
@@ -274,4 +290,52 @@ class PublicacionPropia
         return true;
     }
 
+
+    /**
+     * Set comoYoutec
+     *
+     * @param boolean $comoYoutec
+     *
+     * @return PublicacionPropia
+     */
+    public function setComoYoutec($comoYoutec)
+    {
+        $this->comoYoutec = $comoYoutec;
+
+        return $this;
+    }
+
+    /**
+     * Get comoYoutec
+     *
+     * @return boolean
+     */
+    public function getComoYoutec()
+    {
+        return $this->comoYoutec;
+    }
+
+    /**
+     * Set tipoDeVenta
+     *
+     * @param string $tipoDeVenta
+     *
+     * @return PublicacionPropia
+     */
+    public function setTipoDeVenta($tipoDeVenta)
+    {
+        $this->tipoDeVenta = $tipoDeVenta;
+
+        return $this;
+    }
+
+    /**
+     * Get tipoDeVenta
+     *
+     * @return string
+     */
+    public function getTipoDeVenta()
+    {
+        return $this->tipoDeVenta;
+    }
 }

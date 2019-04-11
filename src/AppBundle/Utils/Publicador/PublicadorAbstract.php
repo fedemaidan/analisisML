@@ -8,6 +8,7 @@ use AppBundle\Utils\Meli\Meli;
 class PublicadorAbstract {
 
     const DOLAR = 45;
+
     protected $producto;
     protected $ebay;
     protected $comoYouTec;
@@ -19,8 +20,11 @@ class PublicadorAbstract {
         $this->comoYouTec = $comoYouTec;
     }
 
+    public function actualizarPublicacion($publicacion) {
+        return $this->getPublicacion($publicacion->getCuenta(),$publicacion);
+    }
 
-    public function crearPublicacion($cuentaMl) {
+    public function getPublicacion($cuentaMl, $publicacion = null) {
         
         $titulo = $this->getTitulo();
         $descripcion = $this->getDescripcion();
@@ -28,20 +32,28 @@ class PublicadorAbstract {
         $imagenes = $this->getImagenes();
         $atributos = $this->getAtributos();
         $video = $this->producto ? $this->producto->getYoutube() : "";
+
+        if (!$publicacion)
+            $publicacion = new PublicacionPropia();
         
-        $publicacion = new PublicacionPropia();
         $publicacion->setTitulo($titulo);
         $publicacion->setDescripcion($descripcion);
         $publicacion->setPrecioCompra($precio);
         $publicacion->setImagenes($imagenes);
         $publicacion->setAtributos($atributos);
         $publicacion->setVideo($video);
+        
         if ($this->ebay)
             $publicacion->setPublicacionEbay($this->ebay);
+
         $publicacion->setCuenta($cuentaMl);
 
         $categoriaML = $this->getCategoriaML($publicacion);
         $publicacion->setCategoriaML($categoriaML);
+        
+        $publicacion->setComoYoutec($this->comoYouTec);
+        $publicacion->setTipoDeVenta($this->getTipoDeVenta());
+
         return $publicacion;
     }
 

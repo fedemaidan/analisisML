@@ -27,4 +27,8 @@ class PublicadorStock extends PublicadorAbstract {
     public function getAjuste() {
         return 1.1;
     }
+
+    public function getTipoDeVenta() {
+        return self::TIPO_DE_VENTA;
+    }
 }
