@@ -35,6 +35,7 @@ class ActualizarPublicacionPropiaCommand extends ContainerAwareCommand
             foreach ($publicaciones as $key => $publicacion) {
                 if (!(strpos($publicacion->getTitulo(), 'Garmin') !== false))
                 $this->getContainer()->get('post_meli_service')->actualizarPublicacion($publicacion);
+                var_dump("termine");
             }
         }
     }

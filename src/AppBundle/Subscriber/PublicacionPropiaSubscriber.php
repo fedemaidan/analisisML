@@ -29,7 +29,12 @@ class PublicacionPropiaSubscriber implements EventSubscriber
 
             if ($entidad->getSincronizar()) {
                 $arrayCambios = $args->getEntityChangeSet();
-                $this->container->get('post_meli_service')->editarCamposPublicacionMercadolibre($entidad, $arrayCambios);
+                try {
+                    $this->container->get('post_meli_service')->editarCamposPublicacionMercadolibre($entidad, $arrayCambios);
+                }
+                catch(\Exception $e) {
+                    var_dump($e->getMessage(). " en ". $entidad->getId());
+                }
             }
 
         }
