@@ -111,7 +111,7 @@ class PostMeliService extends MeliService {
         }
 
         $atributos = [];
-        if ($PublicacionPropia->getAtributos() !== null) {
+        if ($publicacionPropia->getAtributos() !== null) {
             foreach ($publicacionPropia->getAtributos() as $key => $attr) {
                 $atributos[] = ["id" => $attr->getIdMl(), "value_name" => $attr->getValueName() ];
             }
