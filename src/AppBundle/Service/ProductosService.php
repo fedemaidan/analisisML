@@ -200,8 +200,8 @@ class ProductosService
                 1, //status
                 $producto->getDestacado() ? 1 : 0, //featured
                 'visible', //catalog_visibility
-                '', //short_description
-                '"'.$description.'"', //description
+                ' CONSULTAR TIEMPO DE ENTREGA ANTES DE COMPRAR ', //short_description
+                '"CONSULTAR TIEMPO DE ENTREGA ANTES DE COMPRAR. '.$description.'"', //description
                 '',//date_on_sale_from
                 '',//date_on_sale_to
                 '',//tax_status
