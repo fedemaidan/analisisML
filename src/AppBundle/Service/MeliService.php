@@ -138,25 +138,28 @@ class MeliService
                                 $this->em->flush();
                             }
                             else {
-                                if ($atributo->getIdMl() == 'UPC') {    
-                                    $publicacion->setUpc((int)$atributo->getValueName());
-                                }
+                                if ($clase != "PublicacionPropia") 
+                                { 
+                                    if ($atributo->getIdMl() == 'UPC') {    
+                                        $publicacion->setUpc((int)$atributo->getValueName());
+                                    }
 
-                                if ($atributo->getIdMl() == 'BRAND') {
-                                    $publicacion->setBrand($atributo->getValueName());
-                                }
+                                    if ($atributo->getIdMl() == 'BRAND') {
+                                        $publicacion->setBrand($atributo->getValueName());
+                                    }
 
-                                if ($atributo->getIdMl() == 'MODEL') {
-                                    $publicacion->setModel($atributo->getValueName());
-                                }
+                                    if ($atributo->getIdMl() == 'MODEL') {
+                                        $publicacion->setModel($atributo->getValueName());
+                                    }
 
-                                if ($atributo->getIdMl() == 'MPN') {
-                                    $publicacion->setMpn($atributo->getValueName());
-                                }
+                                    if ($atributo->getIdMl() == 'MPN') {
+                                        $publicacion->setMpn($atributo->getValueName());
+                                    }
 
-                                if ($atributo->getIdMl() == 'EAN') {
-                                    $publicacion->setEan((int)$atributo->getValueName());
-                                }
+                                    if ($atributo->getIdMl() == 'EAN') {
+                                        $publicacion->setEan((int)$atributo->getValueName());
+                                    }
+                                } 
 
                             }
                                 
