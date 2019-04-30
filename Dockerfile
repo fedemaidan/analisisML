@@ -3,6 +3,8 @@ FROM php:7.0.8-fpm
 ENV COMPOSER_VERSION=1.1.3
 ENV PATH=/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/sbin:/usr/sbin
 
+RUN printf "deb http://archive.debian.org/debian/ jessie main\ndeb-src http://archive.debian.org/debian/ jessie main\ndeb http://security.debian.org jessie/updates main\ndeb-src http://security.debian.org jessie/updates main" > /etc/apt/sources.list
+
 RUN apt-get update \
  && apt-get install \
         git \

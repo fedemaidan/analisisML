@@ -12,6 +12,7 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\Container;
 use AppBundle\Utils\Meli\Meli;
 use AppBundle\Utils\Publicador\PublicadorStock;
+use AppBundle\Utils\Publicador\PublicadorCSVWoocommerce;
 
 use GuzzleHttp\Client;
 use AppBundle\Service\MeliService;
@@ -51,6 +52,22 @@ class PostMeliService extends MeliService {
         
         $publicacion->setCuenta($cuentaML);
         $this->publicar($publicacion);
+        return $publicacion;
+    }
+
+    public function replicarWoocommerce($row, $comoYouTec, $cuentaML) {
+        $rowAux["titulo"]=$row[3];
+        $rowAux["precio"]=$row[25];
+        $rowAux["imagenes"]=$row[29];
+        $rowAux["descripcion"]=$row[8];
+        $rowAux["tipoVenta"]=$row[40];
+        $rowAux["categorias"]=$row[26];
+
+        $publicador = new PublicadorCSVWoocommerce( $comoYouTec, $rowAux);
+        $publicacion = $publicador->getPublicacion($cuentaML);
+        $publicacion->setCuenta($cuentaML);
+        $this->publicar($publicacion);
+        die;
         return $publicacion;
     }
 

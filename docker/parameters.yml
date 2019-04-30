@@ -1,17 +1,15 @@
 # This file is auto-generated during the composer install
 parameters:
-    database_host: db
+    database_host: db # This is a host of docker database defined in ./docker-compose.yml
     database_port: null
     database_name: symfony-admin-starter-kit
     database_user: symfony-admin-starter-kit
-    database_password: symfony-admin-starter-kit
+    database_password: 'symfony-admin-starter-kit'
     mailer_transport: smtp
     mailer_host: 127.0.0.1
     mailer_user: null
     mailer_password: null
     secret: 0fc529ca3ebb50069b6eb28243b59a5ee05f1b67
-    secret: 0fc529ca3ebb50069b6eb28243b59a5ee05f1b67
     ebay.app_id: 'Federico-gestionm-PRD-5b7edec1b-d763d994'
     ebay.certId: 'PRD-b7edec1b3431-b185-4e5c-b460-907f'
     ebay.devId: 'f8e2e10d-4125-4977-ac00-b7dae16018f4'
-

@@ -102,6 +102,17 @@ class PublicadorAbstract {
         return $this->precioComercial($precio);
     }
 
+    protected function getSufijo() {
+        $sufijo = "";
+        
+        if ($this->producto){
+            foreach ($this->producto->getCategorias() as $key => $cate) {
+                $sufijo .= " ".$cate->getNombre();
+            }
+        }
+        return $sufijo;
+    }
+
 
     public function getDescripcion() {
         $productoTexto = $this->getProductoTexto();
@@ -182,7 +193,7 @@ class PublicadorAbstract {
     public function getImagenes() {
         if ($this->producto)
             return $this->producto->getImagenes();
-        else
+        else if ($this->ebay)
             return $this->ebay->getImagenes();
     }
 
@@ -193,10 +204,12 @@ class PublicadorAbstract {
             return $this->predecirCategoria($publicacion);
     }
 
-    private function predecirCategoria($publicacion) {
-        $nombreCategoria = $publicacion->getPublicacionEbay()->getCategoriaEbay()->getName();  
-        if (strpos($nombreCategoria, 'Watch') !== false) {
-            return "MLA399230";
+    protected function predecirCategoria($publicacion) {
+        if ($publicacion->getPublicacionEbay() ) {
+            $nombreCategoria = $publicacion->getPublicacionEbay()->getCategoriaEbay()->getName();  
+            if (strpos($nombreCategoria, 'Watch') !== false) {
+                return "MLA399230";
+            }    
         }
 
         $category_from = "MLA1276";
