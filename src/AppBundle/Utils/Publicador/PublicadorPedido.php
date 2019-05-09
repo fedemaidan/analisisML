@@ -34,8 +34,7 @@ El producto arriba al País dentro de los 25 (veinticinco) días a partir de la 
 
 Nuestro compromiso es total para asegurarte una experiencia de compra positiva ¡Cualquier duda que tengas, consultanos!
 
-------------------------------------------
-
+-------------------------------------------------------------
 ;"
     }
 
