@@ -13,6 +13,7 @@ use Symfony\Component\DependencyInjection\Container;
 use AppBundle\Utils\Meli\Meli;
 use AppBundle\Utils\Publicador\PublicadorStock;
 use AppBundle\Utils\Publicador\PublicadorCSVWoocommerce;
+use AppBundle\Utils\Publicador\PublicadorPedido;
 
 use GuzzleHttp\Client;
 use AppBundle\Service\MeliService;
@@ -97,7 +98,7 @@ class PostMeliService extends MeliService {
                 var_dump("expression");
                 return;
             } 
-            $publicador = new PublicadorStock( false, $producto,$ebay);
+            $publicador = new PublicadorPedido( false, $producto,$ebay);
             $publicacion = $publicador->actualizarPublicacion($publicacionPropia);
         // }
 
