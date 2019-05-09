@@ -41,22 +41,22 @@ class PublicadorAbstract {
         if (!$publicacion)
             $publicacion = new PublicacionPropia();
         
-        $publicacion->setTitulo($titulo);
+        //$publicacion->setTitulo($titulo);
         $publicacion->setDescripcion($descripcion);
-        $publicacion->setPrecioCompra($precio);
-        $publicacion->setImagenes($imagenes);
-        $publicacion->setAtributos($atributos);
-        $publicacion->setVideo($video);
+        //$publicacion->setPrecioCompra($precio);
+        //$publicacion->setImagenes($imagenes);
+        //$publicacion->setAtributos($atributos);
+        //$publicacion->setVideo($video);
         
         if ($this->ebay)
             $publicacion->setPublicacionEbay($this->ebay);
 
-        $publicacion->setCuenta($cuentaMl);
+        //$publicacion->setCuenta($cuentaMl);
 
-        $categoriaML = $this->getCategoriaML($publicacion);
-        $publicacion->setCategoriaML($categoriaML);
+        //$categoriaML = $this->getCategoriaML($publicacion);
+        //$publicacion->setCategoriaML($categoriaML);
         
-        $publicacion->setComoYoutec($this->comoYouTec);
+        //$publicacion->setComoYoutec($this->comoYouTec);
         $publicacion->setTipoDeVenta($this->getTipoDeVenta());
 
         return $publicacion;
