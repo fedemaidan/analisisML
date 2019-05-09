@@ -98,7 +98,7 @@ class PostMeliService extends MeliService {
                 var_dump("expression");
                 return;
             } 
-            $publicador = new PublicadorPedido( false, $producto,$ebay);
+            $publicador = new PublicadorPedido( true, $producto,$ebay);
             $publicacion = $publicador->actualizarPublicacion($publicacionPropia);
         // }
 
