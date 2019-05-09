@@ -31,12 +31,12 @@ class PublicadorAbstract {
 
     public function getPublicacion($cuentaMl, $publicacion = null) {
         
-        $titulo = $this->getTitulo();
+       // $titulo = $this->getTitulo();
         $descripcion = $this->getDescripcion();
-        $precio = $this->getPrecio();
-        $imagenes = $this->getImagenes();
-        $atributos = $this->getAtributos();
-        $video = $this->producto ? $this->producto->getYoutube() : "";
+       // $precio = $this->getPrecio();
+       // $imagenes = $this->getImagenes();
+       // $atributos = $this->getAtributos();
+       // $video = $this->producto ? $this->producto->getYoutube() : "";
 
         if (!$publicacion)
             $publicacion = new PublicacionPropia();
