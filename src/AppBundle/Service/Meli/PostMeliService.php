@@ -105,6 +105,11 @@ class PostMeliService extends MeliService {
         $this->em->flush();
     }
 
+    public function cambiarDescripcionPublicacion($publicacionPropia, $descripcion) {
+        $publicacionPropia->setDescripcion($descripcion);
+        $this->em->persist($publicacionPropia);
+        $this->em->flush();
+    }
 
     public function editarCamposPublicacionMercadolibre($publicacionPropia, $campos = [] ) {
         
