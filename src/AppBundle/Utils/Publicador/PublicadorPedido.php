@@ -9,11 +9,6 @@ class PublicadorPedido extends PublicadorAbstract {
     protected function getSufijo() {
     	$sufijo = "";
     	
- 		if ($this->producto) {
- 			foreach ($this->producto->getCategorias() as $key => $cate) {
- 				$sufijo .= " ".$cate->getNombre();
- 			}
- 		}
 
     	return $sufijo;
     }
